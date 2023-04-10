@@ -1,3 +1,7 @@
+---
+title: Quick start
+layout: quickstart
+---
 <h2>Quick Start</h2>
 
 Welcome to the Quickstart guide for ThreatWinds API! This guide is designed to help you get started with using our API to retrieve information on Cybersecurity threats and their interrelationships.
