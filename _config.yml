@@ -10,5 +10,5 @@ kramdown:
   syntax_highlighter: rouge
 
 aux_links:
-  Git Repo: https://github.com/ThreatWinds/Documentation
+  Git: https://github.com/ThreatWinds/Documentation
   Blog: https://developers.threatwinds.com
