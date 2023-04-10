@@ -8,3 +8,6 @@ description: ThreatWinds documentation for developers and advanced users.
 kramdown:
   math_engine: mathjax
   syntax_highlighter: rouge
+
+aux_links:
+  Documentation Repository: https://github.com/ThreatWinds/Documentation
