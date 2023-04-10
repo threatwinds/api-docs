@@ -1,5 +1,15 @@
 remote_theme: just-the-docs/just-the-docs@v0.4.2
 plugins:
 - jekyll-remote-theme
+- jekyll-default-layout
 title: ThreatWinds Documentation
 description: ThreatWinds documentation for developers and advanced users.
+
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
+
+navigation:
+  - text: Index
+    internal: true
+    url: ./
