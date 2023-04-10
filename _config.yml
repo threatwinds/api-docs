@@ -2,7 +2,7 @@ remote_theme: just-the-docs/just-the-docs@v0.4.2
 plugins:
 - jekyll-remote-theme
 - jekyll-default-layout
-title: ThreatWinds Documentation
+title: Documentation
 description: ThreatWinds documentation for developers and advanced users.
 
 kramdown:
