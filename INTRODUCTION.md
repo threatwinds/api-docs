@@ -1,3 +1,7 @@
+---
+title: Introduction
+layout: introduction
+---
 <div style="text-align:center">
 <H1>ThreatWinds API Documentation</H1>
 </div>
