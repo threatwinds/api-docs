@@ -3,3 +3,12 @@ plugins:
 - jekyll-remote-theme
 title: ThreatWinds Documentation
 description: ThreatWinds documentation for developers and advanced users.
+
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
+
+navigation:
+- text: Index
+  internal: true
+  url: ./
