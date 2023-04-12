@@ -1,4 +1,11 @@
-<h2>Session</h2>
+---
+layout: default
+title: Session
+parent: Authentication
+nav_order: 2
+---
+
+# Session
 
 <nav>
 Table of Content:
@@ -11,16 +18,26 @@ Table of Content:
     <li><a href="#checkSession">Check Session</a></li>
   </ul>
 </nav>
-<h3 id="createSession">Create Session</h3>
-This API endpoint creates an unverified session.<br><br>
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/session>
+## Create Session {#createSession}
+This API endpoint creates an unverified session.
 
-> <h4> Parameters</h4>
-  
-* **email** (_string_) _**unique**_ The email parameter represents the session's email address that is associated with the account. _e.g.: john@doe.net_<br><br>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/session
 
-To create a session, use a **POST**</span> request, for example:
+### Parameters
+ <dl> 
+<dt><b>Message</b> (<i>JSON</i>)</dt>
+    <dd>
+        <dl>
+        <dt><b>email</b> (<i>string</i>)</dt>
+        <dd>
+       The email parameter represents the session's email address that is associated with the account. <i>e.g.: john@doe.net</i>
+        </dd>
+        </dl>
+    </dd>
+</dl>
+
+To create a session, use a <b class="label label-green">POST</b> request, for example:
 
 ```bash
 curl -X 'POST' \
@@ -32,41 +49,53 @@ curl -X 'POST' \
 }'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Return a Session as Response</h5>
+**Return a Session as Response**
 
-We get this code when the session was created successfully. It returns a <a href="./SESSION.md">Session</a>. Remember that you need to verify the seesion berfore you can use it.
+We get this code when the session was created successfully. It returns a Session. Remember that you need to verify the session before you can use it.
 
->Fields of the response:
+### Fields of the response:
 
-* **bearer** (_string_): The bearer (Refers from now on as Autentication Header) is used as a means of authentication for the APIs, and must be included in the header of all requests that require authentication (See <a href="./AUTENTICATIONAPI.md">Auth Page</a> for more details). The authentication header must be verified using the verificationCodeID in the <a href="./SESSION.md">Session Verification Endpoint</a> before it can be used to ensure that it is valid. <br>
-
-```
-e.g.: fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
-
-* **verificationCodeID** (_string_): The verification code id that is used in the <a href="./SESSION.md">Session Verification Endpoint</a> to ensure that the session is valid. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
-
-* **expireAt** (_integer_): A timestamp that represents the expiration datetime of the session. If you want to extend it, use the <a href="./AUTENTICATIONAPI.md">Extend Session Endpoint</a>. _e.g.:1674492894_<br>
-
-* **ip** (_string_): The ip from the account and session was created. _e.g.: 1.1.1.1_<br>
-
-* **sessionID** (_string_): The id of the session that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
+<dl>
+  <dt><b>bearer</b> (<i>string</i>)</dt>
+  <dd>The bearer (refers to as Authentication Header) is used as a means of authentication for the APIs and must be included in the header of all requests that require authentication. See <a href="/QUICKSTART#auth">Quick Start Auth</a> for a short explanation. The authentication header must be verified using the verificationCodeID in the <a href="./auth/SESSION#verifySession">Session Verification Endpoint</a> before it can be used to ensure that it is valid.
+  <i>e.g.: fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
+</i>
+</dd>
+  <dt><b>verificationCodeID</b> (<i>string</i>)</dt>
+  <dd>The verification code id that is used in the Session Verification Endpoint to ensure that the session is valid. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
   
-* **sessionAgent** (string): The sessionAgent used to create the account and session.
-_e.g.: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36_<br>
+  <dt><b>expireAt</b> (<i>integer</i>)</dt>
+  <dd>A timestamp that represents the expiration datetime of the session. If you want to extend it, use the Extend Session Endpoint. <i>e.g.:1674492894</i></dd>
+  
+  <dt><b>ip</b>(<i>string</i>)</dt>
+  <dd>The IP from the account and session was created. <i>e.g.: 1.1.1.1</i></dd>
+  
+  <dt><b>sessionID</b>(<i>string</i>)</dt>
+  <dd>The ID of the session that was created. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
+  
+  <dt><b>sessionAgent</b>(<i>string</i>)</dt>
+  <dd>The sessionAgent used to create the session. <i>e.g.: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36</i></dd>
+</dl>
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "duplicated key not allowed"_
-
-> <h5> Code 400 - Bad request</h5>
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters. This could happen when the email parameter provided in the request is not valid.
 
@@ -79,10 +108,10 @@ e.g.:
 }
 ```
 
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case, the user, cannot be found.
 
@@ -97,7 +126,7 @@ For example:
 }
 ```
 
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not session related.
 
 For example:
@@ -109,23 +138,31 @@ For example:
 }
 ```
 
-<h3 id="closeSession">Close session</h3>
+## Close session {#closeSession}
 
-This API endpoint closes a session.<br><br>
+This API endpoint closes a session.
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/session>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/session
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for account deletion._e.g.:
-
-```
-e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
-
-* **Session ID** (_string_): The id of the session that you want to close. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
+<dl>
+  <dt><b>Authorization header</b>(<i>string</i>)</dt>
+  <dd>
+    This authorization header can be obtained from an active session of the
+    account. Please ensure that the session is active before attempting to
+    retrieve the authorization header for the request.
+    <code>
+      e.g.: Bearer
+      fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
+    </code>
+  </dd>
+  <dt><b>Session ID</b>(<i>string</i>)</dt>
+  <dd>The id of the session that you want to close. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2et</i></dd>
+</dl>
   
-To close a session, use a **DELETE** request, for example:
+To close a session, use a <b class="label label-red">DELETE</b> request, for example:
+
 
 ```bash
 curl -X 'DELETE' \
@@ -134,26 +171,39 @@ curl -X 'DELETE' \
   -H 'Authorization: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
 <h5>Returns the message "acknowledged" </h5>
 
 When a session is successfully closed, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
 
->Fields of the response:
+### Fields of the response:
 
-* **message** (_string_): A message that describes the result of the operation. _e.g.:_"acknowledged"
+<dl>
+  <dt><b> message </b> (<i>string</i>)</dt>
+  <dd>
+    A message that describes the result of the operation. _e.g.:<i>"acknowledged"</i>
+  </dd>
+</dl>
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "not found"</i>
+  </dd>
+</dl>
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case, the session, cannot be found.
 
@@ -168,7 +218,7 @@ For example:
 }
 ```
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -181,7 +231,7 @@ For example:
 }
 ```
 
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not session related.
 
 For example:
@@ -193,21 +243,28 @@ For example:
 }
 ```
 
-<h3 id="getSessions">Get sessions</h3>
+## Get sessions {#getSessions}
 
-This API endpoint to get the user sessions.<br><br>
+This API endpoint to get the user sessions.
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/sessions>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/sessions
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for account deletion._e.g.:
+<dl>
+  <dt><b>Authorization header</b> (<i>string</i>)</dt>
+  <dd>
+    This authorization header can be obtained from an active session of the
+    account. Please ensure that the session is active before attempting to
+    retrieve the authorization header for the request.
+    <code>
+      e.g.: Bearer
+      fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
+    </code>
+  </dd>
+</dl>
 
-```
-e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
-
-To get the currents sessions, use a **GET** request, for example:
+To get the currents sessions, use a <b class="label label-blue">GET</b> request, for example:
 
 ```
 curl -X 'GET' \
@@ -216,35 +273,52 @@ curl -X 'GET' \
   -H 'Authorization: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
 <h5>Returns a list of sessions</h5>
 
-It returns the list of the current user <a href="./SESSION.md">Sessions</a>.
+It returns the list of the current user Sessions.
 
->Fields of the response:
+### Fields of the response:
 
-* **sessionID** (_string_): The id of the session that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
-
-* **ip** (_string_): The ip from the account and session was created. _e.g.: 1.1.1.1_<br>
+<dl>
+  <dt><b>sessionID</b> <i>(string)</i></dt>
+  <dd>The id of the session that was created. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
   
-* **userAgent** (string): The userAgent used to create the account and session.
-_e.g.: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36_<br>
-* **expireAt** (_integer_): A timestamp that represents the expiration datetime of the session. If you want to extend it, use the <a href="./AUTENTICATIONAPI.md">Extend Session Endpoint</a>. _e.g.:1674492894_<br>
-* **current** (_boolean_): A boolean value that represents the current session in which you are performing the operations.<br>
+  <dt><b>ip</b> <i>(string)</i>:</dt>
+  <dd>The IP from the account and session was created. <i>e.g.: 1.1.1.1</i></dd>
+  
+  <dt><b>userAgent</b> <i>(string)</i></dt>
+  <dd>The userAgent used to create the account and session. <i>e.g.: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36</i></dd>
+  
+  <dt><b>expireAt</b> <i>(integer)</i></dt>
+  <dd>A timestamp that represents the expiration datetime of the session. If you want to extend it, use the Extend Session Endpoint. <i>e.g.:1674492894</i></dd>
+  
+  <dt><b>current</b> <i>(boolean)</i></dt>
+  <dd>A boolean value that represents the current session in which you are performing the operations.</dd>
+</dl>
 
 
-><h4>Errors</h4>
 
->Fields of the response:
+### Errors
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "duplicated key not allowed"_<br><br>
+### Fields of the response
+
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
 
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -256,15 +330,15 @@ For example:
   "error": "incorrect authorization header"
 }
 ```
-> <h5> Code 401 - Authentication required
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
 Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request.
 
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case the session, cannot be found.
 
@@ -278,22 +352,24 @@ For example:
   "error": "record not found"
 }
 ```
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not session related.
 
-<h3 id="verifySession">Verify Session</h3>
+## Verify Session {#verifySession}
 
-This API endpoint verifies the Sign-in of a session using code sent by email.<br><br>
-
+This API endpoint verifies the Sign-in of a session using code sent by email.
 **EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/session/verification>
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **verificationCodeID** (_string_): You can obtain it from the session that you wish to verify at the time of its creation. _e.g.: "1c233e4a-27e7-4b77-8b0d-9a35cf212afe"_<br>
-
-* **code** (_string_): A code sent to your preferred email when a session is created. _e.g.: "757564"_<br>
+<dl>
+  <dt><b>verificationCodeID</b> <i>(string)</i>:</dt>
+  <dd>You can obtain it from the email that you wish to verify at the time of its creation. <i>e.g.: "1c233e4a-27e7-4b77-8b0d-9a35cf212afe"</i></dd>
+  <dt><b>code</b> <i>(string)</i>:</dt>
+  <dd>A code sent to your preferred email when an email is created in the system. <i>e.g.: "757564"</i></dd>
+</dl>
   
-To close a session, use a **PUT** request, for example:
+To verify a session, use a<b class="label label-yellow">PUT</b>, for example:
 
 ```bash
 curl -X 'PUT' \
@@ -306,26 +382,39 @@ curl -X 'PUT' \
 }'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
 <h5>Returns the message "acknowledged" </h5>
 
 When a session is successfully verified, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
 
->Fields of the response:
+### Fields of the response:
 
-* **message** (_string_): A message that describes the result of the operation. _e.g.:_"acknowledged"
+<dl>
+  <dt><b> message </b> (<i>string</i>)</dt>
+  <dd>
+    A message that describes the result of the operation. _e.g.:<i>"acknowledged"</i>
+  </dd>
+</dl>
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "not found"</i>
+  </dd>
+</dl>
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case, the verificationCodeID , cannot be found.
 
@@ -340,7 +429,7 @@ For example:
 }
 ```
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -352,7 +441,7 @@ For example:
   "error": "invalid UUID length: 35"
 }
 ```
-> <h5> Code 401 - Unauthorized</h5>
+<h3><b class="label label-red">Code 401</b>Unauthorized</h3>
 
 We get this code when the code sent is incorrect.
 
@@ -364,10 +453,10 @@ For example:
   "error": "verification code not found"
 }
 ```
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not session related.
 
 For example:
@@ -379,21 +468,21 @@ For example:
 }
 ```
 
-<h3 id="extendSession">Extend session</h3>
+## Extend session {#extendSession}
 
-This API endpoint extends the life of the current user sessions.<br><br>
+This API endpoint extends the life of the current user sessions.
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/session/extend>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/session/extend
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for account deletion._e.g.:
+<dl>
+  <dt>Authorization Header:</dt>
+  <dd>The authorization header of the session that you want to extend. Please ensure that the session is active before attempting to retrieve the authorization header for extending <i>e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB</i>
+  </dd>
+</dl>
 
-```
-e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
-
-To get the currents sessions, use a **PUT** request, for example:
+To get the currents sessions, use a <b class="label label-yellow">PUT</b> request, for example:
 
 ```
 curl -X 'PUT' \
@@ -402,25 +491,38 @@ curl -X 'PUT' \
   -H 'Authorization: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 <h5>Returns the message "acknowledged" </h5>
 
 When a session is successfully verified, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
 
->Fields of the response:
+### Fields of the response:
 
-* **message** (_string_): A message that describes the result of the operation. _e.g.:_"acknowledged"
+<dl>
+  <dt><b> message </b> (<i>string</i>)</dt>
+  <dd>
+    A message that describes the result of the operation. _e.g.:<i>"acknowledged"</i>
+  </dd>
+</dl>
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "not found"</i>
+  </dd>
+</dl>
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -432,15 +534,15 @@ For example:
   "error": "incorrect authorization header"
 }
 ```
-> <h5> Code 401 - Authentication required
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
 Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request.
 
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case the session, cannot be found.
 
@@ -454,24 +556,29 @@ For example:
   "error": "record not found"
 }
 ```
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not session related.
 
-<h3 id="checkSession">Check session</h3>
+## Check session {#checkSession}
 
-This API endpoint check user session and returns privileges<br><br>
+This API endpoint checks the user's session and returns their privileges.
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/session>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/session
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for account deletion._e.g.:
+<dl>
+  <dt><b>Authorization header</b> (<i>string</i>)</dt>
+  <dd>
+The authorization header of the session that you want to check. Please ensure that the session is active before attempting to check it._e.g.:
+ <code>
+      e.g.: Bearer
+      fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
+    </code>
+  </dd>
+</dl>
 
-```
-e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
-
-To get the currents sessions, use a **GET** request, for example:
+To get the currents sessions, use a <b class="label label-blue">GET</b> request, for example:
 
 ```bash
 curl -X 'GET' \
@@ -480,33 +587,60 @@ curl -X 'GET' \
   -H 'Authorization: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 <h5>Returns the message "acknowledged" </h5>
 
 When a session is successfully retrieved, the code returns a JSON object with info about the session.
 
 >Fields of the response:
-* **alias** (_string_) The user's alias on the platform. _e.g.:johny<br>_
-* **fullName** (_string_): user's full name.
-* **sessionID** (_string_): The id of the session that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
-* **verify** (_boolean_): A boolean that represents if the user is verified or not.
-* **roles** (_list [string]_): A list of the user's roles.  _e.g.: ["user", "admin"]_
-* **userID** (_string_): The user id.  _e.g.:"5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e"_
-* **userAgent** (string): The userAgent used to create the account and session.
-_e.g.: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36_<br>
-* **ip** (_string_): The ip from the account and session was created. _e.g.: 1.1.1.1_<br>
-* **expireAt** (_integer_): A timestamp that represents the expiration datetime of the session. If you want to extend it, use the <a href="./AUTENTICATIONAPI.md">Extend Session Endpoint</a>. _e.g.:1674492894_<br>
+<dl>
+  <dt><b>alias</b> <i>(string)</i></dt>
+  <dd>The user's alias on the platform. <i>e.g.: johny</i></dd>
+  
+  <dt><b>fullName</b> <i>(string)</i></dt>
+  <dd>The user's full name.</dd>
+  
+  <dt><b>sessionID</b> <i>(string)</i></dt>
+  <dd>The id of the session that was created. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
+  
+  <dt><b>verify</b> <i>(boolean)</i></dt>
+  <dd>A boolean that represents if the user is verified or not.</dd>
+  
+  <dt><b>roles</b> <i>(list [string])</i></dt>
+  <dd>A list of the user's roles. <i>e.g.: ["user", "admin"]</i></dd>
+  
+  <dt><b>userID</b> <i>(string)</i></dt>
+  <dd>The user id. <i>e.g.: "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e"</i></dd>
+  
+  <dt><b>userAgent</b> <i>(string)</i></dt>
+  <dd>The userAgent used to create the account and session. <i>e.g.: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36</i></dd>
+  
+  <dt><b>ip</b> <i>(string)</i></dt>
+  <dd>The ip from the account and session was created. <i>e.g.: 1.1.1.1</i></dd>
+  
+  <dt><b>expireAt</b> <i>(integer)</i></dt>
+  <dd>A timestamp that represents the expiration datetime of the session. If you want to extend it, use the <a href="./AUTENTICATIONAPI.md">Extend Session Endpoint</a>. <i>e.g.:1674492894</i></dd>
+</dl>
 
-><h4>Errors</h4>
 
->Fields of the response:
+### Errors
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
+### Fields of the response
 
-> <h5> Code 400 - Bad request</h5>
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "not found"</i>
+  </dd>
+</dl>
+
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -518,7 +652,7 @@ For example:
   "error": "incorrect authorization header"
 }
 ```
-> <h5> Code 401 - Authentication required
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
 Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request. See <a> Authentication API Page</a> for more details.
@@ -532,7 +666,7 @@ For example:
 }
 ```
 
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if you do not have enough permissions to make this operation, it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
 For example:
@@ -543,7 +677,7 @@ For example:
 }
 ```
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case the session, cannot be found.
 
@@ -557,5 +691,5 @@ For example:
   "error": "record not found"
 }
 ```
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not session related.

@@ -1,32 +1,43 @@
-<h3 id="entityTypeValue">Get Entity by type and value</h3>
+---
+layout: default
+title: Entity
+parent: Search
+nav_order: 2
+---
+
+# Get Entity by type and value {#entityTypeValue}
 This API endpoint retrieves the last entity that matches the given type and value. It's useful for fast searching when you need to determine if an entity exists or not.
 <br><br>
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/search/v1/entity>
+**EndPoint:** https://intelligence.threatwinds.com/api/search/v1/entity
 
-> <h4> Parameters</h4>
+### Parameters
   
-* **Autentication**: Authentication can be via Authorization header or Key-Pair. See the [Authentication page](#) for more details.<br><br> 
-  
-   * **Authorization** (_string_): The authorization header of the session if it is your authentication method. _e.g.:_
+<dl>
+  <dt><b>Autentication</b></dt>
+  <dd>Authentication can be via Authorization header or Key-Pair. See the See <a href="/QUICKSTART#auth">Quick Start Auth</a> for a short explanation.<dl>
+  <dt><b>Authorization</b> (<i>string</i>)</dt>
+  <dd>The authorization header of the session if it is your authentication method.<br>
+      <code>e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB</code></dd>
+  <dt><b>api-key</b> (<i>string</i>)</dt>
+  <dd>It needs to be combined with the api-secret. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dt><b>api-secret</b> (<i>string</i>)</dt>
+  <dd>It needs to be combined with the api-key. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  </dl>
+  </dd>
+<dt><b>Message</b>(<i>JSON</i>)</dt>
+  <dd>
+  <dl>
+  <dt><b>type</b> (<i>string</i>)</dt>
+  <dd>The type of entity that you are looking for. _e.g.: ip, malware, file, md5_. (To see all the types of entities, check the <a href="../DEFINITIONS">Definition Page</a></dd>.
+  <dt><b>value</b> (<i>string</i>)</dt>
+  <dd>The value of the entity that you are looking for. <code>e.g.: "138.219.198.146", "Doc Dropper Agent", "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a", "161f923323b9c24f8ffc4db9b2f0d4d3".</code></dd>
+  </dl>
+  </dd>
+</dl>
 
-    ```
-    fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-    ```
 
-  * **api-key** (_string_): It needs to be combined with the api-secret. You can get it from the [Key Pair Endpoints](#).
-
-  * **api-secret** (_string_): It needs to be combined with the api-key. You can get it from the [Key Pair Endpoints](#).
-
-* **Message** (_JSON_):
-
-  * **type** (_string_): The type of entity that you are looking for. _e.g.: ip, malware, file, md5_. (To see all the types of entities, check the [Definition endpoint](#)).
-
-  * **value** (_string_): The value of the entity that you are looking for. _e.g.:_ "138.219.198.146", "Doc Dropper Agent", "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a", "161f923323b9c24f8ffc4db9b2f0d4d3".
-
-
-
-To create a session, use a **POST**</span> request, for example:
+To get an entity by type and value, use a <b class="label label-green">POST</b> request, for example:
 
 ```bash
 curl -X 'POST' \
@@ -41,31 +52,38 @@ curl -X 'POST' \
 }'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 200</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Return an Entity as Response</h5>
+**Return an Entity as Respons**
 
 The API returns this code when an entity is found successfully. It returns the entire entity.
 
->Fields of the response:
+### Fields of the response:
 
-* **id** (_string_): The ID of the returned entity.<br>
-* **type** (_string_) The type of the entity.
-* **reputation** (_int_): A number that represents the reputation of the entity on a scale of -3 to 3. The values are:
-  
-> 3 excellent 
-2 good
-1 normal 
-0 neutral
--1 poor 
--2 bad 
--3 extremely bad
-
-* **accuracy** (_string_): The accuracy of the match.<br>
-
-* **attributes** (_JSON_):  A list of attributes of the entity. It depends on the type of entity. To see the list of attributes, check the <a href="./AUTENTICATIONAPI.md">Definnition Page</a>.<br>
+<dl>
+  <dt><b>id</b> (<i>string</i>)</dt>
+  <dd>The ID of the returned entity.</dd>
+  <dt><b>type</b> (<i>string</i>)</dt>
+  <dd>The type of the entity.</dd>
+  <dt><b>reputation</b> (<i>int</i>)</dt>
+  <dd>A number that represents the reputation of the entity on a scale of -3 to 3. The values are:
+    <ul>
+      <li>3 excellent</li>
+      <li>2 good</li>
+      <li>1 normal</li>
+      <li>0 neutral</li>
+      <li>-1 poor</li>
+      <li>-2 bad</li>
+      <li>-3 extremely bad</li>
+    </ul>
+  </dd>
+  <dt><b>accuracy</b> (<i>string</i>)</dt>
+  <dd>The accuracy of the match.</dd>
+  <dt><b>attributes</b> (<i>JSON</i>)</dt>
+  <dd>A list of attributes of the entity. It depends on the type of entity. To see the list of attributes, check the <a href="../DEFINITIONS">Definition Page</a>.</dd>
+</dl>
 
 _e.g.:_
 ```json
@@ -83,14 +101,21 @@ _e.g.:_
 }
 ```
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "duplicated key not allowed"_
-
-> <h5> Code 400 - Bad request</h5>
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -102,8 +127,7 @@ For example:
   "error": "value cannot be empty"
 }
 ```
-> <h5> Code 401 - Authentication required
-Authentication required</h5>
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
 
 The 401 error code indicates that you need authentication to do this request. See <a> Authentication API Page</a> for more details.
 
@@ -116,7 +140,7 @@ For example:
 }
 ```
 
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if you do not have enough permissions to make this operation, it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
 For example:
@@ -126,7 +150,7 @@ For example:
   "error": "unauthorized"
 }
 ```
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error, occurs when the search could not find a match for the given parameters.
 
@@ -138,34 +162,37 @@ For example:
   "error": "entity not found"
 }
 ```
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not session related.
 
-<h3 id="entityById">Get Entity by id</h3>
-This API endpoint retrieves the last entity that matches the given type and value. It's useful for fast searching when you need to determine if an entity exists or not.
+## Get Entity by id {#entityById}
+This API endpoint retrieves the entity that matches the given id.
 <br><br>
 
 **EndPoint:** <https://intelligence.threatwinds.com/api/search/v1/entity/{id}>
 
-> <h4> Parameters</h4>
+### Parameters
   
-* **Autentication**: Authentication can be via Authorization header or Key-Pair. See the [Authentication page](#) for more details.<br><br> 
-  
-   * **Authorization** (_string_): The authorization header of the session if it is your authentication method. _e.g.:_
+<dl>
+  <dt><b>Autentication</b></dt>
+  <dd>Authentication can be via Authorization header or Key-Pair. See the See <a href="/QUICKSTART#auth">Quick Start Auth</a> for a short explanation.<dl>
+  <dt><b>Authorization</b> (<i>string</i>)</dt>
+  <dd>The authorization header of the session if it is your authentication method.<br>
+      <code>e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB</code></dd>
+  <dt><b>api-key</b> (<i>string</i>)</dt>
+  <dd>It needs to be combined with the api-secret. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dt><b>api-secret</b> (<i>string</i>)</dt>
+  <dd>It needs to be combined with the api-key. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  </dl>
+  </dd>
+  <dt><b>entityID</b> (<i>string</i>)</dt>
+  <dd>The ID of the entity for which you want to retrieve information.</dd>
+</dl>
 
-    ```
-    fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-    ```
-
-  * **api-key** (_string_): It needs to be combined with the api-secret. You can get it from the [Key Pair Endpoints](#).
-
-  * **api-secret** (_string_): It needs to be combined with the api-key. You can get it from the [Key Pair Endpoints](#).
-
-* **entityID** (_string_): The ID of the entity for which you want to retrieve information.
 
 
 
-To create a session, use a **GET**</span> request, for example:
+To create a session, use a <b class="label label-blue">GET</b> request, for example:
 
 ```bash
 curl -X 'POST' \
@@ -175,31 +202,38 @@ curl -X 'POST' \
   -H 'api-secret: fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB' 
 ```
 
-><h4>Returns</h4>
+### Returns
 
 > <h5>Code 200</h5>
 
-<h5>Return an Entity as Response</h5>
+**Return an Entity as Response**
 
 The API returns this code when an entity is found successfully. It returns the entire entity.
 
->Fields of the response:
+### Fields of the response:
 
-* **id** (_string_): The ID of the returned entity.<br>
-* **type** (_string_) The type of the entity.
-* **reputation** (_int_): A number that represents the reputation of the entity on a scale of -3 to 3. The values are:
-  
-> 3 excellent 
-2 good
-1 normal 
-0 neutral
--1 poor 
--2 bad 
--3 extremely bad
-
-* **accuracy** (_string_): The accuracy of the match.<br>
-
-* **attributes** (_JSON_):  A list of attributes of the entity. It depends on the type of entity. To see the list of attributes, check the <a href="./AUTENTICATIONAPI.md">Definnition Page</a>.<br>
+<dl>
+  <dt><b>id</b> (<i>string</i>)</dt>
+  <dd>The ID of the returned entity.</dd>
+  <dt><b>type</b> (<i>string</i>)</dt>
+  <dd>The type of the entity.</dd>
+  <dt><b>reputation</b> (<i>int</i>)</dt>
+  <dd>A number that represents the reputation of the entity on a scale of -3 to 3. The values are:
+    <ul>
+      <li>3 excellent</li>
+      <li>2 good</li>
+      <li>1 normal</li>
+      <li>0 neutral</li>
+      <li>-1 poor</li>
+      <li>-2 bad</li>
+      <li>-3 extremely bad</li>
+    </ul>
+  </dd>
+  <dt><b>accuracy</b> (<i>string</i>)</dt>
+  <dd>The accuracy of the match.</dd>
+  <dt><b>attributes</b> (<i>JSON</i>)</dt>
+  <dd>A list of attributes of the entity. It depends on the type of entity. To see the list of attributes, check the <a href="./AUTENTICATIONAPI.md">Definition Page</a>.</dd>
+</dl>
 
 _e.g.:_
 ```json
@@ -217,14 +251,21 @@ _e.g.:_
 }
 ```
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "duplicated key not allowed"_
-
-> <h5> Code 400 - Bad request</h5>
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -236,8 +277,7 @@ For example:
   "error": "value cannot be empty"
 }
 ```
-> <h5> Code 401 - Authentication required
-Authentication required</h5>
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
 
 The 401 error code indicates that you need authentication to do this request. See <a> Authentication API Page</a> for more details.
 
@@ -250,7 +290,7 @@ For example:
 }
 ```
 
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if you do not have enough permissions to make this operation, it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
 For example:
@@ -262,7 +302,7 @@ For example:
 ```
 
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error, occurs when the search could not find a match for the given parameters.
 
@@ -274,5 +314,5 @@ For example:
   "error": "record not found"
 }
 ```
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not session related.

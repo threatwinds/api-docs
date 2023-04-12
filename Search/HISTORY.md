@@ -1,30 +1,44 @@
-<h3>Get Entities Records History</h3>
+---
+layout: default
+title: History
+parent: Search
+nav_order: 2
+---
+
+# Get Entities Records History
 This software interface offers robust search functionality for entity report history by providing an OpenSearch-like query search option. This enables you to easily and effectively search through a vast number of reports. Furthermore, it provides aggregation features that enable you to conduct intricate data analysis on your search results.
 
 **EndPoint:** <https://intelligence.threatwinds.com/api/search/v1/entities/history><br><br>
 
-> <h4> Parameters</h4>
+### Parameters
   
-* **Autentication**: Authentication can be via Authorization header or Key-Pair. See the [Authentication page](#) for more details.<br><br> 
-  
-   * **Authorization** (_string_): The authorization header of the session if it is your authentication method. _e.g.:_
-
-    ```
-    fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-    ```
-
-  * **api-key** (_string_): It needs to be combined with the api-secret. You can get it from the [Key Pair Endpoints](#).
-
-  * **api-secret** (_string_): It needs to be combined with the api-key. You can get it from the [Key Pair Endpoints](#).
- * **limit** (_int_): This parameter specifies the maximum number of results you wish to retrieve per page. (_Default is 10_)
-  
-* **page**(_int_): This parameter specifies the page of results you want to retrieve, where each page contains a specified number of objects based on the value of the "limit" parameter. (_Default is 0_)
-
-* **sort**(_string_): The sort parameter is a query parameter that allows you to sort the results of your search based on a specific field. _e.g.: reputation_ <br>
-* **order**(_"asc" or "desc"_): The order parameter specifies the order in which the results should be sorted based on the specified "sort" parameter. It can take two values: "asc" for ascending order and "desc" for descending order.(_Default is asc_)
+<dl>
+  <dt><b>Autentication</b></dt>
+  <dd>Authentication can be via Authorization header or Key-Pair. See the See <a href="/QUICKSTART#auth">Quick Start Auth</a> for a short explanation.<dl>
+  <dt><b>Authorization</b> (<i>string</i>)</dt>
+  <dd>The authorization header of the session if it is your authentication method.<br>
+      <code>e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB</code></dd>
+  <dt><b>api-key</b> (<i>string</i>)</dt>
+  <dd>It needs to be combined with the api-secret. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dt><b>api-secret</b> (<i>string</i>)</dt>
+  <dd>It needs to be combined with the api-key. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  </dl>
+  </dd>
+  <dt><b>groups</b> (<i>string</i>)</dt>
+  <dd>This parameter specifies your access level or certain information. Default <i>global</i></dd>
+  <dt><b>limit</b> (<i>int</i>)</dt>
+  <dd>This parameter specifies the maximum number of results you wish to retrieve per page. (Default is 10)</dd>
+  <dt><b>page</b> (<i>int</i>)</dt>
+  <dd>This parameter specifies the page of results you want to retrieve, where each page contains a specified number of objects based on the value of the "limit" parameter. (Default is 0)</dd>
+  <dt><b>sort</b> (<i>string</i>)</dt>
+  <dd>The sort parameter is a query parameter that allows you to sort the results of your search based on a specific field.<br>
+      <code>e.g.: reputation</code></dd>
+  <dt><b>order</b> ("asc" or "desc")</dt>
+  <dd>The order parameter specifies the order in which the results should be sorted based on the specified "sort" parameter. It can take two values: "asc" for ascending order and "desc" for descending order. (Default is asc)</dd>
+</dl>
 
 * <h3>Message:</h3>
-    The body parameter that is going to contain the OpenSearch-like query search and aggregations.<br><br>
+    The body parameter that is going to contain the OpenSearch-like query search and aggregations.
 
     For Example:
 
@@ -100,9 +114,13 @@ We get a response like:
           "key": "pdf dropper agent"
         },..]}}}   
 ```
-If you have not worked with Opensearch or elastic search before you can go to <a>Search and Agregations Page</a> to learn more about performing advanced searches, if you did, you can do a fast review about the queries we have available.
+If you have not worked with Opensearch or elastic search before you can go to <a>Search and Agregations Page</a> to learn more about performing advanced searches, if you did, you can do a fast review of the queries we have available.
 
-To perform a history search, use a **POST**</span> request, for example:
+{: .note }
+"To retrieve all records sorted by their most recent occurrence, simply make a request with an empty JSON object. The API will return the records in descending order, from the most recent to the oldest.
+
+
+To perform a history search, use a <b class="label label-green">POST</b> request, for example:
 
 ```bash
 curl -X 'POST' \
@@ -148,11 +166,11 @@ curl -X 'POST' \
 '
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 200</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Retrieving a Specified Page of Results and Aggregations in the Response</h5>
+**Retrieving a Specified Page of Results and Aggregations in the Response**
 
 When a search query is executed in the API, the response object contains a list of hits that correspond to the entity records that matched the search criteria, along with the corresponding aggregation.  
 
@@ -163,14 +181,21 @@ The following fields are included in the response:
 * **result** (_entity list_):  A list of hits that correspond to the records that matched the search criteria.
   * **aggregations**(_JSON_):  A list of metrics based on the criteria specified in the search request.
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "duplicated key not allowed"_
-
-> <h5> Code 400 - Bad request</h5>
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -182,7 +207,7 @@ For example:
   "error": "incorrect authorization header"
 }
 ```
-> <h5> Code 401 - Authentication required
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
 Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request. See <a> Authentication API Page</a> for more details.
@@ -196,7 +221,7 @@ For example:
 }
 ```
 
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if you do not have enough permissions to make this operation, it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
 For example:
@@ -208,7 +233,7 @@ For example:
 ```
 
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error, occurs when the search could not find a match for the given parameters.
 
@@ -220,5 +245,5 @@ For example:
   "error": "record not found"
 }
 ```
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not session related.

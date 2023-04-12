@@ -1,15 +1,14 @@
 ---
 layout: default
-title: Comments
+title: Relations
 parent: Search
 nav_order: 2
 ---
+# Get Relations by entity {#entityById}
+This endpoint retrieves all the entities associated with a given entity based on their relationship. This API can provide valuable information for identifying relationships and patterns between entities, such as malware, domains, IP addresses, etc.
+<br><br>
 
-# Get Comments {#getComments}
-
-This API endpoint is designed to retrieve the comments associated with a specific entity.
-
-**EndPoint:** <https://intelligence.threatwinds.com/api/search/v1/comments/{id}>
+**EndPoint:** <https://intelligence.threatwinds.com/api/search/v1/entity/{id}/relations>
 
 ### Parameters
   
@@ -36,31 +35,41 @@ This API endpoint is designed to retrieve the comments associated with a specifi
       <code>e.g.: reputation</code></dd>
   <dt><b>order</b> ("asc" or "desc")</dt>
   <dd>The order parameter specifies the order in which the results should be sorted based on the specified "sort" parameter. It can take two values: "asc" for ascending order and "desc" for descending order. (Default is asc)</dd>
-  <dt><b>id</b> (<i>string</i>)</dt>
-  <dd>The "id" parameter is used to specify the ID of the entity for which you want to retrieve comments through this API endpoint.</dd>
+  <dt><b>entityID</b> (<i>string</i>)</dt>
+  <dd>The ID of the entity for which you want to retrieve the associations.</dd>
 </dl>
 
-To get a comment, use a <b class="label label-blue">GET</b> request, for example:
+To get the relations of one entity, use a <b class="label label-blue">GET</b>request, for example:
 
 ```bash
 curl -X 'GET' \
-  'https://intelligence.threatwinds.com/api/search/v1/comments/malware-a208c4b33a1763284ce9a4584efa296372082ba82ee174597092f972767de163' \
-  -H 'accept: application/json'
-}'
+  'https://intelligence.threatwinds.com/api/search/v1/associations/domain-59f5e994104053f590acdd1d2d72071669c839a60fc68291110facfa2fd16396' \
+  -H 'accept: application/json' \
+  -H 'api-key: fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB' \
+  -H 'api-secret: fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB' 
 ```
 
 ### Returns
+
 <h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-**Return a list of comments as Response**
+**Return a list of Entities as Response**
 
-This API endpoint returns a list of comments that are associated with the specified entity.
+It returns a list of associated entities or an empty list if no match is found.
 
 ### Fields of the response:
 
-* **pages** (_string_):  The total number of pages in the result set.<br>
-* **items** (_string_) The total number of comments in the result set.
-* **result** (_entity list_):  A list of hits that correspond to the comments that are associated with the specified entity.
+<dl>
+  <dt><b>pages</b> (<i>string</i>)</dt>
+  <dd>The total number of pages in the result set.</dd>
+  <dt><b>items</b> (<i>string</i>)</dt>
+  <dd>The total number of entities in the result set.</dd>
+  <dt><b>result</b> (<i>entity list</i>)</dt>
+  <dd>A list of hits that correspond to the entities that matched the search criteria.
+  </dd>
+  <dt><b>aggregations</b> (<i>JSON</i>)</dt>
+  <dd>A list of metrics based on the criteria specified in the search request.</dd>
+</dl>
 
 _e.g.:_
 ```json
@@ -69,10 +78,15 @@ _e.g.:_
   "items": 1,
   "results": [
     {
-    "commentID": "NEED A REAL EXAMPLE"
-    "comment": "Test",
-    "entityID": "malware-a208c4b33a1763284ce9a4584efa296372082ba82ee174597092f972767de163"
-}
+      "@timestamp": "2023-04-04T21:02:42.717161656Z",
+      "accuracy": 1,
+      "attributes": {
+        "threat": "expansion on 123@123.com"
+      },
+      "id": "threat-d8257cec79ed8b20c32decd305c1692391c185ab13d52b3495ea486df5385b27",
+      "reputation": -2,
+      "type": "threat"
+    }
   ]
 }
 ```
@@ -104,7 +118,6 @@ For example:
 }
 ```
 <h3><b class="label label-red">Code 401</b>Authentication required</h3>
-Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request. See <a> Authentication API Page</a> for more details.
 
@@ -128,6 +141,7 @@ For example:
 }
 ```
 
+
 <h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error, occurs when the search could not find a match for the given parameters.
@@ -136,8 +150,8 @@ For example:
 
 ```json
 {
-  "uuid": "e23611e9-2974-4cd7-a08b-47fe7d35fa9a",
-  "error": "entity not found"
+  "uuid": "9ca21f08-c3a3-4eeb-8179-49669d7fe1fa",
+  "error": "record not found"
 }
 ```
 <h3><b class="label label-yellow">Code 500</b>Internal server error</h3>

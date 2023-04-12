@@ -1,4 +1,11 @@
-<h4>Negative Reputation Domains list</h4>
+---
+layout: default
+title: Example 2
+parent: Use Cases
+nav_order: 2
+---
+
+# Negative Reputation Domains list
 
 A developer is tasked with developing a DNS filtering module for an enterprise network to block access to malicious websites. To achieve this, the developer needs to programmatically identify all domains with negative reputation and block access to them.
 

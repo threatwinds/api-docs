@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Search
-nav_order: 3
+title: Use Cases
+nav_order: 5
 has_children: true
 ---

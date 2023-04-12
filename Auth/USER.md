@@ -1,21 +1,38 @@
-<h2>User</h2>
+---
+layout: default
+title: User
+parent: Authentication
+nav_order: 2
+---
 
-<h3>Create User</h3>
-This API endpoint creates a new user and an unverified session.<br><br>
+# User
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/user>
+## Create User
+This API endpoint creates a new user and an unverified session.
 
-> <h4> Parameters</h4>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/user
 
-* **alias** (_string_) _**unique**_ The alias parameter represents the user's alias on the platform. The alias can contain letters, numbers, and special characters._e.g.:johny<br><br>_
-  
-* **email** (_string_) _**unique**_ The email parameter represents the user's email address that is going to be associated with their account. This email address is used for communication with the user, and may also be used as a way to reset their password or verify their account. _e.g.: john@doe.net_<br><br>
-  
-* **fullName** (_string_): user's full name. This name may be used as a way to verify the user. _e.g.: John Doe_
+### Parameters
 
-To create a user, use a **POST** request, for example:
+<tl>
+  <tr>
+    <td><b>alias</b> (<i>string</i>) <i>unique</i></td>
+    <dd>The alias parameter represents the user's alias on the platform. The alias can contain letters, numbers, and special characters. <i>e.g.: johny</i></dd>
+  </tr>
+  <tr>
+    <td><b>email</b> (<i>string</i>) <i>unique</i></td>
+    <dd>The email parameter represents the user's email address that is going to be associated with their account. This email address is used for communication with the user, and may also be used as a way to reset their password or verify their account. <i>e.g.: john@doe.net</i></dd>
+  </tr>
+  <tr>
+    <td><b>fullName</b> (<i>string</i>)</td>
+    <dd>The user's full name. This name may be used as a way to verify the user. <i>e.g.: John Doe</i></dd>
+  </tr>
+</tl>
 
-```
+
+To create a user, use a <b class="label label-green">POST</b> request, for example:
+
+```bash
 curl -X 'POST' \
   'https://intelligence.threatwinds.com/api/auth/v2/user' \
   -H 'accept: application/json' \
@@ -27,41 +44,65 @@ curl -X 'POST' \
 }'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Return a Session as Response</h5>
+**Return a Session as Response**
 
-We get this code when the user was created successfully. It returns a <a href="./SESSION.md">Session</a>.
+We get this code when the user was created successfully. It returns a <a href="./SESSION">Session</a>.
 
->Fields of the response:
+### Fields of the response:
 
-* **bearer** (_string_): The bearer (Refers from now on as Autentication Header) is used as a means of authentication for the APIs, and must be included in the header of all requests that require authentication (See <a href="./AUTENTICATIONAPI.md">Auth Page</a> for more details). The authentication header must be verified using the verificationCodeID in the the <a href="./SESSION.md">Session Verification Endpoint</a> before it can be used to ensure that it is valid. <br>
-
-```
-e.g.: fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
-
-* **verificationCodeID** (_string_): The verification code id that is used in the <a href="./SESSION.md">Session Verification Endpoint</a> to ensure that the session is valid. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
-
-* **expireAt** (_integer_): A timestamp that represents the expiration datetime of the session. If you want to extend it, use the <a href="./AUTENTICATIONAPI.md">Extend Session Endpoint</a>. _e.g.:1674492894_<br>
-
-* **ip** (_string_): The ip from the account and session was created. _e.g.: 1.1.1.1_<br>
-
-* **sessionID** (_string_): The id of the session that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
+<dl>
+  <dt><b>bearer</b> (<i>string</i>):</dt>
+  <dd>The bearer (Refers from now on as Authentication Header) is used as a means of authentication for the APIs, and must be included in the header of all requests that require authentication. The authentication header must be verified using the <i>verificationCodeID</i> in the <a href="./SESSION#verifySession">Session Verification Endpoint</a> before it can be used to ensure that it is valid. <br>
+      <code>e.g.: fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB</code>
+  </dd>
   
-* **userAgent** (string): The userAgent used to create the account and session.
-_e.g.: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36_<br>
+  <dt><b>verificationCodeID</b> (<i>string</i>):</dt>
+  <dd>The verification code id that is used in the <a href="./SESSION#verifySession">Session Verification Endpoint</a> to ensure that the session is valid. <br>
+      <code>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</code>
+  </dd>
+  
+  <dt><b>expireAt</b> (<i>integer</i>):</dt>
+  <dd>A timestamp that represents the expiration datetime of the session. If you want to extend it, use the <a href="./SESSION#extendSession">Extend Session Endpoint</a>. <br>
+      <code>e.g.: 1674492894</code>
+  </dd>
+  
+  <dt><b>ip</b> (<i>string</i>):</dt>
+  <dd>The ip from the account and session was created. <br>
+      <code>e.g.: 1.1.1.1</code>
+  </dd>
+  
+  <dt><b>sessionID</b> (<i>string</i>):</dt>
+  <dd>The id of the session that was created. <br>
+      <code>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</code>
+  </dd>
+  
+  <dt><b>userAgent</b> (<i>string</i>):</dt>
+  <dd>The userAgent used to create the account and session. <br>
+      <code>e.g.: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36</code>
+  </dd>
+</dl>
 
-><h4>Errors</h4>
 
->Fields of the response:
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "duplicated key not allowed"_
+### Errors
 
-> <h5> Code 400 - Bad request</h5>
+### Fields of the response
+
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters. This could happen when a parameter that must be unique, such as an email or an alias, already exists in the system. Another reason for this error could be that the email or alias provided in the request are not valid.
 
@@ -77,7 +118,7 @@ e.g.:
 > <h5> Code 409 - Conflict</h5>
 A 409 error, also known as a "Conflict" error, is an HTTP status code that indicates that the client's request conflicts with the current state of the server. In general, a 409 error occurs when there is a conflict between the current state of the resource and the changes that the client is attempting to make.
 
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.
 
 For example:
@@ -91,47 +132,66 @@ For example:
 
 <h3>Delete user</h3>
 
-This API endpoint delete a user.<br><br>
+This API endpoint deletes a user.<br><br>
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/user>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/user
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for account deletion._e.g.:
-
-```
-e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
+<dl>
+  <dt><b>Authorization header</b>(<i>string</i>)</dt>
+  <dd>
+    This authorization header can be obtained from an active session of the
+    account. Please ensure that the session is active before attempting to
+    retrieve the authorization header for account deletion.
+    <i>
+      e.g.: Bearer
+      fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
+    </i>
+  </dd>
+</dl>
   
-To create an user, use a **DELETE** request, for example:
+To create a user, use a <b class="label label-red">DELETE</b> request, for example:
 
-```
+```bash
 curl -X 'DELETE' \
   'https://intelligence.threatwinds.com/api/auth/v2/user' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
 <h5>Returns the message "acknowledged" </h5>
 
 When a user is successfully deleted, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
 
->Fields of the response:
+### Fields of the response:
 
-* **message** (_string_): A message that describes the result of the operation. _e.g.:_"acknowledged"
+<dl>
+  <dt><b> message </b> (<i>string</i>)</dt>
+  <dd>
+    A message that describes the result of the operation. _e.g.:<i>"acknowledged"</i>
+  </dd>
+</dl>
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "duplicated key not allowed"_
-
-> <h5> Code 404 - Not found</h5>
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case the user, cannot be found.
 
@@ -146,7 +206,7 @@ For example:
 }
 ```
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -159,7 +219,7 @@ For example:
 }
 ```
 
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.
 
 For example:

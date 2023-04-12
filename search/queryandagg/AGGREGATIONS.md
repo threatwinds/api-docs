@@ -1,4 +1,12 @@
-<h2>Aggregations</h2>
+---
+layout: default
+title: Aggregations
+parent: Query and Aggregation
+grand_parent: Search
+nav_order: 3
+---
+
+# Aggregations
 
 In addition to queries, aggregation capabilities help you analyze your data. Aggregations allow you to group and analyze data based on specific criteria, such as date ranges, terms, or statistical functions. You can use aggregations to generate reports, visualizations, and dashboards to gain insights into your data.
 
@@ -23,12 +31,13 @@ The structure of an aggregation query is as follows:
 ```
 In the previous example, we are performing an aggregation that returns the top malware types based on the "attributes.malware-type" field, and we are also obtaining statistics on the "accuracy" field. The "top-malware-types" aggregation uses the "terms" aggregation type to group the results by unique values of the "attributes.malware-type.keyword" field and returns the top 50 results. The "accuracy-stats" aggregation uses the "stats" aggregation type to calculate statistics such as count, min, max, sum, and average on the "accuracy" field.
 
-> Note: If you’re only interested in the aggregation result and not in the results of the query, set size to 0.
+{: .note }
+If you’re only interested in the aggregation result and not in the results of the query, set size to 0.
 
 Metric aggregations generate straightforward results and cannot include nested aggregations. On the other hand, bucket aggregations produce document buckets that can be nested within other aggregations. By nesting metric and bucket aggregations within bucket aggregations, you can perform complex analyses on your data.
 
 <nav>
-<h4>Table of Contents</h4>
+<h3>Table of Contents</h3>
     <ol>
         <li><a href="#metric">Metric Aggregations</a></li>
         <ol>
@@ -56,13 +65,13 @@ Metric aggregations generate straightforward results and cannot include nested a
     </ol>
 </nav>
 
-<h4 id="metric">Metric Aggregations</h4>
+<h2 id="metric">Metric Aggregations</h2>
 Metric aggregations let you perform simple calculations such as finding the minimum, maximum, and average values of a field.
 
-<h4 id="singleValueMetric">Single-value Metric Aggregations</h4>
+<h2 id="singleValueMetric">Single-value Metric Aggregations</h2>
 Single-value metric aggregations return a single metric.
 
-<h4 id="sum">sum, min, max, avg</h4>
+<h2 id="sum">sum, min, max, avg</h2>
 
 Single-value metric aggregations, such as the sum, min, max, and avg metrics, enable you to obtain valuable insights about your data. These aggregations calculate different metrics that represent important information about a specific field, including its total value (sum), the lowest value (min), the highest value (max), and the average value (avg).
 
@@ -104,7 +113,7 @@ We get a response like:
   }
 }
 ```
-<h4 id="cardinality">Cardinality</h4>
+<h2 id="cardinality">Cardinality</h2>
 
 The cardinality metric is a single-value metric aggregation that counts the number of unique or distinct values of a field.
 
@@ -153,13 +162,13 @@ Calculating cardinality count accurately can be challenging and resource-intensi
 
 Fortunately, the precision_threshold setting allows you to balance memory usage and accuracy. By setting this threshold to a specific value, you can control the trade-off between memory usage and accuracy. The default value of precision_threshold is 3,000, and the maximum supported value is 40,000. This setting specifies the count level below which the cardinality is expected to be precise, and above which the accuracy may decrease slightly.
 
-<h4 id="valueCount">Value Count</h4>
+<h2 id="valueCount">Value Count</h2>
 Number of values an aggregation is based on. This metric is useful in conjunction with other metrics such as avg, as it allows you to determine the number of values used to calculate an average.
 
 This information can be valuable in assessing the accuracy of your results and identifying potential issues in your data.
 
-<h4 id="mutiValueMetric">Multi-value metric aggregations</h4>
-<h4 id="stats">stats extended_stats, matrix_stats</h4>
+<h2 id="mutiValueMetric">Multi-value metric aggregations</h2>
+<h2 id="stats">stats extended_stats, matrix_stats</h2>
 
 The **stats** metric is a type of multi-value metric aggregation that provides a comprehensive set of basic metrics in a single query. This aggregation calculates and returns metrics such as min, max, sum, avg, and value_count all at once.
 
@@ -246,7 +255,7 @@ The **matrix_stats** aggregation generates advanced statistics for multiple fiel
 | `correlation` | A measure of the strength of the relationship between two fields. The valid values are between [-1, 1]. A value of -1 means that the value is negatively correlated and a value of 1 means that it’s positively correlated. A value of 0 means that there’s no identifiable relationship between them. |
 
 
-<h4 id="percentiles">percentiles, percentiles_ranks</h4>
+<h2 id="percentiles">percentiles, percentiles_ranks</h2>
 
 
 Percentiles are a useful statistical measure that indicate the relative location of an observation in a dataset. They show the point at which a certain percentage of observed values occur. For example, the 75th percentile represents the value below which 75% of the observations fall.
@@ -321,7 +330,7 @@ Ge get this as response:
 ```
 
 
-<h4 id="topHits">Top Hits</h4>
+<h2 id="topHits">Top Hits</h2>
 
 The multi-value metric aggregation known as top_hits utilizes a relevance score to rank matching documents based on the field being aggregated. This aggregator can be customized with options such as the starting position of the hit and the maximum size of hits to be returned. Additionally, the matching hits can be sorted by relevance score or other criteria. The top_hits aggregator is intended to be used as a sub aggregator, making it useful for grouping result sets by specific fields via a bucket aggregator. By determining which properties to slice the result set into, one can effectively make use of the top_hits aggregator to gather the most relevant documents per bucket.
 
@@ -374,13 +383,13 @@ In the example, we'll be retrieving the count of malware reports grouped by type
   }
 ```
 
-<h4 id="bucketAggregations">Bucket Aggregations</h4>
+<h2 id="bucketAggregations">Bucket Aggregations</h2>
 
 A bucket aggregation is a type of data aggregation that groups together sets of documents based on a specified criterion, effectively creating buckets. Unlike metrics aggregations, which calculate metrics over fields, bucket aggregations categorize documents into sets based on their characteristics. Each bucket is associated with a criterion, which determines whether or not a document "fits" into it. In addition to defining the buckets, bucket aggregations also compute and return the number of documents that are in each bucket.
 
 Bucket aggregations can hold sub-aggregations that are aggregated for the buckets created by their parent bucket aggregation. There are various types of bucket aggregations, each with a different bucketing strategy. Some define a single bucket, while others define a fixed number of multiple buckets, and others dynamically create the buckets during the aggregation process.
 
-<h4 id="terms">Terms</h4>
+<h2 id="terms">Terms</h2>
 
 The term aggregation is a technique used for data aggregation that creates a dynamic bucket for each unique term of a specified field. The returned values are sorted by key and include the `doc_count`, which specifies the number of documents in each bucket. The buckets are sorted in descending order of doc-count by default.
 
@@ -443,7 +452,7 @@ We receive this as a response:
 }
 ```
 
-<h4 id="multiTerms">Multi-Terms</h4>
+<h2 id="multiTerms">Multi-Terms</h2>
 
 The multi-terms aggregation is a type of bucket aggregation that allows you to search for multiple terms and group them together in a single bucket. This aggregation can be useful in scenarios where you need to sort by document count or by a metric aggregation on a composite key to obtain the top N results.
 
@@ -522,7 +531,7 @@ We receive this as a response:
   }
 }
 ```
-<h4 id="significantTerms">Significant Terms</h4>
+<h2 id="significantTerms">Significant Terms</h2>
 
 The significant_terms aggregation is a powerful tool that enables you to identify unusual or noteworthy term occurrences within a filtered subset of data compared to the rest of the data in the index.
 
@@ -595,7 +604,7 @@ You get this response:
 For example, you may find that the "win" malware family is associated with a disproportionately large number of trojan attacks. Normally, trojans represent only a small percentage of malware attacks in the dataset, but for the "win" family, trojans make up a significant proportion of attacks. This could indicate that trojans are a common method of attack for this family. By identifying these patterns, you can gain insight into the behavior and characteristics of different malware families, and better understand how to defend against them.
 
 
-<h4 id="sampler">Sampler</h4>
+<h2 id="sampler">Sampler</h2>
 
 If you’re aggregating over millions of documents, you can use a sampler aggregation to reduce its scope to a small sample of documents for a faster response. The sampler aggregation selects the samples by top-scoring documents.
 
@@ -667,7 +676,7 @@ We get a response like:
 }
 ```
 
-<h4 id="histogram">Histogram and</h4>
+<h2 id="histogram">Histogram and</h2>
 
 The histogram aggregation is a powerful way to group documents based on a specified interval. It's particularly useful for visualizing the distribution of values within a range of documents. Although it doesn't directly generate a graph, it provides a JSON response that can be used to construct a customized visualization of the data.
 

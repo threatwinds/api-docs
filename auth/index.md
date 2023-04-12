@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Search
-nav_order: 3
+title: Authentication
+nav_order: 4
 has_children: true
 ---

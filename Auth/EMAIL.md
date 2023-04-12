@@ -1,29 +1,51 @@
-<h2>Email</h2>
+---
+layout: default
+title: Email
+parent: Authentication
+nav_order: 2
+---
+
+# Email
 <nav>
 Table of Content:
   <ul>
     <li><a href="#createEmail">Create Email</a></li>
-    <li><a href="#deleteEmail">Close Email</a></li>
+    <li><a href="#deleteEmail">Delete Email</a></li>
     <li><a href="#getEmails">Get Emails</a></li>
     <li><a href="#verifyEmail">Verify Email</a></li>
     <li><a href="#newCodeEmail">New Verification Code</a></li>
-    <li><a href="#setPreferredkEmail">Set Preferred Email</a></li>
+    <li><a href="#setPreferredEmail">Set Preferred Email</a></li>
     </ul>
 </nav>
 
+## Create Email {#createEmail}
+This API endpoint creates an unverified Email and sends a verification code.
 
-<h3 id="createEmail">Create Email</h3>
-This API endpoint creates an unverified Email and send a verification code.<br><br>
-EndPoint: https://intelligence.threatwinds.com/api/auth/v2/email
+**EndPoint** : https://intelligence.threatwinds.com/api/auth/v2/email
 
-<h4> Parameters</h4>
+### Parameters
+<dl>
+    <dt><b>Authorization header</b>(<i>string</i>)</dt>
+    <dd>
+      This authorization header can be obtained from an active session of the
+      account. Please ensure that the session is active before attempting to
+      retrieve the authorization header for the request.
+    </dd>
+    <dt><b>Message</b> (<i>JSON</i>)</dt>
+    <dd>
+        <dl>
+        <dt><b>address</b> (<i>string</i>)</dt>
+        <dd>
+        The email parameter represents a user's
+        email address that is going to be associated with their account. This
+        email address is used for communication with the user, and may also be
+        used as a way to reset their password or verify their account. _e.g.: john@doe.net_
+        </dd>
+        </dl>
+    </dd>
+</dl>
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the Email is active before attempting to retrieve the authorization header for account deletion._e.g.:
-* **Message** (_JSON_):
-  * **address**	(string): The email parameter represents a user's email address that is going to be associated with their account. This email address is used for communication with the user, and may also be used as a way to reset their password or verify their account. _e.g.: john@doe.net_<br><br>
-<br>
-
-To create a email, use a **POST**</span> request, for example:
+To create a email, use a <b class="label label-green">POST</b> request, for example:
 
 ```bash
 curl -X 'POST' \
@@ -36,26 +58,41 @@ curl -X 'POST' \
 }'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Return a verification code as Response</h5>
+**Return a verification code as Response**
 
 We get this code when the email was created successfully. It returns a verificationCodeID. Remember that you need to verify this email before you can use it.
 
->Fields of the response:
+### Fields of the response
 
-* **verificationCodeID** (_string_): The verification code id that is used in the Email Verification Endpoint to ensure that the email is valid. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
+<dl>
+  <dt><b> verificationCodeID </b> (<i>string</i>)</dt>
+  <dd>
+    The verification code id that is used in the Email Verification Endpoint to
+    ensure that the email is valid.
+    <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i>
+  </dd>
+</dl>
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "duplicated key not allowed"_
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters. This could happen when the authorization header parameter provided in the request is not valid.
 
@@ -67,12 +104,11 @@ e.g.:
   "error": "incorrect authorization header"
 }
 ```
-> <h5> Code 401 - Authentication required
-Authentication required</h5>
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
 
 The 401 error code indicates that you need authentication to do this request.
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case, the user, cannot be found.
 
@@ -80,42 +116,49 @@ There are several reasons why this may occur, such as the user not existing in t
 
 For example:
 
-```
+```json
 {
   "uuid": "7ae253bc-b1ca-4e8b-a5ca-268645e76f60",
   "error": "record not found"
 }
 ```
 
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.
 
 For example:
 
-```
+```json
 {
   "uuid": "5e67b7a2-ee10-493d-83da-15ba3cf66bd2",
   "error": "Internal Server Error"
 }
 ```
 
-<h3 id="deleteEmail">Delete Email</h3>
+## Delete Email {#deleteEmail}
 
-This API endpoint delete an Email.<br><br>
+This API endpoint deletes an Email.
 
 **EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/email>
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for account deletion._e.g.:
+<dl>
+  <dt><b>Authorization header</b>(<i>string</i>)</dt>
+  <dd>
+    This authorization header can be obtained from an active session of the
+    account. Please ensure that the Email is active before attempting to
+    retrieve the authorization header for email deletion.
+    <i>
+      e.g.: Bearer
+      fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
+    </i>
+  </dd>
+  <dt><b>Email ID</b>(<i>string</i>)</dt>
+  <dd>The id of the Email that you want to delete. <i>e.g.: john@doe.net</i></dd>
+</dl>
 
-```
-e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
-
-* **Email ID** (_string_):  The id of the Email that you want to delete.  _e.g.: john@doe.net_<br>
-  
-To delete an email, use a **DELETE** request, for example:
+To delete an email, use a <b class="label label-red">DELETE</b> request, for example:
 
 ```bash
 curl -X 'DELETE' \
@@ -124,26 +167,40 @@ curl -X 'DELETE' \
   -H 'Authorization: Bearer 5f35d2c4-5633-4b16-bxf0-5ca32ef8ea2e'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Returns the message "acknowledged" </h5>
+**Returns the message "acknowledged"**
 
-When a email is successfully deleted, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
+When an email is successfully deleted, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
 
->Fields of the response:
+### Fields of the response:
 
-* **message** (_string_): A message that describes the result of the operation. _e.g.:_"acknowledged"
+<dl>
+  <dt><b> message </b> (<i>string</i>)</dt>
+  <dd>
+    A message that describes the result of the operation. _e.g.:<i>"acknowledged"</i>
+  </dd>
+</dl>
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
 
-> <h5> Code 404 - Not found</h5>
+
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case, the email or the session, cannot be found.
 
@@ -164,7 +221,7 @@ For example:
 }
 ```
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -177,7 +234,7 @@ For example:
 }
 ```
 
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not email related.
 
 For example:
@@ -189,57 +246,73 @@ For example:
 }
 ```
 
-<h3 id="getEmails">Get Emails</h3>
+## Get Emails {#getEmails}
 
-This API endpoint to get the user emails.<br><br>
+This API endpoint gets the user's emails.<br><br>
 
 **EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/emails>
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to use the authorization header._e.g.:
+<dl>
+  <dt><b>Authorization header</b> (<i>string</i>)</dt>
+  <dd>
+    This authorization header can be obtained from an active session of the
+    account. Please ensure that the session is active before attempting to
+    use it.
+    <code>
+      e.g.: Bearer
+      fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
+    </code>
+  </dd>
+</dl>
 
-```
-e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
+To get the currents emails, use a <b class="label label-blue">GET</b> request, for example:
 
-To get the currents emails, use a **GET** request, for example:
-
-```
+```bash
 curl -X 'GET' \
   'https://intelligence.threatwinds.com/api/auth/v2/emails' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer 63VD8JoautQNqRLcqNOlJid02R7CDbWK'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Returns a list of Emails</h5>
+**Returns a list of Emails**
 
 It returns the list of the current user Emails.
 
->Fields of the response:
+### Fields of the response:
+<dl>
+  <dt><b>address</b> (<em>string</em>):</dt>
+  <dd>The address of the email.</dd>
+  <dt><b>emailID</b> (<em>string</em>):</dt>
+  <dd>The id of the email that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_</dd>
+  <dt><b>preferred</b> (<em>boolean</em>):</dt>
+  <dd>A boolean that represents if the email is set as preferred or not.</dd>
+  <dt><b>verified</b> (<em>boolean</em>):</dt>
+  <dd>A boolean that represents if the email is verified or not.</dd>
+</dl>
 
-* **address** (_string_): The address of the email.
+### Errors
 
-* **emailID** (_string_): The id of the email that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
-  
-* **preferred** (boolean): A boolean that represents if the email is set as preferred or not._<br>
+### Fields of the response
 
-* **verified** (_boolean_): A boolean that represents if the email is verified or not.
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
 
 
-><h4>Errors</h4>
-
->Fields of the response:
-
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "duplicated key not allowed"_<br><br>
-
-
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -251,12 +324,13 @@ For example:
   "error": "incorrect authorization header"
 }
 ```
-> <h5> Code 401 - Authentication required
-Authentication required</h5>
+
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
+
 
 The 401 error code indicates that you need authentication to do this request.
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b> Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case the user, cannot be found.
 
@@ -271,22 +345,23 @@ For example:
   "error": "record not found"
 }
 ```
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b> Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.
 
-<h3 id="verifyEmail">Verify Email</h3>
+## Verify Email {#verifyEmail} 
 
 This API endpoint verifies the Email using code sent by email.<br><br>
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/email/verification>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/email/verification
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **verificationCodeID** (_string_): You can obtain it from the email that you wish to verify at the time of its creation or with the New Verification Code endpoint. _e.g.: "1c233e4a-27e7-4b77-8b0d-9a35cf212afe"_<br>
-
-* **code** (_string_): A code sent to your preferred email when a email is created in the system. _e.g.: "757564"_<br>
-  
-To verify a Email, use a **PUT** request, for example:
+<dl>
+  <dt><b>verificationCodeID</b> <i>(string)</i>:</dt>
+  <dd>You can obtain it from the email that you wish to verify at the time of its creation or with the New Verification Code endpoint. <i>e.g.: "1c233e4a-27e7-4b77-8b0d-9a35cf212afe"</i></dd>
+  <dt><b>code</b> <i>(string)</i>:</dt>
+  <dd>A code is sent to your preferred email when an email is created in the system or with the New Verification Code endpoint.. <i>e.g.: "757564"</i></dd>
+</dl>To verify an email, use a<b class="label label-yellow">PUT</b>request, for example:
 
 ```bash
 curl -X 'PUT' \
@@ -299,26 +374,37 @@ curl -X 'PUT' \
 }'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Returns the message "acknowledged" </h5>
+**Returns the message "acknowledged"*When an email is successfully verified, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
 
-When a email is successfully verified, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
+### Fields of the response:
 
->Fields of the response:
+<dl>
+  <dt><b> message </b> (<i>string</i>)</dt>
+  <dd>
+    A message that describes the result of the operation. _e.g.:<i>"acknowledged"</i>
+  </dd>
+</dl>
 
-* **message** (_string_): A message that describes the result of the operation. _e.g.:_"acknowledged"
+### Errors
 
-><h4>Errors</h4>
+### Fields of the response
 
->Fields of the response:
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
-
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case, the verificationCodeID, cannot be found.
 
@@ -333,7 +419,7 @@ For example:
 }
 ```
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -345,7 +431,7 @@ For example:
   "error": "incorrect authorization header"
 }
 ```
-> <h5> Code 401 - Unauthorized</h5>
+<h3><b class="label label-red">Code 401</b>Unauthorized</h3>
 
 We get this code when the code sent is incorrect.
 
@@ -357,10 +443,10 @@ For example:
   "error": "verification code not found"
 }
 ```
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.
 
 For example:
@@ -372,25 +458,32 @@ For example:
 }
 ```
 
-<h3 id="newCodeEmail">New Verification Code</h3>
+## New Verification Code {#newCodeEmail}
 
-This API endpoint sends a new verification code.<br><br>
+This API endpoint sends a new verification code.
 
 **EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/email/verification>
 
-> <h4> Parameters</h4>
+### Parameters
+<dl>
+  <dt><b>Authorization header</b>(<i>string</i>)</dt>
+  <dd>
+    This authorization header can be obtained from an active session of the
+    account. Please ensure that the session is active before attempting to
+    use it.
+  </dd>
+  <dt><b>Message</b> (<i>JSON</i>)</dt>
+  <dd>
+      A JSON with the following parameter:<br>
+      <b>address</b> (<i>string</i>): The email parameter is the email address that you want to verify and you want to send a new verification code. <i>e.g.: john@doe.net</i>
+    </div>
+  </dd>
+  <br />
+</dl>
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for the request._e.g.:
+To send a new verification code, use a <b class="label label-green">POST</b> request, for example:
 
-```
-e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
-* **Message** (_Json_):
-   * **address**	(string): The email parameter is the email address that you want to verify and you want to send a new verification code. _e.g.: john@doe.net_<br><br>
-
-To get a new verification code, use a **POST** request, for example:
-
-```
+```bash
 curl -X 'POST' \
   'https://intelligence.threatwinds.com/api/auth/v2/email/verification' \
   -H 'accept: application/json' \
@@ -401,25 +494,41 @@ curl -X 'POST' \
 }'
 ```
 
-><h4>Returns</h4>
+### Returns 
 
-> <h5>Code 202</h5>
-<h5>Returns a verificationCodeID. </h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
+
+**Returns a verificationCodeID.**
 
 Returns a new verificationCodeID and a code is sent to the email. Then you can use both in the Verification Endpoint to verify your email.
 
->Fields of the response:
+### Fields of the response
 
-* **verificationCodeID** (_string_): The verification code id that is used in the Email Verification Endpoint ensure that the email is valid. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br><br>
+<dl>
+  <dt><b> verificationCodeID </b> (<i>string</i>)</dt>
+  <dd>
+    The verification code id that is used in the Email Verification Endpoint to
+    ensure that the email is valid.
+    <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i>
+  </dd>
+</dl>
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -431,15 +540,15 @@ For example:
   "error": "incorrect authorization header"
 }
 ```
-> <h5> Code 401 - Authentication required
-Authentication required</h5>
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
+
 
 The 401 error code indicates that you need authentication to do this request.
 
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case the email, cannot be found.
 
@@ -453,23 +562,30 @@ For example:
   "error": "record not found"
 }
 ```
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.
 
-<h3 id="setPreferredkEmail">Set Preferred Email</h3>
+## Set Preferred Email {#setPreferredEmail}
 
-This API endpoint an email as preferred<br><br>
+This API endpoint an email as preferred
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/
-/email/preferred>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/email/preferred
 
-> <h4> Parameters</h4>
+### Parameters
 
-   * **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for the request._e.g.:
-  * **Message** (_Json_):
-    * **emailID** (_string_): The id of the email that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
+   <dl>
+  <dt><b>Authorization header</b> <i>(string)</i></dt>
+  <dd>This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for the request. <i>e.g.:</i></dd>
+  <dt><b>Message</b> <i>(Json)</i>:</dt>
+  <dd>
+    <dl>
+      <dt><b>emailID</b> <i>(string)</i></dt>
+      <dd>The id of the email that was created. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
+    </dl>
+  </dd>
+</dl>
 
-To set a preferred email, use a **PUT** request, for example:
+To set a preferred email, use a <b class="label label-yellow">PUT</b> request, for example:
 
 ```bash
 curl -X 'PUT' \
@@ -482,22 +598,30 @@ curl -X 'PUT' \
 }'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
-<h5>Returns the message "acknowledged" </h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
+**Returns the message "acknowledged"**
 
-When a email is successfully set as preferred, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
+When an email is successfully set as preferred, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
 
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -509,19 +633,19 @@ For example:
   "error": "incorrect apyKey"
 }
 ```
-> <h5> Code 401 - Authentication required
-Authentication required</h5>
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
+
 
 The 401 error code indicates that you need authentication to do this request.
 
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
-The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case the email, cannot be found.
+The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case, the email, cannot be found.
 
-There are several reasons why this may occur, such as the email not existing in the system or this has expired. It's important to double-check the parameters.
+There are several reasons why this may occur, such as the email not existing in the system or it has expired. It's important to double-check the parameters.
 
 For example:
 
@@ -531,5 +655,5 @@ For example:
   "error": "record not found"
 }
 ```
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.

@@ -1,3 +1,10 @@
+---
+layout: default
+title: KeyPair
+parent: Authentication
+nav_order: 2
+---
+
 <h2>KeyPair</h2>
 
 <nav>
@@ -7,24 +14,35 @@ Table of Content:
     <li><a href="#deleteKeyPair">Delete KeyPair</a></li>
     <li><a href="#getKeyPairs">Get KeyPairs</a></li>
     <li><a href="#verifyKeyPair">Verify KeyPair</a></li>
-    <li><a href="#newCodeKeyPair">New Verification Code</a></li>
     <li><a href="#checkKeyPair">Check KeyPair</a></li>
     </ul>
 </nav>
-<h3 id="createKeyPair">Create KeyPair</h3>
+
+## Create KeyPair {#createKeyPair}
 This API endpoint creates an unverified KeyPair.<br><br>
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/keypair>
+**EndPoint**: <https://intelligence.threatwinds.com/api/auth/v2/keypair>
 
-> <h4> Parameters</h4>
+### Parameters
   
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for account deletion._e.g.:
-* **Message** (_JSON_):
-  * **days**	(_integer_): The 'days' parameter specifies the length of time, in days, that the key pair will remain valid. _e.g.: 365_
-  * **name**	(_string_): "The 'name' parameter is used to specify a name or identifier for the key pair. _e.g.: Example_
-<br>
+<dl>
+  <dt><b>Authorization header</b> <i>(string)</i></dt>
+  <dd>This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for Keypair creation. <i>e.g.: </i></dd>
+  
+  <dt><b>Message</b> <i>(JSON)</i>:</dt>
+  <dd>
+    <dl>
+      <dt><b>days</b> <i>(integer)</i></dt>
+      <dd>The 'days' parameter specifies the length of time, in days, that the key pair will remain valid. <i>e.g.: 365</i></dd>
+      
+      <dt><b>name</b> <i>(string)</i></dt>
+      <dd>The 'name' parameter is used to specify a name or identifier for the key pair. <i>e.g.: Example</i></dd>
+    </dl>
+  </dd>
+</dl>
 
-To create a KeyPair, use a **POST**</span> request, for example:
+
+To create a KeyPair, use a <b class="label label-green">POST</b> request, for example:
 
 ```bash
 curl -X 'POST' \
@@ -38,38 +56,55 @@ curl -X 'POST' \
 }'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Return a KeyPair as Response</h5>
+**Return a KeyPair as Response**
 
-We get this code when the KeyPair was created successfully. It returns a KeyPair(apiKey and apiSecret). Remember that you need to verify this keypair before you can use it.
+We get this code when the KeyPair was created successfully. It returns a KeyPair(apiKey and apiSecret). Remember that you need to verify this KeyPair before you can use it.
 
->Fields of the response:
+### Fields of the response
 
-* **apiKey** (_string_): The apiKey is a unique identifier that, when combined with the apiSecret, serves as a method of authentication for accessing to the endpoints that require authentication. It acts as a public key that identifies the authorized user or system making the API request.
+<dl>
+  <dt><b>apiKey</b> <i>(string)</i>:</dt>
+  <dd>The apiKey is a unique identifier that, when combined with the apiSecret, serves as a method of authentication for accessing to the endpoints that require authentication. It acts as a public key that identifies the authorized user or system making the API request.</dd>
   
-* **apiSecret** (_string_): The apiSecret is a piece of confidential information that, when combined with the apiKey, serves as a method of authentication for accessing to the endpoints that require it. Ensure to save the apiSecret in a safe place, this will not be shown again.
-
-* **verificationCodeID** (_string_): The verification code id that is used in the <a href="./KeyPair.md">KeyPair Verification Endpoint</a> to ensure that the KeyPair is valid. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
-
-* **expireAt** (_integer_): A timestamp that represents the expiration datetime of the KeyPair. _e.g.:1674492894_<br>
-
-* **keyID** (_string_): The id of the KeyPair that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
+  <dt><b>apiSecret</b> <i>(string)</i></dt>
+  <dd>The apiSecret is a piece of confidential information that, when combined with the apiKey, serves as a method of authentication for accessing to the endpoints that require it. Ensure to save the apiSecret in a safe place, this will not be shown again.</dd>
   
-* **keyName** (_string_): The name of the KeyPair that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
+  <dt><b>verificationCodeID</b> <i>(string)</i></dt>
+  <dd>The verification code id that is used in the <a href="./auth/KeyPair#verifyKeyPair">KeyPair Verification Endpoint</a> to ensure that the KeyPair is valid. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
+  
+  <dt><b>expireAt</b> <i>(integer)</i></dt>
+  <dd>A timestamp that represents the expiration datetime of the KeyPair. <i>e.g.: 1674492894</i></dd>
+  
+  <dt><b>keyID</b> <i>(string)</i></dt>
+  <dd>The id of the KeyPair that was created. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
+  
+  <dt><b>keyName</b> <i>(string)</i></dt>
+  <dd>The name of the KeyPair that was created. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
+  
+  <dt><b>verified</b> <i>(boolean)</i></dt>
+  <dd>A boolean that represents if the KeyPair is verified or not.</dd>
+</dl>
 
-* **verified** (_boolean_): A boolean that represents if the KeyPair is verified or not.
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "duplicated key not allowed"_
-
-> <h5> Code 400 - Bad request</h5>
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters. This could happen when the authorization header parameter provided in the request is not valid.
 
@@ -81,12 +116,12 @@ e.g.:
   "error": "incorrect authorization header"
 }
 ```
-> <h5> Code 401 - Authentication required
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
 Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request.
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case, the user, cannot be found.
 
@@ -101,7 +136,7 @@ For example:
 }
 ```
 
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.
 
 For example:
@@ -113,23 +148,30 @@ For example:
 }
 ```
 
-<h3 id="deleteKeyPair">Delete KeyPair</h3>
+## Delete KeyPair {#deleteKeyPair}
 
-This API endpoint closes a KeyPair.<br><br>
+This API endpoint delte a KeyPair.
 
 **EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/keypair>
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for account deletion._e.g.:
-
-```
-e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
-
-* **KeyPair ID** (_string_): The id of the KeyPair that you want to delete. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
+<dl>
+  <dt><b>Authorization header</b>(<i>string</i>)</dt>
+  <dd>
+    This authorization header can be obtained from an active session of the
+    account. Please ensure that the session is active before attempting to
+    retrieve the authorization header for KeyPair deletion.
+    <code>
+      e.g.: Bearer
+      fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
+    </code>
+  </dd>
+  <dt><b>Email ID</b>(<i>string</i>)</dt>
+  <dd>The id of the Email that you want to delete. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
+</dl>
   
-To delete a KeyPair, use a **DELETE** request, for example:
+To delete a KeyPair, use a <b class="label label-red">DELETE</b> request, for example:
 
 ```bash
 curl -X 'DELETE' \
@@ -138,26 +180,39 @@ curl -X 'DELETE' \
   -H 'Authorization: Bearer 5f35d2c4-5633-4b16-bxf0-5ca32ef8ea2e'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Returns the message "acknowledged" </h5>
+**Returns the message "acknowledged"**
 
 When a KeyPair is successfully deleted, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
 
->Fields of the response:
+### Fields of the response:
 
-* **message** (_string_): A message that describes the result of the operation. _e.g.:_"acknowledged"
+<dl>
+  <dt><b> message </b> (<i>string</i>)</dt>
+  <dd>
+    A message that describes the result of the operation. _e.g.:<i>"acknowledged"</i>
+  </dd>
+</dl>
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "not found"</i>
+  </dd>
+</dl>
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case, the KeyPair or the session, cannot be found.
 
@@ -178,7 +233,7 @@ For example:
 }
 ```
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -191,7 +246,7 @@ For example:
 }
 ```
 
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.
 
 For example:
@@ -203,59 +258,77 @@ For example:
 }
 ```
 
-<h3 id="getKeyPairs">Get KeyPairs</h3>
+## Get KeyPairs {#getKeyPairs}
 
 This API endpoint to get the user KeyPairs.<br><br>
 
 **EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/keypairs>
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to use the authorization header._e.g.:
+<dl>
+  <dt><b>Authorization header</b>(<i>string</i>)</dt>
+  <dd>
+    This authorization header can be obtained from an active session of the
+    account. Please ensure that the session is active before attempting to
+    retrieve the authorization header for the request.
+    <code>
+      e.g.: Bearer
+      fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
+    </code>
+  </dd>
+</dl>
 
-```
-e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
+To get the currents KeyPairs, use a <b class="label label-blue">GET</b> request, for example:
 
-To get the currents KeyPairs, use a **GET** request, for example:
-
-```
+```bash
 curl -X 'GET' \
   'https://intelligence.threatwinds.com/api/auth/v2/keypairs' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer 63VD8JoautQNqRLcqNOlJid02R7CDbWK'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Returns a list of KeyPairs</h5>
+**Returns a list of KeyPairs**
 
-It returns the list of the current user <a href="./KeyPair.md">KeyPairs</a>.
+It returns the list of the current user KeyPairs.
 
->Fields of the response:
-
-* **apiKey** (_string_): The apiKey is a unique identifier that, when combined with the apiSecret, serves as a method of authentication for accessing to the endpoints that require authentication. It acts as a public key that identifies the authorized user or system making the API request.
-
-* **expireAt** (_integer_): A timestamp that represents the expiration datetime of the KeyPair. _e.g.:1674492894_<br>
-
-* **keyID** (_string_): The id of the KeyPair that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
-  
-* **keyName** (_string_): The name of the KeyPair that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
-
-* **verified** (_boolean_): A boolean that represents if the KeyPair is verified or not.
-
-
-><h4>Errors</h4>
-
->Fields of the response:
-
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "duplicated key not allowed"_<br><br>
+### Fields of the response:
+<dl>
+  <dt><b>apiKey</b> <i>(string)</i>:</dt>
+  <dd>The apiKey is a unique identifier that, when combined with the apiSecret, serves as a method of authentication for accessing to the endpoints that require authentication. It acts as a public key that identifies the authorized user or system making the API request.</dd>
+  <dt><b>expireAt</b> <i>(integer)</i>:</dt>
+  <dd>A timestamp that represents the expiration datetime of the KeyPair. <i>e.g.: 1674492894</i></dd>
+  <dt><b>keyID</b> <i>(string)</i>:</dt>
+  <dd>The id of the KeyPair that was created. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
+  <dt><b>keyName</b> <i>(string)</i>:</dt>
+  <dd>The name of the KeyPair that was created. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
+  <dt><b>verified</b> <i>(boolean)</i>:</dt>
+  <dd>A boolean that represents if the KeyPair is verified or not.</dd>
+</dl>
 
 
-> <h5> Code 400 - Bad request</h5>
+
+### Errors
+
+### Fields of the response
+
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "duplicated key not allowed"</i>
+  </dd>
+</dl>
+
+
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -267,12 +340,12 @@ For example:
   "error": "incorrect authorization header"
 }
 ```
-> <h5> Code 401 - Authentication required
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
 Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request.
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case the user, cannot be found.
 
@@ -287,22 +360,25 @@ For example:
   "error": "record not found"
 }
 ```
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.
 
-<h3 id="verifyKeyPair">Verify KeyPair</h3>
+## Verify KeyPair{#verifyKeyPair}
 
-This API endpoint verifies the KeyPair using code sent by email.<br><br>
+This API endpoint verifies the KeyPair using code sent by email.
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/KeyPair/verification>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/KeyPair/verification
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **verificationCodeID** (_string_): You can obtain it from the KeyPair that you wish to verify at the time of its creation or with the <a href="">New Verification Code</a> endpoint. _e.g.: "1c233e4a-27e7-4b77-8b0d-9a35cf212afe"_<br>
+<dl>
+  <dt><b>verificationCodeID</b> <i>(string)</i>:</dt>
+  <dd>You can obtain it from the KeyPair that you wish to verify at the time of its creation or with the New Verification Code endpoint. <i>e.g.: "1c233e4a-27e7-4b77-8b0d-9a35cf212afe"</i></dd>
+  <dt><b>code</b> <i>(string)</i>:</dt>
+  <dd>A code sent to your preferred email when an email is created in the system. <i>e.g.: "757564"</i></dd>
+</dl>
 
-* **code** (_string_): A code sent to your preferred email when a KeyPair is created. _e.g.: "757564"_<br>
-  
-To close a KeyPair, use a **PUT** request, for example:
+To verify a KeyPair, use a<b class="label label-yellow">PUT</b>request, for example:
 
 ```bash
 curl -X 'PUT' \
@@ -315,26 +391,39 @@ curl -X 'PUT' \
 }'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Returns the message "acknowledged" </h5>
+**Returns the message "acknowledged"**
 
 When a KeyPair is successfully verified, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
 
->Fields of the response:
+### Fields of the response:
 
-* **message** (_string_): A message that describes the result of the operation. _e.g.:_"acknowledged"
+<dl>
+  <dt><b> message </b> (<i>string</i>)</dt>
+  <dd>
+    A message that describes the result of the operation.<i>e.g.:"acknowledged"</i>
+  </dd>
+</dl>
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "not found"</i>
+  </dd>
+</dl>
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case, the verificationCodeID, cannot be found.
 
@@ -349,7 +438,7 @@ For example:
 }
 ```
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -361,7 +450,7 @@ For example:
   "error": "incorrect authorization header"
 }
 ```
-> <h5> Code 401 - Unauthorized</h5>
+<h3><b class="label label-red">Code 401</b>Unauthorized</h3>
 
 We get this code when the code sent is incorrect.
 
@@ -373,10 +462,10 @@ For example:
   "error": "verification code not found"
 }
 ```
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.
 
 For example:
@@ -388,104 +477,29 @@ For example:
 }
 ```
 
-<h3 id="newCodeKeyPair">New Verification Code</h3>
+## Check KeyPair {#checkKeyPair}
 
-This API endpoint sends a new verification code.<br><br>
+This API endpoint check a KeyPair and returns privileges
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/keypair/verification>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/KeyPair
 
-> <h4> Parameters</h4>
+### Parameters
 
-* **Authorization header** (_string_): This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for the request._e.g.:
+<dl>
+  <dt><b>Authorization header</b> (<i>string</i>)</dt>
+  <dd>This authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for the request. <br> <code>e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB</code></dd>
+  <dt><b>Message</b> (<i>Json</i>)</dt>
+  <dd>
+    <dl>
+      <dt><b>apiKey</b> (<i>string</i>)</dt>
+      <dd>The apiKey is a unique identifier that, when combined with the apiSecret, serves as a method of authentication for accessing to the endpoints that require authentication. You can get it at the time of its creation or when you return the list of yours keyPairs.</dd>
+      <dt><b>apiSecret</b> (<i>string</i>)</dt>
+      <dd>The apiSecret is a piece of confidential information that, when combined with the apiKey, serves as a method of authentication for accessing to the endpoints that require it. This is only obtained at the time of its creation.</dd>
+    </dl>
+  </dd>
+</dl>
 
-```
-e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-```
-* **Message** (_Json_):
-   * **apiKey** (_string_): The apiKey is a unique identifier that, when combined with the apiSecret, serves as a method of authentication for accessing to the endpoints that require authentication. You can get it at the time of its creation or when you return the list of yours keyPairs.
-  * **apiSecret** (_string_): The apiSecret is a piece of confidential information that, when combined with the apiKey, serves as a method of authentication for accessing to the endpoints that require it. This is only obtained at the time of its creation.<br><br>
-
-To get a new verification code, use a **POST** request, for example:
-
-```
-curl -X 'POST' \
-  'https://intelligence.threatwinds.com/api/auth/v2/keypair/verification' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Jlore138gST9TnQKRWZZzLW4NfxCo0q8' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "apiKey": "fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB",
-  "apiSecret": "fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB"
-}'
-```
-
-><h4>Returns</h4>
-
-> <h5>Code 202</h5>
-<h5>Returns a verificationCodeID. </h5>
-
-Returns a new verificationCodeID and **a code is sent to your preferred email**. Then you can use both in the <a href="#verifyKeyPair">Verify Endpoint</a> to verify your KeyPair.
-
->Fields of the response:
-
-* **verificationCodeID** (_string_): The verification code id that is used in the <a href="./KeyPair.md">KeyPair Verification Endpoint</a> to ensure that the KeyPair is valid. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br><br>
-
-><h4>Errors</h4>
-
->Fields of the response:
-
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
-
-> <h5> Code 400 - Bad request</h5>
-
-The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
-
-For example:
-
-```json
-{
-  "uuid": "85f0c8a9-d361-49e9-a9d1-826c770fcffb",
-  "error": "incorrect authorization header"
-}
-```
-> <h5> Code 401 - Authentication required
-Authentication required</h5>
-
-The 401 error code indicates that you need authentication to do this request.
-
-> <h5> Code 403 - Forbidden</h5>
-A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
-
-> <h5> Code 404 - Not found</h5>
-
-The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case the KeyPair, cannot be found.
-
-There are several reasons why this may occur, such as the KeyPair not existing in the system or this has expired. It's important to double-check the authorization header.
-
-For example:
-
-```json
-{
-  "uuid": "9ca21f08-c3a3-4eeb-8179-49669d7fe1fa",
-  "error": "record not found"
-}
-```
-> <h5> Code 500 - Internal server error</h5>
-We get this code when an internal server error occurs. This is not user related.
-
-<h3 id="checkKeyPair">Check KeyPair</h3>
-
-This API endpoint check a KeyPair and returns privileges<br><br>
-
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/KeyPair>
-
-> <h4> Parameters</h4>
-
-   * **apiKey** (_string_): The apiKey is a unique identifier that, when combined with the apiSecret, serves as a method of authentication for accessing to the endpoints that require authentication. You can get it at the time of its creation or when you return the list of yours keyPairs.
-  * **apiSecret** (_string_): The apiSecret is a piece of confidential information that, when combined with the apiKey, serves as a method of authentication for accessing to the endpoints that require it. This is only obtained at the time of its creation.<br><br>
-
-To get the currents KeyPairs, use a **GET** request, for example:
+To get the currents KeyPairs, use a <b class="label label-blue">GET</b> request, for example:
 
 ```bash
 curl -X 'GET' \
@@ -495,39 +509,58 @@ curl -X 'GET' \
   -H 'api-secret: HAciZAv0IODXAd2fXYEdZMAZHiOKb3En'
 ```
 
-><h4>Returns</h4>
+### Returns
 
-> <h5>Code 202</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 <h5>Returns the message "acknowledged" </h5>
 
 When a KeyPair is successfully retrieved, the code returns a JSON object with info about the KeyPair and the user.
 
->Fields of the response:
-* **userID** (_string_): The user id owner of the KeyPair.  _e.g.:"5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e"_
+### Fields of the response:
+<dl>
+  <dt><b>userID</b> <i>(string)</i></dt>
+  <dd>The user id owner of the KeyPair. <i>e.g.: "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e"</i></dd>
   
-* **userAlias** (_string_) The user's alias on the platform. _e.g.:johny<br>_
+  <dt><b>userAlias</b> <i>(string)</i></dt>
+  <dd>The user's alias on the platform. <i>e.g.: johny</i></dd>
   
-* **userName** (_string_): user's full name.
+  <dt><b>userName</b> <i>(string)</i></dt>
+  <dd>User's full name.</dd>
   
-* **apiKey** (_string_): The apiKey is a unique identifier that, when combined with the apiSecret, serves as a method of authentication for accessing to the endpoints that require authentication. It acts as a public key that identifies the authorized user or system making the API request.
+  <dt><b>apiKey</b> <i>(string)</i></dt>
+  <dd>The apiKey is a unique identifier that, when combined with the apiSecret, serves as a method of authentication for accessing to the endpoints that require authentication. It acts as a public key that identifies the authorized user or system making the API request.</dd>
 
-* **expireAt** (_integer_): A timestamp that represents the expiration datetime of the KeyPair. _e.g.:1674492894_<br>
-
-* **keyID** (_string_): The id of the KeyPair that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
+  <dt><b>expireAt</b> <i>(integer)</i></dt>
+  <dd>A timestamp that represents the expiration datetime of the KeyPair. <i>e.g.: 1674492894</i></dd>
   
-* **keyName** (_string_): The name of the KeyPair that was created. _e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e_<br>
+  <dt><b>keyID</b> <i>(string)</i></dt>
+  <dd>The id of the KeyPair that was created. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
+  
+  <dt><b>keyName</b> <i>(string)</i></dt>
+  <dd>The name of the KeyPair that was created. <i>e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e</i></dd>
+  
+  <dt><b>verified</b> <i>(boolean)</i></dt>
+  <dd>A boolean that represents if the KeyPair is verified or not.</dd>
+</dl>
 
-* **verified** (_boolean_): A boolean that represents if the KeyPair is verified or not.<br><br>
 
 
-><h4>Errors</h4>
+### Errors
 
->Fields of the response:
+### Fields of the response
 
-* **uuid** (_string_): The id of the error. _e.g.: 6070686d-917d-44bb-ad11-02345a7f1939_
-* **error** (_string_): The description of the error. _e.g.: "not found"_
+<dl>
+  <dt><b> uuid </b> (<i>string</i>)</dt>
+  <dd>
+    The id of the error. <i>e.g.: 6070686d-917d-44bb-ad11-02345a7f1939</i>
+  </dd>
+  <dt><b> error </b> (<i>string</i>)</dt>
+  <dd>
+    The description of the error. <i>e.g.: "not found"</i>
+  </dd>
+</dl>
 
-> <h5> Code 400 - Bad request</h5>
+<h3><b class="label label-red">Code 400</b>Bad request</h3>
 
 The HTTP status code 400, also known as a "Bad Request" error, is typically returned when the server is unable to process the client's request due to issues with the request parameters.
 
@@ -539,15 +572,15 @@ For example:
   "error": "incorrect apyKey"
 }
 ```
-> <h5> Code 401 - Authentication required
+<h3><b class="label label-red">Code 401</b>Authentication required</h3>
 Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request.
 
-> <h5> Code 403 - Forbidden</h5>
+<h3><b class="label label-red">Code 403</b>Forbidden</h3>
 A 403 error code, also known as a Forbidden error, indicates that the server understood the client's request, but it is refusing to fulfill it. The server can return a 403 error if it suspects that the client is making too many requests, or if the client is using an IP address that is banned or blocked by the server. If the error persists you should contact support for further assistance.
 
-> <h5> Code 404 - Not found</h5>
+<h3><b class="label label-red">Code 404</b>Not found</h3>
 
 The HTTP status code 404, also known as a "Not Found" error occurs when the requested resource, in this case the KeyPair, cannot be found.
 
@@ -561,5 +594,5 @@ For example:
   "error": "record not found"
 }
 ```
-> <h5> Code 500 - Internal server error</h5>
+<h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.

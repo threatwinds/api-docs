@@ -1,81 +1,92 @@
-<h2>Query and Agregation</h2>
+---
+layout: default
+title: Query
+parent: Query and Aggregation
+grand_parent: Search
+nav_order: 3
+---
+
+# Query
 
 Queries are a critical component of any search system, and a Query DSL provides a flexible and powerful way to construct them. A Query DSL is a JSON-based language that enables you to specify various query clauses to create complex queries that consider multiple criteria, such as IP ranges, regular expressions, or even fuzzy matching. Each query clause performs a specific function and can be combined with other clauses to build more sophisticated queries.
 
 Query DSL and aggregation capabilities provide a robust and flexible platform for searching and analyzing your data. Whether you are building an antivirus, security platform, or analytics application, Query DSL and aggregation features can help you build sophisticated and powerful systems.
 
-
-
 <nav>
-<h4>Table of Contents</h4>
-    <ol>
-        <li><a href="#queryContext">Query Context</li>
-        <ol>
-          <li><a href="#boolean">Boolean Query</li>
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#queryContext">Query Context</a>
+      <ol>
+        <li><a href="#boolean">Boolean Query</a>
           <ol>
-          <li><a href="#filter">Filter Context</li>
-          <li><a href="#must">Must Match</li>
-          <li><a href="#mustNot">Must Not Match</li>
-          <li><a href="#should">Should Match</li>
+            <li><a href="#filter">Filter Context</a></li>
+            <li><a href="#must">Must Match</a></li>
+            <li><a href="#mustNot">Must Not Match</a></li>
+            <li><a href="#should">Should Match</a></li>
           </ol>
-          <li><a href="#termLevelVsFullText">Term-Level vs Full-Text Query</li>
-        <li><a href="#termLevel">Term-Level Queries</li>
-        <ol>
-          <li><a href="#term">Term Query</li>
-          <li><a href="#term">Terms Query</li>
-          <li><a href="#ids">Ids Query</li>
-          <li><a href="#range">Range Query</li>
-          <li><a href="#prefix">Prefix Query</li>
-          <li><a href="#exists">Exists Query</li>
-          <li><a href="#fuzzi">Fuzzi Query</li>
-          <li><a href="#wildcard">Wildcard Query</li>
-          <li><a href="#regexp">Regexp Query</li>
+        </li>
+        <li><a href="#termLevelVsFullText">Term-Level vs Full-Text Query</a></li>
+        <li><a href="#termLevel">Term-Level Queries</a>
+          <ol>
+            <li><a href="#term">Term Query</a></li>
+            <li><a href="#terms">Terms Query</a></li>
+            <li><a href="#ids">Ids Query</a></li>
+            <li><a href="#range">Range Query</a></li>
+            <li><a href="#prefix">Prefix Query</a></li>
+            <li><a href="#exists">Exists Query</a></li>
+            <li><a href="#fuzzy">Fuzzy Query</a></li>
+            <li><a href="#wildcard">Wildcard Query</a></li>
+            <li><a href="#regexp">Regexp Query</a></li>
           </ol>
-        <li><a href="#fullText">Full-Text Queries</li>
-        <ol>
-        <li><a href="#match">Match Query</li>
-        <li><a href="#multiMatch">Multi Match Query</li>
-        <li><a href="#matchBooleanPrefix">Match Bool Prefix Query</li>
-        <li><a href="#matchPhrase">Match Phrase Query</li>
-        <li><a href="#matchPhrasePrefix">Match Phrase Prefix</li>
-        <li><a href="#queryString">Query String Query</li>
-        <li><a href="#simpleQueryString">Simple Query String</li>  
+        </li>
+        <li><a href="#fullText">Full-Text Queries</a>
+          <ol>
+            <li><a href="#match">Match Query</a></li>
+            <li><a href="#multiMatch">Multi Match Query</a></li>
+            <li><a href="#matchBooleanPrefix">Match Bool Prefix Query</a></li>
+            <li><a href="#matchPhrase">Match Phrase Query</a></li>
+            <li><a href="#matchPhrasePrefix">Match Phrase Prefix Query</a></li>
+            <li><a href="#queryString">Query String Query</a></li>
+            <li><a href="#simpleQueryString">Simple Query String Query</a></li>  
+          </ol>
+        </li>
         <li><a href="#advancedOptions">Advanced Options Section</a></li>
-        </ol>
-    </ol>
+      </ol>
+    </li>
+  </ol>
 </nav>
 
 
- <h3 id="queryContext">Query</h3>
+<h2 id="queryContext">Query</h2>
 
 In the query context, a query clause answers the question “How well does this document match this query clause?” Besides deciding whether or not the document matches.
 
 When running a query clause in a query context, each matching document contains a relevance score that is stored in the **accuracy** field. This score reflects the degree of relevance of the document to the query and can be used, for example, to sort the results in descending order.
 
 
-<h4 id="boolean">Boolean Query</h4>
+<h2 id="boolean">Boolean Query</h2>
 The bool query type allows you to perform a Boolean query, which is a type of query that combines multiple conditions using logical operators like "and", "or", and "not". The bool query type is built using one or more boolean clauses, each of which can have a specific occurrence type such as <a href="#must">must</a>, <a href="#should">should</a>, <a href="#mustNot">must_not</a> or <a href="#filter">filter</a>.
 
 As a compound query type, the bool query allows you to construct complex queries by combining several simple queries. For example, you could use a bool query to search for documents that match a specific term, but also include documents that have a similar term or fall within a certain range of values.
 
 
-<h5 id="filter">Filter Context</h5>
+<h3 id="filter">Filter Context</h3>
 Before applying queries, it is often beneficial to first reduce your dataset using logical operators. This can be done using a filter clause, which contains a query that is evaluated as a boolean yes or no. Documents that meet the criteria of the query are included in the results, while those that do not are excluded.
 
 Filter queries are particularly useful for narrowing down results based on specific criteria, such as exact matches, ranges, dates, or numerical values. These queries are also cached for faster retrieval, making them a great option for filtering large datasets.
 <br>
 
-<h5 id="must">Must</h5>
+<h3 id="must">Must</h3>
 
 The "must" operator functions as a logical **AND** operator used to combine multiple query clauses. It is used to narrow down search results by specifying that all the conditions must match for a document to be included in the search results. The relevance score of each matching document is also calculated based on how well it matches all of the query clauses.
 
 
-<h5 id="mustNot">Must Not</h5>
+<h3 id="mustNot">Must Not</h3>
 
 The "must not" operator is a negation operator that functions as a logical **NOT** operator. It allows you to exclude documents from search results. This operator is used within a Boolean query as a clause to specify that the specified query or queries should not match any of the documents. The "must not" clause is executed in the filter context, which means that the query is not used to calculate the accuracy score of the documents. Instead, it is used to filter out the matching documents from the result set.
 
 
-<h5 id="should">Should</h5>
+<h3 id="should">Should</h3>
 
 In Elasticsearch, the "should" operator is used as a logical **OR** operator. It allows you to specify multiple queries within a Boolean query, and the results must match at least one of these queries. Optionally, the results can also match more than one query.
 
@@ -84,7 +95,7 @@ Each matching "should" clause contributes to the relevance score of the document
 You can set the minimum number of "should" clauses that must match for a document to be included in the search results using the "minimum_should_match" parameter. This allows you to control the level of strictness in your search results. For example, if you set the parameter to 2, then at least two of the "should" clauses must match for a document to be included in the search results.
 
 
-<h5 id="minimumShouldMatch">Minimum Should Match</h5>
+<h3 id="minimumShouldMatch">Minimum Should Match</h3>
 
 The "minimum_should_match" parameter in Elasticsearch allows you to specify the minimum number or percentage of "should" clauses that a document must match in order to be included in the search results. This parameter is used with the "should" query clause and is optional.
 
@@ -133,7 +144,7 @@ specifications can be separated by spaces, each one only being valid for numbers
 </tbody>
 </table>
 
-<h5>Example</h5>
+<h3>Example</h3>
 Let's say you want to search for all entities that meet certain criteria. Specifically, you want to find entities that are of type "malware", belong to the "pdf" malware family, are either of type "malware" or "dropper", and have a negative reputation.
 
 We are going to use the <a>Advanced Entity Search</a>.
@@ -225,7 +236,7 @@ we get a response like:
     ...]
 }
 ```
-<h4 id=termLevelVsFullText>Term-level Queries vs FullText Query</h4>
+<h2 id=termLevelVsFullText>Term-level Queries vs FullText Query</h2>
 
 Our APIs provide two types of queries for searching text: term-level and full-text queries. Term-level queries are ideal for searching structured data such as numbers, dates, or tags, where you want to find documents that match exact values. On the other hand, full-text queries are designed for full-text search and are best suited for analyzing and searching unstructured text data.
 
@@ -264,7 +275,7 @@ To help you understand the differences between these query types, the following 
     </tr>
   </tbody>
 </table>
-<h4 id="termLevel">Term Level Query</h4>
+<h2 id="termLevel">Term Level Query</h2>
 Term-level queries search for elements that contain an exact search term. 
 
 Types of Term Level Queries: 
@@ -320,7 +331,7 @@ Types of Term Level Queries:
   </tbody>
 </table>
 
-<h4 id=term>Term Query</h4>
+<h2 id=term>Term Query</h2>
 
 The term query allows you to search for documents that contain an exact term in a specific field.
 
@@ -360,7 +371,7 @@ For example, we need to construct an Elasticsearch query to retrieve all registe
 
 In this example, we're using the bool query to combine two different queries: the term query and the terms query. The term query searches for documents where the "type" field exactly matches the value "malware". The terms query searches for documents where the "malware-family" field contains any of the values "pdf" or "txt".
 
-<h4 id="ids">IDs Query</h4>
+<h2 id="ids">IDs Query</h2>
 The IDs query in Elasticsearch allows you to search for one or more documents based on their IDs. This query works by searching for document IDs stored in the "id" field.
 
 Example:
@@ -378,7 +389,7 @@ Example:
 }
 ```
 
-<h4 id="range">Range Query</h4>
+<h2 id="range">Range Query</h2>
 
 To search for a range of values in a specific field, you can use the range query. This query returns elements that contain terms within a provided range, and you can further specify date formats or relation operators such as "contains" or "within". The range query offers a variety of optional parameters.
 
@@ -452,7 +463,7 @@ Date math supports the following time units:
 **m**: Minutes
 **s**: Seconds
 
-<h5>Example expressions</h5>
+<h3>Example expressions</h3>
 The following example expressions illustrate using date math:
 
 **now+1M**: The current date and time in milliseconds since the epoch, plus 1 month.
@@ -460,7 +471,7 @@ The following example expressions illustrate using date math:
 **2022-05-18T15:23||/h**: 15:23 on 05/18/2022, rounded to the beginning of the hour. Resolves to 2022-05-18T15.
 **2022-05-18T15:23:17.789||+2M-1d/d**: 15:23:17.789 on 05/18/2022 plus 2 months minus 1 day, rounded to the beginning of the day. Resolves to 2022-07-17.
 
-<h4 id="prefix">Prefix Query</h4>
+<h2 id="prefix">Prefix Query</h2>
 
 Use the prefix query to search for terms that begin with a specific prefix.
 
@@ -477,7 +488,7 @@ Example:
 }
 ```
 
-<h4 id="exists">Exists</h4>
+<h2 id="exists">Exists</h2>
 Use the exists query to search for documents that contain a specific field.
 
 Although a field in JSON is considered non-existent when its value is null or [], it is considered to exist if it contains empty strings like "" or "-", arrays with a combination of null and other values like [null, "foo"], or a custom null-value specified in field mapping.
@@ -494,7 +505,7 @@ Example:
 }
 ```
 
-<h4 id="fuzzi">Fuzzi Query</h4>
+<h2 id="fuzzi">Fuzzi Query</h2>
 A fuzzy query searches for documents with terms that are similar to the search term within a specified Levenshtein distance, which measures the number of one-character changes needed to change one term to another. These changes include replacements, insertions, deletions, and transpositions, and a list of all possible expansions of the search term within the specified distance is created. The max_expansions field specifies the maximum number of such expansions, and documents that match any of the expansions are returned.
 
 Examples: 
@@ -518,7 +529,7 @@ For Example:
 ```
 
 
-<h4 id="wildcard">Wildcard</h4>
+<h2 id="wildcard">Wildcard</h2>
 Wildcard queries are a type of query that can be used to search for terms that match a specific pattern.
 
 The wildcard feature in Elasticsearch includes two special characters: ``*`` and ``?``. The ``*`` character specifies all valid values, while the ``?`` character specifies a single valid value. 
@@ -544,7 +555,7 @@ For example:
 For example, we can use a wildcard query to find all malware that begins with "pdf" and ends with "agent".
 
 
-<h4 id="regexp">RegExp</h4>
+<h2 id="regexp">RegExp</h2>
 
 The regexp query is used in Elasticsearch to search for terms that match a regular expression. Regular expressions can be applied to the terms in a field, but not to the entire field. The regular expression syntax used in Elasticsearch is based on Lucene, which may differ from other standard implementations. Therefore, it is important to test the regular expression thoroughly to ensure the expected results. Lucene documentation can be consulted for further details.
 
@@ -575,9 +586,9 @@ This example retrieves all Gmail email addresses that have a negative reputation
 }
 ```
 
-<h4 id=fullText>Full-Text Query</h4>
+<h2 id=fullText>Full-Text Query</h2>
 
-<h4 id=match>Match Query</h4>
+<h2 id=match>Match Query</h2>
 The match query in ElasticSearch is used to perform a full-text search on a specific field of a document. It analyzes the search string and retrieves documents that match any of its terms. By using Boolean query operators, you can combine multiple match queries to create complex searches.
 
 The match query also provides options for fuzzy matching, which can help to retrieve relevant documents even if the search terms are misspelled or have slight variations. This makes it a powerful tool for text-based searches in ElasticSearch.
@@ -605,7 +616,8 @@ The query accepts the following options. For descriptions of each, see <a href="
   }
 }
 ```
-<h4 id="multiMatch">Multi Match Query</h4>
+
+<h2 id="multiMatch">Multi Match Query</h2>
 The multi_match query type allows you to search multiple fields simultaneously in a manner similar to the match operation. You can use the ^ symbol to "boost" certain fields, giving them greater weight in the search results. Boosts are multipliers that allow you to weigh matches in one field more heavily than matches in other fields.<br><br>
 
 The query accepts the following options. For descriptions of each, see <a href="#advancedOptions">Advanced Options Section</a>.
@@ -634,7 +646,7 @@ The query accepts the following options. For descriptions of each, see <a href="
 }
 ```
 
-<h4 id="matchBooleanPrefix">Match Boolean Prefix Query</h4>
+<h2 id="matchBooleanPrefix">Match Boolean Prefix Query</h2>
 
 When using the match_bool_prefix query, the search string is analyzed and converted into a bool query, using all terms except the last one as whole words for matching. The last term is treated as a prefix, and the query returns documents that contain either the whole-word terms or terms that begin with the prefix term, in any order.
 
@@ -659,7 +671,7 @@ The query accepts the following options. For descriptions of each, see <a href="
 }
 ```
 
-<h4 id="matchPhrase">Match Phrase</h4>
+<h2 id="matchPhrase">Match Phrase</h2>
 In ElasticSearch, the match_phrase query is used to retrieve documents that contain an exact phrase in a specified order. It analyzes the text and creates a phrase query, which matches terms up to a configurable slop value (by default, slop is set to 0) in any order. If the terms are transposed, the slop value is automatically set to 2.
 
 The match_phrase query provides flexibility to phrase matching by allowing you to set the slop parameter, which determines the maximum number of positions between each term in the matched phrase. By increasing the slop value, you can retrieve documents that contain the phrase even if the terms are not in the exact order specified in the query.
@@ -683,7 +695,7 @@ The query accepts the following options. For descriptions of each, see <a href="
 }
 ```
 
-<h4 id="matchPhrasePrefix">Match phrase prefix</h4>
+<h2 id="matchPhrasePrefix">Match phrase prefix</h2>
 
 The match_phrase_prefix query in ElasticSearch allows you to search for a specified phrase in a specific order. It returns documents that contain phrases beginning with the same terms as provided, treating the last term as a prefix. The query creates a prefix query out of the last term in the query string and matches any words that begin with that term. The match_phrase_prefix query is useful for searching for incomplete phrases, and it's faster than the match_phrase query.
 
@@ -707,7 +719,7 @@ The query accepts the following options. For descriptions of each, see <a href="
 }
 ```
 
-<h4 id=queryString>Query String Query</h4>
+<h2 id=queryString>Query String Query</h2>
 
 The query_string query provides a powerful tool for searching across multiple fields with complex queries. It uses a parser to break down the provided query string into individual search terms and applies the appropriate analysis to each term.
 
@@ -775,7 +787,7 @@ The query accepts the following options. For descriptions of each, see <a href="
 }
 ```
 
-<h4 id="simpleQueryString">Simple Query String</h4>
+<h2 id="simpleQueryString">Simple Query String</h2>
 
 The simple_query_string type is a way to specify multiple search arguments directly in the query string using regular expressions. This type of search will ignore any invalid portions of the string, making it a more forgiving and flexible option for complex queries. 
 
@@ -789,7 +801,8 @@ The simple_query_string type is a way to specify multiple search arguments direc
 | `~n` | When used after a term (for example, `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. [Advanced filter options](#advanced-filter-options). |
 | `-` | Negates the term. |
 
-The query accepts the following options. For descriptions of each, see <a href="#advancedOptions">Advanced Options Section</a>.
+The query accepts the following options. For descriptions of each, see <a href="#advancedOptions">Advanced Options Section</a>
+
 
 ```json
 {
@@ -813,34 +826,66 @@ The query accepts the following options. For descriptions of each, see <a href="
 }
 ```
 
+## Advanced Options {#advancedOptions}
 
-<h4 id=advancedOptions>Advanced Options Section<h4>
+<h3>Wilcard Option</h3>
 
-<h5>Wilcard Option</h5>
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Valid values</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`allow_leading_wildcard`</td>
+      <td>Boolean</td>
+      <td>Whether `*` and `?` are allowed as the first character of a search term. The default is `true`.</td>
+    </tr>
+    <tr>
+      <td>`analyze_wildcard`</td>
+      <td>Boolean</td>
+      <td>Whether OpenSearch should attempt to analyze wildcard terms. Some analyzers do a poor job at this task, so the default is `false`.</td>
+    </tr>
+  </tbody>
+</table>
 
-| Option | Valid values | Description |
-| --- | --- | --- |
-| `allow_leading_wildcard` | Boolean | Whether `*` and `?` are allowed as the first character of a search term. The default is `true`. |
-| `analyze_wildcard` | Boolean | Whether OpenSearch should attempt to analyze wildcard terms. Some analyzers do a poor job at this task, so the default is `false`. |
+<h3>Fuzzy query options</h3>
+
+<table>
+  <tr>
+    <th>Option</th>
+    <th>Valid values</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>fuzziness</code></td>
+    <td><code>AUTO</code>, <code>0</code>, or a positive integer</td>
+    <td>The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between <code>ipv4</code> and <code>ipv6</code> is 1. The default, <code>AUTO</code>, chooses a value based on the length of each term and is a good choice for most use cases.</td>
+  </tr>
+  <tr>
+    <td><code>fuzzy_transpositions</code></td>
+    <td>Boolean</td>
+    <td>Setting <code>fuzzy_transpositions</code> to true (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the <code>fuzziness</code> option. For example, the distance between <code>malware</code> and <code>mawlare</code> is 1 if <code>fuzzy_transpositions</code> is true (swap “l” and “w”) and 2 if it is false (delete “w”, insert “w”). If <code>fuzzy_transpositions</code> is false, <code>remalware</code> and <code>mawlare</code> have the same distance (2) from <code>malware</code>, despite the more human-centric opinion that <code>mawlare</code> is an obvious typo. The default is a good choice for most use cases.</td>
+  </tr>
+  <tr>
+    <td><code>fuzzy_max_expansions</code></td>
+    <td>Positive integer</td>
+    <td>Fuzzy queries “expand to” a number of matching terms that are within the distance specified in <code>fuzziness</code>. Then OpenSearch tries to match those terms against its indexes.</td>
+  </tr>
+</table>
 
 
-<h5>Fuzzy query options</h5>
-
-| Option                      | Valid values                                  | Description                                                                                                                                                          |
-|-----------------------------|-----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `fuzziness`                 | `AUTO`, `0`, or a positive integer            | The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. <br><br> For example, the distance between `ipv4` and `ipv6` is 1. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases. |
-| `fuzzy_transpositions`      | Boolean                                       | Setting `fuzzy_transpositions` to true (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. <br><br>For example, the distance between `malware` and `mawlare` is 1 if `fuzzy_transpositions` is true (swap “l” and “w”) and 2 if it is false (delete “w”, insert “w”). <br><br> If `fuzzy_transpositions` is false, `remalware` and `mawlare` have the same distance (2) from `malware`, despite the more human-centric opinion that `mawlare` is an obvious typo.<br><br> The default is a good choice for most use cases.                                                                                                                    |
-| `fuzzy_max_expansions`      | Positive integer                              | Fuzzy queries “expand to” a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms against its indexes. |
-
-
-<h5>Synonyms in a multiple terms search</h5>
+<h3>Synonyms in a multiple terms search</h3>
 
 You can also use synonyms with the terms query type to search for multiple terms. Use the `auto_generate_synonyms_phrase_query` Boolean field. By default it is set to true. It automatically generates phrase queries for multiple term synonyms. For example, if you have the synonym "ma, malware agent" and search for ma,” OpenSearch searches for ma OR "malware agent" when the option is true or ma OR (malware AND agent) when the option is false.
 
 To learn more about the multiple terms query type, see Terms. For more reference information about phrase queries, see the <a href="https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html">Lucene documentation</a>.
 
 
-<h5>Other advanced options</h5>
+<h3>Other advanced options</h3>
 
 **boost** (_Floating-point_) Boosts the clause by the given multiplier. Useful for weighing clauses in compound queries. The default is 1.0.
 

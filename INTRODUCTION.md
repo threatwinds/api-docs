@@ -1,13 +1,16 @@
 ---
+layout: home
 title: Introduction
-layout: introduction
+nav_order: 1
 ---
+
+
 <div style="text-align:center">
 <H1>ThreatWinds API Documentation</H1>
 </div>
 
 <div style="text-align:center">
-    <img src="images/logo.png" alt="Image">
+    <img src="assets\images\logo.svg" alt="Image">
     <br>
      <a href="">• Homepage</a>
     <a href="">• Releases</a>
@@ -17,7 +20,7 @@ layout: introduction
 </div>
 <br>
 
-```
+```bash
 curl -X 'POST' \
   'https://intelligence.threatwinds.com/api/search/v1/entity' \
   -H 'accept: application/json' \
@@ -30,9 +33,9 @@ curl -X 'POST' \
 <br>
 <h3>Getting started</H3>
 <ul>
-<li ><a href="#introduction">Introduction</a></>
-<li ><a href="./QUICKSTART.md">Quickstart</a></>
-<li ><a href="./VERSIONHISTORY.md">Version history</a></>
+<li ><a href="#introduction">Introduction</a></li>
+<li ><a href="./QUICKSTART.md">Quickstart</a></li>
+<li ><a href="./VERSIONHISTORY.md">Version history</a></li>
 </ul>
 
 <div>
