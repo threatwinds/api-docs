@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Quick Start
+title: Version History
 nav_order: 7
 ---
 
