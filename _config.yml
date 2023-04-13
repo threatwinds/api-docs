@@ -4,7 +4,7 @@ title: Documentation
 description: ThreatWinds documentation for developers and advanced users.
 
 logo: "/assets/images/logo.svg"
-favicon_ico: "/assets/images/favicon.svg"
+favicon_ico: "/assets/images/favicon.ico"
 color_scheme: blueTheme
 
 kramdown:
