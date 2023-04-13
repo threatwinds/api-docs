@@ -7,11 +7,9 @@ nav_order: 2
 # Quick Start
 Welcome to the Quickstart guide for ThreatWinds API! This guide is designed to help you get started with using our API to retrieve information on Cybersecurity threats and their interrelationships.
 
-When it comes to using the ThreatWinds, it's important to have a clear idea of what you want to achieve. To help you make the most of our system, we have provided a link to a separate page that details the different APIs available, along with their documentation and usage guidelines.
+To make the most of ThreatWinds, it's crucial to have a clear idea of what you want to accomplish. To assist you in achieving your goals, we provide comprehensive documentation and usage guidelines for each of our APIs. This documentation includes detailed explanations of the various APIs available to you.
 
-<a href="./APIsLIST.md">List of API</a>
-
-Before we dive in, it's important to note that you can test our APIs using the Swagger UI. This interactive documentation allows you to explore the API's capabilities and experiment with different queries, making it an invaluable resource as you begin working with the APIs.
+Before we dive in, it's important to note that you can test our APIs using the **Swagger UI**. This interactive documentation allows you to explore the API's capabilities and experiment with different queries, making it an invaluable resource as you begin working with the APIs.
 
 ### Swagger UI Links
 * [QAuth](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html)
@@ -50,7 +48,7 @@ Example of KeyPair when you create a new one:
   ...
 }
 ```
-**See [Authentication API](./AUTHENTICATIONAPI.md) for more information.**
+**For more information on how to create a KeyPair and a Session, please refer to the [KeyPair](./Auth/KeyPair) and [Session](./Auth/SESSION) documentation.**
 <br>
 
 {: .important}

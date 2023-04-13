@@ -556,6 +556,7 @@ For example:
   "error": "record not found"
 }
 ```
+
 <h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not session related.
 

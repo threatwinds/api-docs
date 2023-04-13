@@ -12,7 +12,7 @@ nav_order: 1
 <div style="text-align:center">
     <img src="assets\images\logo.svg" alt="Image">
     <br>
-     <a href="">• Homepage</a>
+     <a href="https://threatwinds.com/">• Homepage</a>
     <a href="">• Releases</a>
     <a href="">• News</a>
     <br><br>
@@ -34,8 +34,8 @@ curl -X 'POST' \
 <h3>Getting started</H3>
 <ul>
 <li ><a href="#introduction">Introduction</a></li>
-<li ><a href="./QUICKSTART.md">Quickstart</a></li>
-<li ><a href="./VERSIONHISTORY.md">Version history</a></li>
+<li ><a href="./QUICKSTART">Quickstart</a></li>
+<li ><a href="./VERSIONHISTORY">Version history</a></li>
 </ul>
 
 <div>
@@ -56,7 +56,7 @@ By adding your own threat data, you can help make our system more accurate and r
 
 We welcome all contributions, no matter how big or small. Whether you have information on a specific threat or a general trend, your contribution can help us build a more comprehensive and accurate picture of the cybersecurity landscape.
 
-<b>See more about <a href="#introduction">Ingestion API</a></b>
+<b>See more about <a href="https://intelligence.threatwinds.com/api/ingest/v1/swagger/index.html">Ingestion API</a></b>
 </div>
 
 <div>

@@ -130,52 +130,50 @@ For example:
 }
 ```
 
-<h3>Delete user</h3>
+<h3>Get user by id</h3>
 
-This API endpoint deletes a user.<br><br>
+This API endpoint retrieves a user with a given id.<br><br>
 
-**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/user
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/user/id/{id}
 
 ### Parameters
 
 <dl>
-  <dt><b>Authorization header</b>(<i>string</i>)</dt>
+  <dt><b>User id</b>(<i>string</i>)</dt>
   <dd>
-    This authorization header can be obtained from an active session of the
-    account. Please ensure that the session is active before attempting to
-    retrieve the authorization header for account deletion.
-    <i>
-      e.g.: Bearer
-      fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB
-    </i>
+    The unique identifier of the user for which to retrieve information.
   </dd>
 </dl>
   
-To create a user, use a <b class="label label-red">DELETE</b> request, for example:
+To get an user, use a <b class="label label-blue">GET</b> request, for example:
 
 ```bash
-curl -X 'DELETE' \
-  'https://intelligence.threatwinds.com/api/auth/v2/user' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB'
+curl -X 'GET' \
+  'https://intelligence.threatwinds.com/api/auth/v2/user/id/2e4ac29c-bf32-47b0-de0d-67ec870b1277' \
+  -H 'accept: application/json'
 ```
 
 ### Returns
 
 <h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Returns the message "acknowledged" </h5>
+**The API will respond with a JSON object containing the user's full name and alias.**
 
-When a user is successfully deleted, the code returns a JSON object with a 'message' field whose value is 'acknowledged'.
+We get this code when the user was found successfully.
 
 ### Fields of the response:
 
-<dl>
-  <dt><b> message </b> (<i>string</i>)</dt>
-  <dd>
-    A message that describes the result of the operation. _e.g.:<i>"acknowledged"</i>
-  </dd>
-</dl>
+
+<tl>
+  <tr>
+    <td><b>alias</b> (<i>string</i>)</td>
+    <dd>The alias parameter represents the user's alias on the platform. The alias can contain letters, numbers, and special characters. <i>e.g.: johny</i></dd>
+  </tr>
+  <tr>
+    <td><b>fullName</b> (<i>string</i>)</td>
+    <dd>The user's full name. This name may be used as a way to verify the user. <i>e.g.: John Doe</i></dd>
+  </tr>
+</tl>
 
 ### Errors
 
