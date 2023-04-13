@@ -4,11 +4,15 @@ title: Documentation
 description: ThreatWinds documentation for developers and advanced users.
 
 logo: "/assets/images/logo.svg"
+favicon_ico: "/assets/images/favicon.svg"
 color_scheme: blueTheme
 
 kramdown:
   math_engine: mathjax
   syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
 
 callouts:
   important:

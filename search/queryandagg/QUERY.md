@@ -505,7 +505,7 @@ Example:
 }
 ```
 
-<h2 id="fuzzi">Fuzzi Query</h2>
+<h2 id="fuzzy">Fuzzy Query</h2>
 A fuzzy query searches for documents with terms that are similar to the search term within a specified Levenshtein distance, which measures the number of one-character changes needed to change one term to another. These changes include replacements, insertions, deletions, and transpositions, and a list of all possible expansions of the search term within the specified distance is created. The max_expansions field specifies the maximum number of such expansions, and documents that match any of the expansions are returned.
 
 Examples: 
