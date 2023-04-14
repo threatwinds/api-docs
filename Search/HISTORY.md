@@ -24,8 +24,6 @@ This software interface offers robust search functionality for entity report his
   <dd>It needs to be combined with the api-key. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
   </dl>
   </dd>
-  <dt><b>groups</b> (<i>string</i>)</dt>
-  <dd>This parameter specifies your access level or certain information. Default <i>global</i></dd>
   <dt><b>limit</b> (<i>int</i>)</dt>
   <dd>This parameter specifies the maximum number of results you wish to retrieve per page. (Default is 10)</dd>
   <dt><b>page</b> (<i>int</i>)</dt>
@@ -37,14 +35,37 @@ This software interface offers robust search functionality for entity report his
   <dd>The order parameter specifies the order in which the results should be sorted based on the specified "sort" parameter. It can take two values: "asc" for ascending order and "desc" for descending order. (Default is asc)</dd>
 </dl>
 
-* <h3>Message:</h3>
-    The body parameter that is going to contain the OpenSearch-like query search and aggregations.
+## Message
 
-    For Example:
+The body parameter is going to contain the OpenSearch-like query search and aggregations.
 
-    ```json
-    {
-        "aggs": {
+### Parameters
+
+<dl>
+  <dt><b>query</b> (<i>json</i>)</dt>
+  <dd>"The 'query' parameter allows users to specify their search query. For more information on how to construct valid query, please refer to the documentation on the 'QUERY' parameter available at <a href='./queryandagg/QUERY'>Query Page</a>.</dd>
+  <dt><b>agg</b> (<i>json</i>)</dt>
+  <dd>The 'aggregations' parameter allows users to specify one or more aggregations to perform on the search results. Aggregations are used to group and summarize search results according to specific criteria, such as the number of occurrences of a particular term or the average value of a particular field. For more information on how to construct valid aggregation strings, please refer to the documentation on the 'AGGREGATION' parameter available at <a href='./queryandagg/AGGREGATIONS'></a></dd>
+  <dt><b>collapse</b> (<i>json</i>)</dt>
+  <dd>The 'collapse' parameter is an optional parameter that allows users to collapse search results based on a specified field value. When a collapse field is specified, only the first document within each collapsed group is returned. <b>It's important to note that when specifying a field for collapsing, you should use the ".keyword" suffix</b></dd>
+ <dt><b>source</b> (<i>json</i>)</dt>
+  <dd>The 'source' parameter allows users to specify the fields that should be returned in the search results using the 'includes' option. By default, all fields are returned. Additionally, users can exclude specific fields from the search results using the 'excludes' option.
+  <dl>
+  <dt><b>includes</b> (<i>string list</i>)</dt>
+  <dd>The 'includes' parameter is used to specify a list of fields that should be returned in the search results.</dd>
+  <dt><b>excludes</b> (<i>string list</i>)</dt>
+  <dd>The 'excludes' parameter is used to specify a list of fields that should not be returned in the search results.</dd>
+  </dl>
+  </dd>
+  <dt><b>search_after</b> (<i>int</i>)</dt>
+  <dd>The 'search_after' parameter is used to retrieve elements after the maximum number of elements returned in a single search request, which is typically limited to 10,000 by default. This parameter allows users to iterate over the search results beyond this limit by using the 'order' field as an identifier for the last element in the previous search request. By specifying the 'search_after' parameter with the value of the 'order' field of the last element in the previous search request, users can retrieve the next set of elements in the search results. This can be useful for applications that need to retrieve large sets of search results that cannot be returned in a single search request.</dd>
+</dl>
+
+For Example:
+
+```json
+{
+  "aggs": {
     "most-active-malwares": {
       "terms": {
         "field": "attributes.malware.keyword",
@@ -59,7 +80,6 @@ This software interface offers robust search functionality for entity report his
     }
   },
   "query": {
-    "bool": {
       "filter": [
         {
           "term": {
@@ -73,9 +93,14 @@ This software interface offers robust search functionality for entity report his
             "@timestamp": {
               "gte": "now-5m",
               "lte": "now"
-            }}}
-      ]}}}
-    ```
+            }
+          }
+        }
+      ]
+  }
+}
+
+```
 
 In the previous example, we obtained a list of reports for malware-type entities within the last five minutes. We also retrieved a histogram displaying the frequency of reports in one-minute intervals, as well as a ranking of the most active malware and the corresponding number of reports for each.
 
@@ -85,18 +110,24 @@ We get a response like:
   "pages": 264,
   "items": 2632,
   "results": [
-    {
-      "@timestamp": "2023-03-30T14:37:39.806070224Z",
+   {
+      "@timestamp": "2023-04-13T10:44:39.18885102Z",
       "attributes": {
         "malware": "pdf dropper agent",
         "malware-family": "pdf",
         "malware-type": "dropper"
       },
       "entityID": "malware-20eae8ae8ec23315a7d9f07c0cbcd3651657b8604ef02e9dfcbfd6304cb824b8",
-      "id": "f87b13f3-cf04-4d6a-83b2-90c477e1e6e7",
+      "id": "26690919-131c-4b04-a50d-cec2ab0dc5aa",
       "reputation": -3,
+      "score": null,
+      "sort": [
+        1681382679188
+      ],
+      "tags": null,
       "type": "malware",
-      "userID": "2e4ad29c-bf32-47b0-ae0d-67ec870b1677"
+      "userID": "2e4ad29c-bf32-47b0-ae0d-67ec870b1677",
+      "version": 1
     },...],
     ],
   "aggregations": {
@@ -127,7 +158,8 @@ curl -X 'POST' \
   'https://intelligence.threatwinds.com/api/search/v1/entities/history' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
-  -d '{"aggs": {
+  -d '{
+  "aggs": {
     "most-active-malwares": {
       "terms": {
         "field": "attributes.malware.keyword",
@@ -142,7 +174,6 @@ curl -X 'POST' \
     }
   },
   "query": {
-    "bool": {
       "filter": [
         {
           "term": {
@@ -154,16 +185,14 @@ curl -X 'POST' \
         {
           "range": {
             "@timestamp": {
-              "gte": "now-5m",
+              "gte": "now-5d",
               "lte": "now"
             }
           }
         }
       ]
-    }
   }
 }'
-'
 ```
 
 ### Returns
@@ -176,10 +205,14 @@ When a search query is executed in the API, the response object contains a list 
 
 The following fields are included in the response:
 
-* **pages** (_string_):  The total number of pages in the result set.<br>
-* **items** (_string_) The total number of entities in the result set.
-* **result** (_entity list_):  A list of hits that correspond to the records that matched the search criteria.
-  * **aggregations**(_JSON_):  A list of metrics based on the criteria specified in the search request.
+- **pages** (_string_): The total number of pages in the result set.<br>
+- **items** (_string_) The total number of entities in the result set.
+- **result** (_entity list_): A list of hits that correspond to the records that matched the search criteria.
+  - **id** (_string_): The id of the object returned.
+  - **score** (_float_): The 'score' represent the relevance of the object to the query.
+  - **sort** (_int_): Value used as an id for the search_after parameter. 
+  - **version** (_int_): The 'version' retrieve the version number of a object. When a document is indexed or updated, a version number is generated and stored with the document. 
+- **aggregations**(_JSON_): A list of metrics based on the criteria specified in the search request.
 
 ### Errors
 

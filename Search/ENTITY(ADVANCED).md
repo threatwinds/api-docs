@@ -27,8 +27,6 @@ With our API, you can easily specify search parameters such as the search terms,
   <dd>It needs to be combined with the api-key. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
   </dl>
   </dd>
-  <dt><b>groups</b> (<i>string</i>)</dt>
-  <dd>This parameter specifies your access level or certain information. Default <i>global</i></dd>
   <dt><b>limit</b> (<i>int</i>)</dt>
   <dd>This parameter specifies the maximum number of results you wish to retrieve per page. (Default is 10)</dd>
   <dt><b>page</b> (<i>int</i>)</dt>
@@ -40,9 +38,31 @@ With our API, you can easily specify search parameters such as the search terms,
   <dd>The order parameter specifies the order in which the results should be sorted based on the specified "sort" parameter. It can take two values: "asc" for ascending order and "desc" for descending order. (Default is asc)</dd>
 </dl>
 
-### Message
+## Message
 
 The body parameter is going to contain the OpenSearch-like query search and aggregations.
+
+### Parameters
+
+<dl>
+  <dt><b>query</b> (<i>json</i>)</dt>
+  <dd>"The 'query' parameter allows users to specify their search query. For more information on how to construct valid query, please refer to the documentation on the 'QUERY' parameter available at <a href='./queryandagg/QUERY'></a>."</dd>
+  <dt><b>agg</b> (<i>json</i>)</dt>
+  <dd>The 'aggregations' parameter allows users to specify one or more aggregations to perform on the search results. Aggregations are used to group and summarize search results according to specific criteria, such as the number of occurrences of a particular term or the average value of a particular field. For more information on how to construct valid aggregation strings, please refer to the documentation on the 'AGGREGATION' parameter available at <a href='./queryandagg/AGGREGATIONS'></a></dd>
+  <dt><b>collapse</b> (<i>json</i>)</dt>
+  <dd>The 'collapse' parameter is an optional parameter that allows users to collapse search results based on a specified field value. When a collapse field is specified, only the first document within each collapsed group is returned. <b>It's important to note that when specifying a field for collapsing, you should use the ".keyword" suffix</b></dd>
+ <dt><b>source</b> (<i>json</i>)</dt>
+  <dd>The 'source' parameter allows users to specify the fields that should be returned in the search results using the 'includes' option. By default, all fields are returned. Additionally, users can exclude specific fields from the search results using the 'excludes' option.
+  <dl>
+  <dt><b>includes</b> (<i>string list</i>)</dt>
+  <dd>The 'includes' parameter is used to specify a list of fields that should be returned in the search results.</dd>
+  <dt><b>excludes</b> (<i>string list</i>)</dt>
+  <dd>The 'excludes' parameter is used to specify a list of fields that should not be returned in the search results.</dd>
+  </dl>
+  </dd>
+  <dt><b>search_after</b> (<i>int</i>)</dt>
+  <dd>The 'search_after' parameter is used to retrieve elements after the maximum number of elements returned in a single search request, which is typically limited to 10,000 by default. This parameter allows users to iterate over the search results beyond this limit by using the 'order' field as an identifier for the last element in the previous search request. By specifying the 'search_after' parameter with the value of the 'order' field of the last element in the previous search request, users can retrieve the next set of elements in the search results. This can be useful for applications that need to retrieve large sets of search results that cannot be returned in a single search request.</dd>
+</dl>
 
 For Example:
 
@@ -62,62 +82,65 @@ For Example:
     }
   },
   "query": {
-    "bool": {
-      "filter": [
-        {
-          "term": {
-            "type": {
-              "value": "malware"
-            }
+    "filter": [
+      {
+        "term": {
+          "type": {
+            "value": "malware"
           }
         }
-      ]
-    }
+      }
+    ]
+  },
+  "source": {
+    "excludes": ["attributes.malware-family"],
+    "includes": ["attributes"]
   }
 }
 ```
 
-In the previous example we are filtering all malware-type entities and obtaining the number of registered malware by type.
+In the previous example, we filtered all malware-type entities, retrieved only their field attributes without the 'malware-family' field, and obtained an aggregation showing the number of registered malware by type.
 
 We get a response like:
 
 ```json
 {
- "pages": 48,
-  "items": 475,
+  "pages": 1000,
+  "items": 10000,
   "results": [
     {
-      "@timestamp": "2023-03-28T09:05:09.669101722Z",
-      "accuracy": 2,
       "attributes": {
-        "malware": "win trojan sdbot",
-        "malware-family": "win",
-        "malware-type": "trojan"
+        "malware": "pdf dropper agent",
+        "malware-type": "dropper"
       },
-      "id": "malware-a208c4b33a1763284ce9a4584efa296372082ba82ee174597092f972767de163",
-      "reputation": -3,
-      "type": "malware"
+      "id": "malware-20eae8ae8ec23315a7d9f07c0cbcd3651657b8604ef02e9dfcbfd6304cb824b8",
+      "score": null,
+      "sort": [
+        1681382679531
+      ],
+      "version": 3408343
     },
     ...
-    ],
-      "aggregations": {
+  ],
+  "aggregations": {
     "accuracy-stats": {
-      "avg": 1.9873684210526317,
-      "count": 475,
-      "max": 3,
-      "min": 1,
-      "sum": 944
+      "avg": 0.9682105107728655,
+      "count": 325076,
+      "max": 1,
+      "min": 0,
+      "sum": 314742
     },
     "top-malware-types": {
       "buckets": [
         {
-          "doc_count": 348,
-          "key": "trojan"
+          "doc_count": 133454,
+          "key": "downloader"
         },
-    ...
-      ],
-       "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0
+        {
+          "doc_count": 87650,
+          "key": "spyware"
+        },...
+      ]
     }
   }
 }
@@ -128,12 +151,11 @@ If you have not worked with OpenSearch or elastic search before you can go to <a
 {: .note }
 "To retrieve all entities sorted by their most recent occurrence, simply make a request with an empty JSON object. The API will return the entities in descending order, from the most recent to the oldest.
 
-
 To perform a search, use a <b class="label label-green">POST</b> request, for example:
 
 ```bash
 curl -X 'POST' \
-  'https://intelligence.threatwinds.com/api/search/v1/entities?sort=reputation' \
+  'https://intelligence.threatwinds.com/api/search/v1/entities' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -151,7 +173,6 @@ curl -X 'POST' \
     }
   },
   "query": {
-    "bool": {
       "filter": [
         {
           "term": {
@@ -161,17 +182,23 @@ curl -X 'POST' \
           }
         }
       ]
-    }
+  },
+  "source": {
+    "excludes": [
+      "attributes.malware-family"
+    ],
+    "includes": [
+      "attributes"
+    ]
   }
-}
-'
+}'
 ```
 
 ### Returns
 
-> <h5>Code 200</h5>
+<h3> <b class="label label-green">Code 202</b> Accepted</h3>
 
-<h5>Retrieving a Specified Page of Results and Aggregations in the Response</h5>
+**Retrieving a Specified Page of Results and Aggregations in the Response**
 
 When a search query is executed in the API, the response object contains a list of hits that correspond to the entities that matched the search criteria, along with the corresponding aggregation.
 
@@ -180,7 +207,11 @@ The following fields are included in the response:
 - **pages** (_string_): The total number of pages in the result set.<br>
 - **items** (_string_) The total number of entities in the result set.
 - **result** (_entity list_): A list of hits that correspond to the entities that matched the search criteria.
-  - **aggregations**(_JSON_): A list of metrics based on the criteria specified in the search request.
+  - **id** (_string_): The id of the object returned.
+  - **score** (_float_): The 'score' represent the relevance of the object to the query.
+  - **sort** (_int_): Value used as an id for the search_after parameter. 
+  - **version** (_int_): The 'version' retrieve the version number of a object. When a document is indexed or updated, a version number is generated and stored with the document. 
+- **aggregations**(_JSON_): A list of metrics based on the criteria specified in the search request.
 
 ### Errors
 

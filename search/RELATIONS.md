@@ -4,7 +4,7 @@ title: Relations
 parent: Search
 nav_order: 2
 ---
-# Get Relations by entity {#entityById}
+# Get Relations by entity id{#entityById}
 This endpoint retrieves all the entities associated with a given entity based on their relationship. This API can provide valuable information for identifying relationships and patterns between entities, such as malware, domains, IP addresses, etc.
 <br><br>
 
@@ -43,10 +43,10 @@ To get the relations of one entity, use a <b class="label label-blue">GET</b>req
 
 ```bash
 curl -X 'GET' \
-  'https://intelligence.threatwinds.com/api/search/v1/associations/domain-59f5e994104053f590acdd1d2d72071669c839a60fc68291110facfa2fd16396' \
-  -H 'accept: application/json' \
-  -H 'api-key: fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB' \
-  -H 'api-secret: fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB' 
+  'https://intelligence.threatwinds.com/api/search/v1/entity/domain-59f5e994104053f590acdd1d2d72071669c839a60fc68291110facfa2fd16396/relations' \
+  -H 'accept: application/json'\
+  -H 'api-key: fq6JoEFDsxiXAl1cVxPDnK4emIQCwaUB' \
+  -H 'api-secret: fq6JoEFTsxiXAl1cVxPDnK4emIQSwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB' 
 ```
 
 ### Returns
@@ -67,8 +67,6 @@ It returns a list of associated entities or an empty list if no match is found.
   <dt><b>result</b> (<i>entity list</i>)</dt>
   <dd>A list of hits that correspond to the entities that matched the search criteria.
   </dd>
-  <dt><b>aggregations</b> (<i>JSON</i>)</dt>
-  <dd>A list of metrics based on the criteria specified in the search request.</dd>
 </dl>
 
 _e.g.:_
@@ -78,13 +76,14 @@ _e.g.:_
   "items": 1,
   "results": [
     {
-      "@timestamp": "2023-04-04T21:02:42.717161656Z",
+      "@timestamp": "2023-04-13T06:49:43.218143362Z",
       "accuracy": 1,
       "attributes": {
         "threat": "expansion on 123@123.com"
       },
       "id": "threat-d8257cec79ed8b20c32decd305c1692391c185ab13d52b3495ea486df5385b27",
       "reputation": -2,
+      "tags": null,
       "type": "threat"
     }
   ]

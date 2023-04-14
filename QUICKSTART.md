@@ -90,7 +90,6 @@ The query should look like this to achieve the user case:
     }
   },
   "query": {
-    "bool": {
       "filter": [
         {
           "term": {
@@ -108,7 +107,6 @@ The query should look like this to achieve the user case:
           }
         }
       ]
-    }
   }
 }
 ```
@@ -139,12 +137,11 @@ curl -X 'POST' \
     "malware_per_minute": {
       "date_histogram": {
         "field": "@timestamp",
-        "interval": "minutes"
+        "interval": "minute"
       }
     }
   },
   "query": {
-    "bool": {
       "filter": [
         {
           "term": {
@@ -162,7 +159,6 @@ curl -X 'POST' \
           }
         }
       ]
-    }
   }
 }'
 ```
@@ -171,35 +167,47 @@ curl -X 'POST' \
 
 ```json
 {
-    "pages": 6,
-    "items": 56,
-    "results": [
-        {
-            "@timestamp": "2023-04-05T07:31:09.86929287Z",
-            "attributes": {
-                "malware": "win malware agent",
-                "malware-family": "win",
-                "malware-type": "malware"
-            },
-            "entityID": "malware-784136848fb31fe5fadf1f5ed8af40737720be2a85124583c18495d6bcf188e3",
-            "id": "00dce3b4-1ad5-4528-b0ec-ca5b976924b2",
-            "reputation": -3,
-            "type": "malware",
-            "userID": "2e4ad29c-bf32-47b0-ae0d-67ec870b1677"
-        },
-        {
-            "@timestamp": "2023-04-04T07:29:16.156091111Z",
-            "attributes": {
-                "malware": "win malware agent",
-                "malware-family": "win",
-                "malware-type": "malware"
-            },
-            "entityID": "malware-784136848fb31fe5fadf1f5ed8af40737720be2a85124583c18495d6bcf188e3",
-            "id": "eca4df61-07ba-4543-b956-88b23efc47cd",
-            "reputation": -3,
-            "type": "malware",
-            "userID": "2e4ad29c-bf32-47b0-ae0d-67ec870b1677"
-        },...
+  "pages": 1000,
+  "items": 10000,
+  "results": [
+    {
+      "@timestamp": "2023-04-13T10:44:39.18885102Z",
+      "attributes": {
+        "malware": "pdf dropper agent",
+        "malware-family": "pdf",
+        "malware-type": "dropper"
+      },
+      "entityID": "malware-20eae8ae8ec23315a7d9f07c0cbcd3651657b8604ef02e9dfcbfd6304cb824b8",
+      "id": "26690919-131c-4b04-a50d-cec2ab0dc5aa",
+      "reputation": -3,
+      "score": null,
+      "sort": [
+        1681382679188
+      ],
+      "tags": null,
+      "type": "malware",
+      "userID": "2e4ad29c-bf32-47b0-ae0d-67ec870b1677",
+      "version": 1
+    },
+    {
+      "@timestamp": "2023-04-13T10:44:35.74704415Z",
+      "attributes": {
+        "malware": "pdf dropper agent",
+        "malware-family": "pdf",
+        "malware-type": "dropper"
+      },
+      "entityID": "malware-20eae8ae8ec23315a7d9f07c0cbcd3651657b8604ef02e9dfcbfd6304cb824b8",
+      "id": "3ea6dc17-936d-4f7e-9121-702b077681eb",
+      "reputation": -3,
+      "score": null,
+      "sort": [
+        1681382675747
+      ],
+      "tags": null,
+      "type": "malware",
+      "userID": "2e4ad29c-bf32-47b0-ae0d-67ec870b1677",
+      "version": 1
+    },...
     ],
     "aggregations": {
         "malware_per_minute": {

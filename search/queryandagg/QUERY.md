@@ -17,14 +17,11 @@ Query DSL and aggregation capabilities provide a robust and flexible platform fo
   <ol>
     <li><a href="#queryContext">Query Context</a>
       <ol>
-        <li><a href="#boolean">Boolean Query</a>
-          <ol>
-            <li><a href="#filter">Filter Context</a></li>
-            <li><a href="#must">Must Match</a></li>
-            <li><a href="#mustNot">Must Not Match</a></li>
-            <li><a href="#should">Should Match</a></li>
-          </ol>
-        </li>
+        <li><a href="#filter">Filter Context</a></li>
+        <li><a href="#must">Must Match</a></li>
+        <li><a href="#mustNot">Must Not Match</a></li>
+        <li><a href="#should">Should Match</a></li>
+      </ol>
         <li><a href="#termLevelVsFullText">Term-Level vs Full-Text Query</a></li>
         <li><a href="#termLevel">Term-Level Queries</a>
           <ol>
@@ -56,19 +53,11 @@ Query DSL and aggregation capabilities provide a robust and flexible platform fo
   </ol>
 </nav>
 
-
 <h2 id="queryContext">Query</h2>
 
 In the query context, a query clause answers the question “How well does this document match this query clause?” Besides deciding whether or not the document matches.
 
 When running a query clause in a query context, each matching document contains a relevance score that is stored in the **accuracy** field. This score reflects the degree of relevance of the document to the query and can be used, for example, to sort the results in descending order.
-
-
-<h2 id="boolean">Boolean Query</h2>
-The bool query type allows you to perform a Boolean query, which is a type of query that combines multiple conditions using logical operators like "and", "or", and "not". The bool query type is built using one or more boolean clauses, each of which can have a specific occurrence type such as <a href="#must">must</a>, <a href="#should">should</a>, <a href="#mustNot">must_not</a> or <a href="#filter">filter</a>.
-
-As a compound query type, the bool query allows you to construct complex queries by combining several simple queries. For example, you could use a bool query to search for documents that match a specific term, but also include documents that have a similar term or fall within a certain range of values.
-
 
 <h3 id="filter">Filter Context</h3>
 Before applying queries, it is often beneficial to first reduce your dataset using logical operators. This can be done using a filter clause, which contains a query that is evaluated as a boolean yes or no. Documents that meet the criteria of the query are included in the results, while those that do not are excluded.
@@ -80,11 +69,9 @@ Filter queries are particularly useful for narrowing down results based on speci
 
 The "must" operator functions as a logical **AND** operator used to combine multiple query clauses. It is used to narrow down search results by specifying that all the conditions must match for a document to be included in the search results. The relevance score of each matching document is also calculated based on how well it matches all of the query clauses.
 
-
 <h3 id="mustNot">Must Not</h3>
 
 The "must not" operator is a negation operator that functions as a logical **NOT** operator. It allows you to exclude documents from search results. This operator is used within a Boolean query as a clause to specify that the specified query or queries should not match any of the documents. The "must not" clause is executed in the filter context, which means that the query is not used to calculate the accuracy score of the documents. Instead, it is used to filter out the matching documents from the result set.
-
 
 <h3 id="should">Should</h3>
 
@@ -93,7 +80,6 @@ In Elasticsearch, the "should" operator is used as a logical **OR** operator. It
 Each matching "should" clause contributes to the relevance score of the documents. This means that if a document matches more than one "should" clause, its relevance score will be higher than if it matches only one.
 
 You can set the minimum number of "should" clauses that must match for a document to be included in the search results using the "minimum_should_match" parameter. This allows you to control the level of strictness in your search results. For example, if you set the parameter to 2, then at least two of the "should" clauses must match for a document to be included in the search results.
-
 
 <h3 id="minimumShouldMatch">Minimum Should Match</h3>
 
@@ -165,65 +151,64 @@ To make this query, you'll need to use a "bool" query, which allows you to combi
 
 ```json
 {
-    "query": {
-        "bool": {
-            "filter": [
-                {
-                    "term": {
-                        "type": {
-                            "value": "malware"
-                        }
-                    }
-                }
-            ],
-            "must": [
-                {
-                    "term": {
-                        "attributes.malware-family": {
-                            "value": "pdf"
-                        }
-                    }
-                }
-            ],
-            "must_not": [
-                {
-                    "range": {
-                        "reputation": {
-                            "gte": 0,
-                            "lte": 3
-                        }
-                    }
-                }
-            ],
-            "should": [
-                {
-                    "term": {
-                        "attributes.malware-type": {
-                            "value": "dropper"
-                        }
-                    }
-                },
-                {
-                    "term": {
-                        "attributes.malware-type": {
-                            "value": "malware"
-                        }
-                    }
-                }
-            ]
+  "query": {
+    "filter": [
+      {
+        "term": {
+          "type": {
+            "value": "malware"
+          }
         }
-    }
+      }
+    ],
+    "must": [
+      {
+        "term": {
+          "attributes.malware-family": {
+            "value": "pdf"
+          }
+        }
+      }
+    ],
+    "must_not": [
+      {
+        "range": {
+          "reputation": {
+            "gte": 0,
+            "lte": 3
+          }
+        }
+      }
+    ],
+    "should": [
+      {
+        "term": {
+          "attributes.malware-type": {
+            "value": "dropper"
+          }
+        }
+      },
+      {
+        "term": {
+          "attributes.malware-type": {
+            "value": "malware"
+          }
+        }
+      }
+    ]
+  }
 }
 ```
 
 we get a response like:
+
 ```json
 {
   ...
-  "results": [
+"results": [
     {
-      "@timestamp": "2023-03-31T18:00:55.689301889Z",
-      "accuracy": 3,
+      "@timestamp": "2023-04-13T10:44:39.531478933Z",
+      "accuracy": 1,
       "attributes": {
         "malware": "pdf dropper agent",
         "malware-family": "pdf",
@@ -231,11 +216,18 @@ we get a response like:
       },
       "id": "malware-20eae8ae8ec23315a7d9f07c0cbcd3651657b8604ef02e9dfcbfd6304cb824b8",
       "reputation": -3,
-      "type": "malware"
+      "score": null,
+      "sort": [
+        1681382679531
+      ],
+      "tags": null,
+      "type": "malware",
+      "version": 3408343
     },
     ...]
 }
 ```
+
 <h2 id=termLevelVsFullText>Term-level Queries vs FullText Query</h2>
 
 Our APIs provide two types of queries for searching text: term-level and full-text queries. Term-level queries are ideal for searching structured data such as numbers, dates, or tags, where you want to find documents that match exact values. On the other hand, full-text queries are designed for full-text search and are best suited for analyzing and searching unstructured text data.
@@ -276,9 +268,9 @@ To help you understand the differences between these query types, the following 
   </tbody>
 </table>
 <h2 id="termLevel">Term Level Query</h2>
-Term-level queries search for elements that contain an exact search term. 
+Term-level queries search for elements that contain an exact search term.
 
-Types of Term Level Queries: 
+Types of Term Level Queries:
 
 <table>
   <thead>
@@ -346,25 +338,20 @@ For example, we need to construct an Elasticsearch query to retrieve all registe
 ```json
 {
   "query": {
-    "bool": {
-      "must": [
-        {
-          "term": {
-            "type": {
-              "value": "malware"
-            }
-          }
-        },
-        {
-          "terms": {
-            "attributes.malware-family": [
-              "pdf",
-              "txt"
-            ]
+    "must": [
+      {
+        "term": {
+          "type": {
+            "value": "malware"
           }
         }
-      ]
-    }
+      },
+      {
+        "terms": {
+          "attributes.malware-family": ["pdf", "txt"]
+        }
+      }
+    ]
   }
 }
 ```
@@ -379,12 +366,16 @@ Example:
 ```json
 {
   "query": {
-    "ids": {
-      "values": [
-        "md5-386b3f6e7b3e1830fdc34d6fa85c5b243942ae6110f9a0cd43d1a330ca56e8ad",
-        "email-address-8ea1b632284536493a72c3745b77ae5f19a1e096026b88f0cfcd52475711c7ad"
-      ]
-    }
+    "must": [
+      {
+        "ids": {
+          "values": [
+            "md5-386b3f6e7b3e1830fdc34d6fa85c5b243942ae6110f9a0cd43d1a330ca56e8ad",
+            "email-address-8ea1b632284536493a72c3745b77ae5f19a1e096026b88f0cfcd52475711c7ad"
+          ]
+        }
+      }
+    ]
   }
 }
 ```
@@ -393,26 +384,25 @@ Example:
 
 To search for a range of values in a specific field, you can use the range query. This query returns elements that contain terms within a provided range, and you can further specify date formats or relation operators such as "contains" or "within". The range query offers a variety of optional parameters.
 
+| Field data type | Description                                                                                                                                                                      |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| integer_range   | A range of integer values.                                                                                                                                                       |
+| long_range      | A range of long values.                                                                                                                                                          |
+| double_range    | A range of double values.                                                                                                                                                        |
+| float_range     | A range of float values.                                                                                                                                                         |
+| ip_range        | A range of IP addresses in IPv4 or IPv6 format. Start and end IP addresses may be in different formats.                                                                          |
+| date_range      | A range of date values. Start and end dates may be in different formats. Internally, all dates are stored as unsigned 64-bit integers representing milliseconds since the epoch. |
 
-| Field data type | Description                                                                                                      |
-|----------------|------------------------------------------------------------------------------------------------------------------|
-| integer_range  | A range of integer values.                                                                                        |
-| long_range     | A range of long values.                                                                                           |
-| double_range   | A range of double values.                                                                                         |
-| float_range    | A range of float values.                                                                                          |
-| ip_range       | A range of IP addresses in IPv4 or IPv6 format. Start and end IP addresses may be in different formats.          |
-| date_range     | A range of date values. Start and end dates may be in different formats. Internally, all dates are stored as unsigned 64-bit integers representing milliseconds since the epoch.                                              |
-
-Parameter    | Description
--------------|-------------
-| gte       | Greater than or equal to.    |
-| gt        | Greater than.                |
-| lte       | Less than or equal to.       |
-| lt        | Less than.                   |
-format       | A format for dates in this query. Default is the field’s mapped format.
-relation     | Provides a relation between the query’s date range and the document’s date range. There are three types of relations that you can specify:<br>-**intersects** matches documents for which there are dates that belong to both the query’s date range and document’s date range. This is the default.<br>- **contains** matches documents for which the query’s date range is a subset of the document’s date range.<br>- **within** matches documents for which the document’s date range is a subset of the query’s date range.
-|time_zone|  used to convert date values in the query to UTC.|
-|boost | Floating point number used to decrease or increase the relevance scores of a query. Defaults to 1.0. You can use the boost parameter to adjust relevance scores for searches containing two or more queries. Boost values are relative to the default value of 1.0. A boost value between 0 and 1.0 decreases the relevance score. A value greater than 1.0 increases the relevance score.
+| Parameter | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| gte       | Greater than or equal to.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| gt        | Greater than.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| lte       | Less than or equal to.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| lt        | Less than.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| format    | A format for dates in this query. Default is the field’s mapped format.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| relation  | Provides a relation between the query’s date range and the document’s date range. There are three types of relations that you can specify:<br>-**intersects** matches documents for which there are dates that belong to both the query’s date range and document’s date range. This is the default.<br>- **contains** matches documents for which the query’s date range is a subset of the document’s date range.<br>- **within** matches documents for which the document’s date range is a subset of the query’s date range. |
+| time_zone | used to convert date values in the query to UTC.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| boost     | Floating point number used to decrease or increase the relevance scores of a query. Defaults to 1.0. You can use the boost parameter to adjust relevance scores for searches containing two or more queries. Boost values are relative to the default value of 1.0. A boost value between 0 and 1.0 decreases the relevance score. A value greater than 1.0 increases the relevance score.                                                                                                                                       |
 
 For Example:
 
@@ -420,36 +410,34 @@ To retrieve all IP addresses that have a negative reputation and were reported i
 
 ```json
 {
-    "query": {
-        "bool": {
-            "must": [
-                {
-                    "term": {
-                        "type": {
-                            "value": "ip"
-                        }
-                    }
-                },
-                {
-                    "range": {
-                        "@timestamp": {
-                            "gte": "now-24h",
-                            "lt": "now",
-                            "time_zone": "-04:00"
-                        }
-                    }
-                },
-                {
-                    "range": {
-                        "reputation": {
-                            "gte": "-3",
-                            "lt": "0"
-                        }
-                    }
-                }
-            ]
+  "query": {
+    "must": [
+      {
+        "term": {
+          "type": {
+            "value": "ip"
+          }
         }
-    }
+      },
+      {
+        "range": {
+          "@timestamp": {
+            "gte": "now-24h",
+            "lt": "now",
+            "time_zone": "-04:00"
+          }
+        }
+      },
+      {
+        "range": {
+          "reputation": {
+            "gte": "-3",
+            "lt": "0"
+          }
+        }
+      }
+    ]
+  }
 }
 ```
 
@@ -478,12 +466,17 @@ Use the prefix query to search for terms that begin with a specific prefix.
 The optional parameter "case_insensitive" allows for ASCII case-insensitive matching of the value with indexed field values when set to true, with false being the default which depends on the case sensitivity of the underlying field's mapping.
 
 Example:
+
 ```json
 {
   "query": {
-    "prefix": {
-      "attributes.malware": "pdf"
-    }
+    "must": [
+      {
+        "prefix": {
+          "attributes.malware": "pdf"
+        }
+      }
+    ]
   }
 }
 ```
@@ -498,9 +491,13 @@ Example:
 ```json
 {
   "query": {
-    "exists": {
-      "field": "attributes.country"
-    }
+    "must": [
+      {
+        "exists": {
+          "field": "attributes.country"
+        }
+      }
+    ]
   }
 }
 ```
@@ -508,52 +505,58 @@ Example:
 <h2 id="fuzzy">Fuzzy Query</h2>
 A fuzzy query searches for documents with terms that are similar to the search term within a specified Levenshtein distance, which measures the number of one-character changes needed to change one term to another. These changes include replacements, insertions, deletions, and transpositions, and a list of all possible expansions of the search term within the specified distance is created. The max_expansions field specifies the maximum number of such expansions, and documents that match any of the expansions are returned.
 
-Examples: 
+Examples:
 Replacements: IPV4 to IPV6
 Insertions: ip to ips
 Deletions: "newiphone.pdf" to "newiphone"
-Transpositions:  "netstat" to "ntestat"
+Transpositions: "netstat" to "ntestat"
 
 For Example:
 
 ```json
 {
   "query": {
-    "fuzzy": {
-      "type": {
-        "value": "maldare"
+    "must": [
+      {
+        "fuzzy": {
+          "type": {
+            "value": "maldare"
+          }
+        }
       }
-    }
+    ]
   }
 }
 ```
 
-
 <h2 id="wildcard">Wildcard</h2>
 Wildcard queries are a type of query that can be used to search for terms that match a specific pattern.
 
-The wildcard feature in Elasticsearch includes two special characters: ``*`` and ``?``. The ``*`` character specifies all valid values, while the ``?`` character specifies a single valid value. 
+The wildcard feature in Elasticsearch includes two special characters: `*` and `?`. The `*` character specifies all valid values, while the `?` character specifies a single valid value.
 
 It's important to note that wildcard queries can be slow since they need to iterate over a large number of terms. Therefore, it's best to avoid placing wildcard characters at the beginning of a query because it could be an expensive operation in terms of both resources and time.
 
 When "case_insensitive" is set to true, it enables case-insensitive matching of patterns with indexed field values. By default, this feature is set to false, meaning the matching's case sensitivity depends on the underlying field's mapping.
 
-
 For example:
+
 ```
 {
   "query": {
-    "wildcard": {
-      "attributes.malware.keyword": {
-        "value": "pdf*agent"
+    "must": [
+      {
+        "wildcard": {
+          "attributes.malware.keyword": {
+            "value": "pdf*agent"
+          }
+        }
       }
-    }
+    ]
   }
 }
 ```
 
 For example, we can use a wildcard query to find all malware that begins with "pdf" and ends with "agent".
-
 
 <h2 id="regexp">RegExp</h2>
 
@@ -565,24 +568,15 @@ This example retrieves all Gmail email addresses that have a negative reputation
 
 ```json
 {
-    'query': {
-        "bool": {
-            "must": [
-                {"regexp": {
-                        "[\w.%+-]+@gmail+\.[A-Za-z]{2,}"
-                    }
-                },
-                {
-                    "range": {
-                        "reputation": {
-                            "gte": "-3",
-                            "lt": "0"
-                        }
-                    }
-                }
-            ]
+  "query": {
+    "must": [
+      {
+        "regexp": {
+          "attributes.email-address.keyword": "[a-zA-Z]+@gmail+.[a-zA-Z]+"
         }
-    }
+      }
+    ]
+  }
 }
 ```
 
@@ -598,21 +592,25 @@ The query accepts the following options. For descriptions of each, see <a href="
 ```json
 {
   "query": {
-    "match": {
-      "type": {
-        "query": "malware",
-        "fuzziness": "AUTO",
-        "fuzzy_transpositions": true,
-        "operator":  "or",
-        "minimum_should_match": 1,
-        "analyzer": "standard",
-        "zero_terms_query": "none",
-        "lenient": false,
-        "prefix_length": 0,
-        "max_expansions": 50,
-        "boost": 1
+    "must": [
+      {
+        "match": {
+          "type": {
+            "query": "malware",
+            "fuzziness": "AUTO",
+            "fuzzy_transpositions": true,
+            "operator": "or",
+            "minimum_should_match": 1,
+            "analyzer": "standard",
+            "zero_terms_query": "none",
+            "lenient": false,
+            "prefix_length": 0,
+            "max_expansions": 50,
+            "boost": 1
+          }
+        }
       }
-    }
+    ]
   }
 }
 ```
@@ -625,23 +623,27 @@ The query accepts the following options. For descriptions of each, see <a href="
 ```json
 {
   "query": {
-    "multi_match": {
-      "query": "malware",
-      "fields": ["malware-type^4", "type"],
-      "type": "most_fields",
-      "operator": "and",
-      "minimum_should_match": 3,
-      "tie_breaker": 0.0,
-      "analyzer": "standard",
-      "boost": 1,
-      "fuzziness": "AUTO",
-      "fuzzy_transpositions": true,
-      "lenient": false,
-      "prefix_length": 0,
-      "max_expansions": 50,
-      "auto_generate_synonyms_phrase_query": true,
-      "zero_terms_query": "none"
-    }
+    "must": [
+      {
+        "multi_match": {
+          "query": "malware",
+          "fields": ["malware-type^4", "type"],
+          "type": "most_fields",
+          "operator": "or",
+          "minimum_should_match": 3,
+          "tie_breaker": 0.0,
+          "analyzer": "standard",
+          "boost": 1,
+          "fuzziness": "AUTO",
+          "fuzzy_transpositions": true,
+          "lenient": false,
+          "prefix_length": 0,
+          "max_expansions": 50,
+          "auto_generate_synonyms_phrase_query": true,
+          "zero_terms_query": "none"
+        }
+      }
+    ]
   }
 }
 ```
@@ -655,18 +657,22 @@ The query accepts the following options. For descriptions of each, see <a href="
 ```json
 {
   "query": {
-    "match_bool_prefix": {
-      "attributes.malware": {
-        "query": "win malware",
-        "fuzziness": "AUTO",
-        "fuzzy_transpositions": true,
-        "max_expansions": 50,
-        "prefix_length": 0,
-        "operator":  "or",
-        "minimum_should_match": 2,
-        "analyzer": "standard"
+    "must": [
+      {
+        "match_bool_prefix": {
+          "attributes.malware": {
+            "query": "win malware",
+            "fuzziness": "AUTO",
+            "fuzzy_transpositions": true,
+            "max_expansions": 50,
+            "prefix_length": 0,
+            "operator": "or",
+            "minimum_should_match": 2,
+            "analyzer": "standard"
+          }
+        }
       }
-    }
+    ]
   }
 }
 ```
@@ -683,14 +689,18 @@ The query accepts the following options. For descriptions of each, see <a href="
 ```json
 {
   "query": {
-    "match_phrase": {
-      "attributes.malware": {
-        "query": "win malware agent",
-        "slop": 3,
-        "analyzer": "standard",
-        "zero_terms_query": "none"
+    "must": [
+      {
+        "match_phrase": {
+          "attributes.malware": {
+            "query": "win malware agent",
+            "slop": 3,
+            "analyzer": "standard",
+            "zero_terms_query": "none"
+          }
+        }
       }
-    }
+    ]
   }
 }
 ```
@@ -701,20 +711,23 @@ The match_phrase_prefix query in ElasticSearch allows you to search for a specif
 
 For example, a search using the match_phrase_prefix query could return entities that contain phrases beginning with "malware a" in the message field. This search would match a message value of "win malware agent" or "html malware agent".
 
-
 The query accepts the following options. For descriptions of each, see <a href="#advancedOptions">Advanced Options Section</a>.
 
 ```json
 {
   "query": {
-    "match_phrase_prefix": {
-      "title": {
-        "query": "malware a",
-        "analyzer": "standard",
-        "max_expansions": 50,
-        "slop": 3
+    "must": [
+      {
+        "match_phrase_prefix": {
+          "title": {
+            "query": "malware a",
+            "analyzer": "standard",
+            "max_expansions": 50,
+            "slop": 3
+          }
+        }
       }
-    }
+    ]
   }
 }
 ```
@@ -723,7 +736,7 @@ The query accepts the following options. For descriptions of each, see <a href="
 
 The query_string query provides a powerful tool for searching across multiple fields with complex queries. It uses a parser to break down the provided query string into individual search terms and applies the appropriate analysis to each term.
 
-The parser supports a wide range of operators, such as AND, OR, NOT, and parentheses, allowing for complex boolean queries. It also supports wildcard characters, such as * and ?, fuzziness, Proximity searches,  regular expressions and ranges.
+The parser supports a wide range of operators, such as AND, OR, NOT, and parentheses, allowing for complex boolean queries. It also supports wildcard characters, such as \* and ?, fuzziness, Proximity searches, regular expressions and ranges.
 
 In addition, the query_string query allows for the specification of search fields using the syntax field:query, allowing for targeted searches across specific fields.
 
@@ -745,8 +758,7 @@ Search for all entities where the malware field contains the exact phrase "multi
 
 **attributes.malware:"multios malware agent"**
 
-
-Search for all entities where any of the fields "malware-family", "malware" or "malware-type" contains the word "ransomware" (note how we need to escape the * with a backslash):
+Search for all entities where any of the fields "malware-family", "malware" or "malware-type" contains the word "ransomware" (note how we need to escape the \* with a backslash):
 
 **attributes.\*:ransomware**
 
@@ -754,74 +766,80 @@ Search for all entities where the field "description" has a non-null value:
 
 **exists:description**
 
-
 The query accepts the following options. For descriptions of each, see <a href="#advancedOptions">Advanced Options Section</a>.
 
 ```json
 {
   "query": {
-    "query_string": {
-      "query": "(html OR multios) AND malware agent",
-      "default_field": "title",
-      "type": "best_fields",
-      "fuzziness": "AUTO",
-      "fuzzy_transpositions": true,
-      "fuzzy_max_expansions": 50,
-      "fuzzy_prefix_length": 0,
-      "minimum_should_match": 1,
-      "default_operator": "or",
-      "analyzer": "standard",
-      "lenient": false,
-      "boost": 1,
-      "allow_leading_wildcard": true,
-      "enable_position_increments": true,
-      "phrase_slop": 3,
-      "max_determinized_states": 10000,
-      "time_zone": "-08:00",
-      "quote_field_suffix": "",
-      "quote_analyzer": "standard",
-      "analyze_wildcard": false,
-      "auto_generate_synonyms_phrase_query": true
-    }
+    "must": [
+      {
+        "query_string": {
+          "query": "(html OR multios) AND malware agent",
+          "default_field": "title",
+          "type": "best_fields",
+          "fuzziness": "AUTO",
+          "fuzzy_transpositions": true,
+          "fuzzy_max_expansions": 50,
+          "fuzzy_prefix_length": 0,
+          "minimum_should_match": 1,
+          "default_operator": "or",
+          "analyzer": "standard",
+          "lenient": false,
+          "boost": 1,
+          "allow_leading_wildcard": true,
+          "enable_position_increments": true,
+          "phrase_slop": 3,
+          "max_determinized_states": 10000,
+          "time_zone": "-08:00",
+          "quote_field_suffix": "",
+          "quote_analyzer": "standard",
+          "analyze_wildcard": false,
+          "auto_generate_synonyms_phrase_query": true
+        }
+      }
+    ]
   }
 }
 ```
 
 <h2 id="simpleQueryString">Simple Query String</h2>
 
-The simple_query_string type is a way to specify multiple search arguments directly in the query string using regular expressions. This type of search will ignore any invalid portions of the string, making it a more forgiving and flexible option for complex queries. 
+The simple_query_string type is a way to specify multiple search arguments directly in the query string using regular expressions. This type of search will ignore any invalid portions of the string, making it a more forgiving and flexible option for complex queries.
 
-| Special character | Behavior |
-| --- | --- |
-| `+` | Acts as the `and` operator. |
-| `|` | Acts as the `or` operator. |
-| `*` | Acts as a wildcard. |
-| `""` | Wraps several terms into a phrase. |
-| `()` | Wraps a clause for precedence. |
-| `~n` | When used after a term (for example, `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. [Advanced filter options](#advanced-filter-options). |
-| `-` | Negates the term. |
+| Special character | Behavior                                                                                                                                                      |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `+`               | Acts as the `and` operator.                                                                                                                                   |
+| `                 | `                                                                                                                                                             | Acts as the `or` operator. |
+| `*`               | Acts as a wildcard.                                                                                                                                           |
+| `""`              | Wraps several terms into a phrase.                                                                                                                            |
+| `()`              | Wraps a clause for precedence.                                                                                                                                |
+| `~n`              | When used after a term (for example, `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. [Advanced filter options](#advanced-filter-options). |
+| `-`               | Negates the term.                                                                                                                                             |
 
 The query accepts the following options. For descriptions of each, see <a href="#advancedOptions">Advanced Options Section</a>
-
 
 ```json
 {
   "query": {
-    "simple_query_string": {
-      "query": "malware agent -html",
-      "fields": ["title"],
-      "flags": "ALL",
-      "fuzzy_transpositions": true,
-      "fuzzy_max_expansions": 50,
-      "fuzzy_prefix_length": 0,
-      "minimum_should_match": 1,
-      "default_operator": "or",
-      "analyzer": "standard",
-      "lenient": false,
-      "quote_field_suffix": "",
-      "analyze_wildcard": false,
-      "auto_generate_synonyms_phrase_query": true
-    }
+    "must": [
+      {
+        "simple_query_string": {
+          "query": "malware agent -html",
+          "fields": ["title"],
+          "flags": "ALL",
+          "fuzzy_transpositions": true,
+          "fuzzy_max_expansions": 50,
+          "fuzzy_prefix_length": 0,
+          "minimum_should_match": 1,
+          "default_operator": "or",
+          "analyzer": "standard",
+          "lenient": false,
+          "quote_field_suffix": "",
+          "analyze_wildcard": false,
+          "auto_generate_synonyms_phrase_query": true
+        }
+      }
+    ]
   }
 }
 ```
@@ -877,13 +895,11 @@ The query accepts the following options. For descriptions of each, see <a href="
   </tr>
 </table>
 
-
 <h3>Synonyms in a multiple terms search</h3>
 
 You can also use synonyms with the terms query type to search for multiple terms. Use the `auto_generate_synonyms_phrase_query` Boolean field. By default it is set to true. It automatically generates phrase queries for multiple term synonyms. For example, if you have the synonym "ma, malware agent" and search for ma,” OpenSearch searches for ma OR "malware agent" when the option is true or ma OR (malware AND agent) when the option is false.
 
 To learn more about the multiple terms query type, see Terms. For more reference information about phrase queries, see the <a href="https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html">Lucene documentation</a>.
-
 
 <h3>Other advanced options</h3>
 
@@ -893,8 +909,7 @@ To learn more about the multiple terms query type, see Terms. For more reference
 
 **fields** (_string array_) The list of fields to search. If unspecified, defaults to the index.query.default_field setting, which defaults to ["*"].
 
-**flags** (_string_): A |-delimited string of flags to enable (e.g., AND|OR|NOT). The default is ALL. You can explicitly set the value for default_field. 
-
+**flags** (_string_): A |-delimited string of flags to enable (e.g., AND|OR|NOT). The default is ALL. You can explicitly set the value for default_field.
 
 **lenient**(_boolean_) Setting lenient to true lets you ignore data type mismatches between the query and the document field. For example, a query string of “8.2” could match a field of type float. The default is false.
 
@@ -916,12 +931,12 @@ To learn more about the multiple terms query type, see Terms. For more reference
 
 **rewrite** (_constant_score, scoring_boolean, constant_score_boolean, top_terms_N, top_terms_boost_N, top_terms_blended_freqs_N_) Determines how it rewrites and scores multi-term queries. The default is constant_score.
 
-**slop** (_	0 (default) or a positive integer_) Controls the degree to which words in a query can be misordered and still be considered a match. From the <a href="https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html#getSlop--">Lucene documentation</a>: “The number of other words permitted between words in query phrase. For example, to switch the order of two words requires two moves (the first move places the words atop one another), so to permit re-orderings of phrases, the slop must be at least two. A value of zero requires an exact match.”
+**slop** (_ 0 (default) or a positive integer_) Controls the degree to which words in a query can be misordered and still be considered a match. From the <a href="https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html#getSlop--">Lucene documentation</a>: “The number of other words permitted between words in query phrase. For example, to switch the order of two words requires two moves (the first move places the words atop one another), so to permit re-orderings of phrases, the slop must be at least two. A value of zero requires an exact match.”
 
-**tie_breaker**(_0.0 (default) to 1.0_) Changes the way of scores searches. For example, a type of best_fields typically uses the highest score from any one field. If you specify a tie_breaker value between 0.0 and 1.0, the score changes to highest score + tie_breaker * score for all other matching fields. If you specify a value of 1.0, OpenSearch adds together the scores for all matching fields (effectively defeating the purpose of best_fields).
+**tie_breaker**(_0.0 (default) to 1.0_) Changes the way of scores searches. For example, a type of best_fields typically uses the highest score from any one field. If you specify a tie_breaker value between 0.0 and 1.0, the score changes to highest score + tie_breaker \* score for all other matching fields. If you specify a value of 1.0, OpenSearch adds together the scores for all matching fields (effectively defeating the purpose of best_fields).
 
 **time_zone** (_UTC offset hours_) Specifies the number of hours to offset the desired time zone from UTC. You need to indicate the time zone offset number if the query string contains a date range. For example, set time_zone": "-08:00" for a query with a date range such as "query": "wind rises release_date[2012-01-01 TO 2014-01-01]"). The default time zone format used to specify number of offset hours is UTC.
 
 **type** (_best_fields, most_fields, cross_fields, phrase, phrase_prefix_) Determines how it executes the query and scores the results. The default is best_fields.
 
-**zero_terms_query** (_none, all_) 	If the analyzer removes all terms from a query string, whether to match no documents (default) or all documents. For example, the stop analyzer removes all terms from the string “an but this.”
+**zero_terms_query** (_none, all_) If the analyzer removes all terms from a query string, whether to match no documents (default) or all documents. For example, the stop analyzer removes all terms from the string “an but this.”

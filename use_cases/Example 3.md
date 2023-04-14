@@ -88,8 +88,13 @@ An example of the information we might receive from the API could look like this
   },
   "id": "url-abe8ccb7784c8fabd6d25a6784ab21319abd4c55ba17f3288d0946dfa04cc1e9",
   "reputation": -1,
+  "score": null,
+      "sort": [
+        1681487700139
+      ],
   "tags": [],
-  "type": "url"
+  "type": "url",
+  "version": 2
 }
 ```
 

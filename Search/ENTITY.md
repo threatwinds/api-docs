@@ -88,15 +88,16 @@ The API returns this code when an entity is found successfully. It returns the e
 _e.g.:_
 ```json
 {
-  "@timestamp": "2023-03-28T14:54:04.03077028Z",
-  "accuracy": 3,
+  "@timestamp": "2023-04-13T06:27:19.357776778Z",
+  "accuracy": 1,
   "attributes": {
-    "malware": "pdf dropper agent",
-    "malware-family": "pdf",
+    "malware": "doc dropper agent",
+    "malware-family": "doc",
     "malware-type": "dropper"
   },
-  "id": "malware-20eae8ae8ec23315a7d9f07c0cbcd3651657b8604ef02e9dfcbfd6304cb824b8",
+  "id": "malware-354f478ccf22fdb49d2c4fd1e112bd05960bd9976f9709cbb46a7b04297d2b5a",
   "reputation": -3,
+  "tags": null,
   "type": "malware"
 }
 ```
@@ -238,15 +239,16 @@ The API returns this code when an entity is found successfully. It returns the e
 _e.g.:_
 ```json
 {
-  "@timestamp": "2023-03-28T14:54:04.03077028Z",
-  "accuracy": 3,
+  "@timestamp": "2023-04-13T09:52:33.262967801Z",
+  "accuracy": 1,
   "attributes": {
-    "malware": "pdf dropper agent",
-    "malware-family": "pdf",
-    "malware-type": "dropper"
+    "malware": "win malware agent",
+    "malware-family": "win",
+    "malware-type": "malware"
   },
-  "id": "malware-20eae8ae8ec23315a7d9f07c0cbcd3651657b8604ef02e9dfcbfd6304cb824b8",
+  "id": "malware-784136848fb31fe5fadf1f5ed8af40737720be2a85124583c18495d6bcf188e3",
   "reputation": -3,
+  "tags": null,
   "type": "malware"
 }
 ```

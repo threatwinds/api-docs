@@ -35,15 +35,38 @@ This API endpoint offers advanced search capabilities for entity relationships t
   <dd>The order parameter specifies the order in which the results should be sorted based on the specified "sort" parameter. It can take two values: "asc" for ascending order and "desc" for descending order. (Default is asc)</dd>
 </dl>
   
-### Message
-  The body parameter that is going to contain the OpenSearch-like query search and aggregations.
+## Message
+
+The body parameter is going to contain the OpenSearch-like query search and aggregations.
+
+### Parameters
+
+<dl>
+  <dt><b>query</b> (<i>json</i>)</dt>
+  <dd>"The 'query' parameter allows users to specify their search query. For more information on how to construct valid query, please refer to the documentation on the 'QUERY' parameter available at <a href='./queryandagg/QUERY'></a>."</dd>
+  <dt><b>agg</b> (<i>json</i>)</dt>
+  <dd>The 'aggregations' parameter allows users to specify one or more aggregations to perform on the search results. Aggregations are used to group and summarize search results according to specific criteria, such as the number of occurrences of a particular term or the average value of a particular field. For more information on how to construct valid aggregation strings, please refer to the documentation on the 'AGGREGATION' parameter available at <a href='./queryandagg/AGGREGATIONS'></a></dd>
+  <dt><b>collapse</b> (<i>json</i>)</dt>
+  <dd>The 'collapse' parameter is an optional parameter that allows users to collapse search results based on a specified field value. When a collapse field is specified, only the first document within each collapsed group is returned. <b>It's important to note that when specifying a field for collapsing, you should use the ".keyword" suffix</b></dd>
+ <dt><b>source</b> (<i>json</i>)</dt>
+  <dd>The 'source' parameter allows users to specify the fields that should be returned in the search results using the 'includes' option. By default, all fields are returned. Additionally, users can exclude specific fields from the search results using the 'excludes' option.
+  <dl>
+  <dt><b>includes</b> (<i>string list</i>)</dt>
+  <dd>The 'includes' parameter is used to specify a list of fields that should be returned in the search results.</dd>
+  <dt><b>excludes</b> (<i>string list</i>)</dt>
+  <dd>The 'excludes' parameter is used to specify a list of fields that should not be returned in the search results.</dd>
+  </dl>
+  </dd>
+  <dt><b>search_after</b> (<i>int</i>)</dt>
+  <dd>The 'search_after' parameter is used to retrieve elements after the maximum number of elements returned in a single search request, which is typically limited to 10,000 by default. This parameter allows users to iterate over the search results beyond this limit by using the 'order' field as an identifier for the last element in the previous search request. By specifying the 'search_after' parameter with the value of the 'order' field of the last element in the previous search request, users can retrieve the next set of elements in the search results. This can be useful for applications that need to retrieve large sets of search results that cannot be returned in a single search request.</dd>
+</dl>
+
 
   For Example:
 
 ```json
 {
     "query": {
-        "bool": {
             "filter": [
                 {
                     "term": {
@@ -60,7 +83,6 @@ This API endpoint offers advanced search capabilities for entity relationships t
                     }
                 }
             ]
-        }
     }
 }
 ```
@@ -88,7 +110,11 @@ We get a response like:
           "malware",
           "system-file"
         ],
-        "type": "md5"
+        "type": "md5",
+        "visibleBy": [
+          "quantfall",
+          "public"
+        ]
       },
       "id": "c8cb9af272e3486cf27841b7dfd942b3f19467559feb461255c4b93f8ce14472",
       "mode": "association",
@@ -103,8 +129,17 @@ We get a response like:
         "entityID": "malware-3bc164dcb2816c523af114432e3109d5dad55bd67c705f7eebdf2c68ed84d626",
         "reputation": -3,
         "tags": null,
-        "type": "malware"
-      }
+        "type": "malware",
+        "visibleBy": [
+          "quantfall",
+          "public"
+        ]
+      },
+      "score": null,
+      "sort": [
+        1681311611899
+      ],
+      "version": 1
     }
   ]
 }
@@ -121,25 +156,26 @@ curl -X 'POST' \
   'https://intelligence.threatwinds.com/api/search/v1/relations' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
-  -d '   {
-  "query": {
-    "bool": {
-      "filter": [
-        {
-          "term": {
-            "entity.entityID.keyword": {
-              "value": "md5-68522c19344fadfb8c2c5d0c966f837ad2bfe75ebde38f9512b9d9457a873a85"}
-          }
-        },{
-"term": {
-            "relation.type.keyword": {
-              "value": "malware"}
-          }
-        }
-      ]
+  -d '{
+    "query": {
+            "filter": [
+                {
+                    "term": {
+                        "entity.entityID.keyword": {
+                            "value": "md5-68522c19344fadfb8c2c5d0c966f837ad2bfe75ebde38f9512b9d9457a873a85"
+                        }
+                    }
+                },
+                {
+                    "term": {
+                        "relation.type.keyword": {
+                            "value": "malware"
+                        }
+                    }
+                }
+            ]
     }
-  }
-  }'
+}'
 ```
 
 ### Returns
@@ -165,12 +201,20 @@ The following fields are included in the response:
       <dd>The id of the relation.</dd>
       <dt><b>mode</b> (<i>string</i>)</dt>
   <dd>The type of the relation, it can be <b>description</b> or <b>association</b>.</dd>
-  
   <dt><b>entity</b> (<i>entity</i>)</dt>
   <dd>The 'center entity' that determines the main entity of interest for the search criteria, while the related entity is specified in the "relation" field.</dd>
   
   <dt><b>relation</b> (<i>entity</i>)</dt>
   <dd>The related entity.</dd>
+
+  <dt><b>score</b> (<i>float</i>)</dt>
+  <dd>The 'score' represent the relevance of the object to the query.</dd>
+
+  <dt><b>sort</b> (<i>int</i>)</dt>
+  <dd>Value used as an id for the search_after parameter.</dd>
+
+  <dt><b>version</b> (<i>int</i>)</dt>
+  <dd>The 'version' retrieve the version number of a object. When a document is indexed or updated, a version number is generated and stored with the document. </dd>
 </dl>
   </dd>
   <dt><b>aggregations</b> (<i>JSON</i>)</dt>
