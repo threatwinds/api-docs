@@ -48,7 +48,7 @@ Example of KeyPair when you create a new one:
   ...
 }
 ```
-**For more information on how to create a KeyPair and a Session, please refer to the [KeyPair](./Auth/KeyPair) and [Session](./Auth/SESSION) documentation.**
+**For more information on how to create a KeyPair and a Session, please refer to the [KeyPair](./auth/KeyPair) and [Session](./auth/SESSION) documentation.**
 <br>
 
 {: .important}
