@@ -13,7 +13,7 @@ To accomplish this, the developer can use the Advanced Search Endpoint to search
 
 **STEP 1**
 
-To retrieve domains with negative reputation, we can use the <a href="../Search/ENTITY(ADVANCED)">Advanced Entity Search</a> endpoint available in the Search API. The following query can be used:
+To retrieve domains with negative reputation, we can use the <a href="../search/ENTITY(ADVANCED)">Advanced Entity Search</a> endpoint available in the Search API. The following query can be used:
 
 ```json
 {

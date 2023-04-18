@@ -15,7 +15,7 @@ _**md5**: "2ed56a78d957dcde2db76e830f5f0741"_
 
 **STEP 1**
 
-To retrieve the md5 entity associated with the given hash, we can use the <a href="../Search/ENTITY(ADVANCED)">Advanced Entity Search</a> endpoint available in the Search API. Here is an example query:
+To retrieve the md5 entity associated with the given hash, we can use the <a href="../search/ENTITY(ADVANCED)">Advanced Entity Search</a> endpoint available in the Search API. Here is an example query:
 
 ```json
 {
@@ -65,7 +65,7 @@ The response would contain the md5 entity, as shown below:
 
 To determine the reputation of a file, we can check the "reputation" attribute in the response. The scale for reputation ranges from -3 (extremely bad) to 3 (excellent). In this case, the file has a negative reputation with a value of -3, which is the worst possible rating on the scale.
 
-**STEP 2** Now that we have retrieved the ID of the md5 file associated with the given hash, we can proceed to the next step, which is to use the <a href="../Search/RELATIONS(ADVANCED)">Advanced Relations</a> endpoint to retrieve the malware associated with that file.
+**STEP 2** Now that we have retrieved the ID of the md5 file associated with the given hash, we can proceed to the next step, which is to use the <a href="../search/RELATIONS(ADVANCED)">Advanced Relations</a> endpoint to retrieve the malware associated with that file.
 
 ```json
 {
