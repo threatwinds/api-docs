@@ -1,4 +1,4 @@
-remote_theme: just-the-docs/just-the-docs@v0.4.2
+theme: just-the-docs
 
 title: Documentation
 description: ThreatWinds documentation for developers and advanced users.
