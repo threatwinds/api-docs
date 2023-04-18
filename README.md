@@ -1,1 +1,1 @@
-# Threat Winds Documentation
+# ThreatWinds Documentation
