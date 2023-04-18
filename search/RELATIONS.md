@@ -19,9 +19,9 @@ This endpoint retrieves all the entities associated with a given entity based on
   <dd>The authorization header of the session if it is your authentication method.<br>
       <code>e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB</code></dd>
   <dt><b>api-key</b> (<i>string</i>)</dt>
-  <dd>It needs to be combined with the api-secret. You can get it from the <a href="../Auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dd>It needs to be combined with the api-secret. You can get it from the <a href="../auth/KeyPair">Key Pair Endpoints</a>.</dd>
   <dt><b>api-secret</b> (<i>string</i>)</dt>
-  <dd>It needs to be combined with the api-key. You can get it from the <a href="../Auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dd>It needs to be combined with the api-key. You can get it from the <a href="../auth/KeyPair">Key Pair Endpoints</a>.</dd>
   </dl>
   </dd>
   <dt><b>groups</b> (<i>string</i>)</dt>

@@ -20,9 +20,9 @@ This API endpoint retrieves the last entity that matches the given type and valu
   <dd>The authorization header of the session if it is your authentication method.<br>
       <code>e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB</code></dd>
   <dt><b>api-key</b> (<i>string</i>)</dt>
-  <dd>It needs to be combined with the api-secret. You can get it from the <a href="../Auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dd>It needs to be combined with the api-secret. You can get it from the <a href="../auth/KeyPair">Key Pair Endpoints</a>.</dd>
   <dt><b>api-secret</b> (<i>string</i>)</dt>
-  <dd>It needs to be combined with the api-key. You can get it from the <a href="../Auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dd>It needs to be combined with the api-key. You can get it from the <a href="../auth/KeyPair">Key Pair Endpoints</a>.</dd>
   </dl>
   </dd>
 <dt><b>Message</b>(<i>JSON</i>)</dt>
@@ -181,9 +181,9 @@ This API endpoint retrieves the entity that matches the given id.
   <dd>The authorization header of the session if it is your authentication method.<br>
       <code>e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB</code></dd>
   <dt><b>api-key</b> (<i>string</i>)</dt>
-  <dd>It needs to be combined with the api-secret. You can get it from the <a href="../Auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dd>It needs to be combined with the api-secret. You can get it from the <a href="../auth/KeyPair">Key Pair Endpoints</a>.</dd>
   <dt><b>api-secret</b> (<i>string</i>)</dt>
-  <dd>It needs to be combined with the api-key. You can get it from the <a href="../Auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dd>It needs to be combined with the api-key. You can get it from the <a href="../auth/KeyPair">Key Pair Endpoints</a>.</dd>
   </dl>
   </dd>
   <dt><b>entityID</b> (<i>string</i>)</dt>
