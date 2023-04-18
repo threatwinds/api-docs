@@ -240,5 +240,5 @@ curl -X 'POST' \
 }
 
 ```
-
+<br>
 Great! You're now ready to start exploring the documentation and learn more about the Threat Winds API.
