@@ -112,7 +112,7 @@ The query should look like this to achieve the user case:
 ```
 Here's how this query accomplishes these tasks:
 
-* The **most-active-malwares** aggregation uses the <a href="./Search/queryandagg/AGGREGATIONS#terms">terms</a> aggregation to group the malware reports by their name, and then returns the top 50 most frequent ones.
+* The **most-active-malwares** aggregation uses the <a href="./Search/queryandagg/AGGREGATIONS#term">terms</a> aggregation to group the malware reports by their name, and then returns the top 50 most frequent ones.
 * The **malware_per_minut**e aggregation uses the <a href="./Search/queryandagg/AGGREGATIONS#histogram">date_histogram</a> aggregation to group the malware reports by day.
 The **query** section use a <a href="./Search/queryandagg/QUERY.md#filter">filter</a> the results to only include malware reports within the last 5 minutes.
 
