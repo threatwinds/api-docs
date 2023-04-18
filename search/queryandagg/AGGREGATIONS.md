@@ -351,7 +351,7 @@ In the example, we'll be retrieving the count of malware reports grouped by type
           "size": 50
         },
         "aggs": {
-            "top_sales_hits": {
+            "top-malware-hits": {
                 "top_hits": {
                   "size": 3
                 }
@@ -547,7 +547,7 @@ Suppose you want to identify which malware families and types occur most frequen
     "malware-family": {
       "terms": { "field": "attributes.malware-family.keyword" },
       "aggs": {
-        "significant_malware types": {
+        "significant_malware_types": {
           "significant_terms": { "field": "attributes.malware-type.keyword" }
         }
       }
@@ -578,7 +578,7 @@ You get this response:
         {
           "doc_count": 1089,
           "key": "win",
-          "significant_malware types": {
+          "significant_malware_types": {
             "bg_count": 10854210,
             "buckets": [
               {
@@ -685,7 +685,7 @@ Suppose you want to gain insights into the distribution of email reputation in t
 ```json
 {
   "aggs": {
-      "number_of_bytes": {
+      "reputation_histogram": {
       "histogram": {
         "field": "reputation",
         "interval": 1
@@ -712,7 +712,7 @@ We get this as response:
 ```json
 {...,
  "aggregations": {
-    "number_of_bytes": {
+    "reputation_histogram": {
       "buckets": [
         {
           "doc_count": 232,
