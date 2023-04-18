@@ -61,7 +61,7 @@ Now that you have successfully authenticated, you can begin searching for inform
 
 For example, let's say you want to retrieve malware reports from the past 5 minutes. You may also want to gather statistics on the distribution of malware per minute, identify the top active malware, and determine the quantity of each malware type present.
 
-**STEP 1** The first thing you need to know is which endpoint to use. In this case, since you want to retrieve the latest records, you should use the <a href="./Search/HISTORY.md">HISTORY</a> endpoint. To do this, you will need to make a POST request to https://intelligence.threatwinds.com/api/search/v1/entities/history.
+**STEP 1** The first thing you need to know is which endpoint to use. In this case, since you want to retrieve the latest records, you should use the <a href="./Search/HISTORY">HISTORY</a> endpoint. To do this, you will need to make a POST request to https://intelligence.threatwinds.com/api/search/v1/entities/history.
 
 **STEP 2** The second thing you need to know is the structure of the entity you are searching for. To do this, you can consult the [Definition Page](./DEFINITIONS).
 
@@ -112,9 +112,9 @@ The query should look like this to achieve the user case:
 ```
 Here's how this query accomplishes these tasks:
 
-* The **most-active-malwares** aggregation uses the <a href="./Search/Search_and_Agg/AGGREGATIONS.md#terms">terms</a> aggregation to group the malware reports by their name, and then returns the top 50 most frequent ones.
-* The **malware_per_minut**e aggregation uses the <a href="./Search/Search_and_Agg/AGGREGATIONS.md#histogram">date_histogram</a> aggregation to group the malware reports by day.
-The **query** section use a <a href="./Search/Search_and_Agg/QUERY.md#filter">filter</a> the results to only include malware reports within the last 5 minutes.
+* The **most-active-malwares** aggregation uses the <a href="./Search/queryandagg/AGGREGATIONS#terms">terms</a> aggregation to group the malware reports by their name, and then returns the top 50 most frequent ones.
+* The **malware_per_minut**e aggregation uses the <a href="./Search/queryandagg/AGGREGATIONS#histogram">date_histogram</a> aggregation to group the malware reports by day.
+The **query** section use a <a href="./Search/queryandagg/QUERY.md#filter">filter</a> the results to only include malware reports within the last 5 minutes.
 
 
 **STEP 4**:Now we can make the request! To make it, you can use a tool like cURL or an HTTP client like Postman. Here is an example cURL command using the query you provided:

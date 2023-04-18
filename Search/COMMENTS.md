@@ -15,18 +15,16 @@ This API endpoint is designed to retrieve the comments associated with a specifi
   
 <dl>
   <dt><b>Autentication</b></dt>
-  <dd>Authentication can be via Authorization header or Key-Pair. See the See <a href="/QUICKSTART#auth">Quick Start Auth</a> for a short explanation.<dl>
+  <dd>Authentication can be via Authorization header or Key-Pair. See the See <a href="../QUICKSTART#auth">Quick Start Auth</a> for a short explanation.<dl>
   <dt><b>Authorization</b> (<i>string</i>)</dt>
   <dd>The authorization header of the session if it is your authentication method.<br>
       <code>e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB</code></dd>
   <dt><b>api-key</b> (<i>string</i>)</dt>
-  <dd>It needs to be combined with the api-secret. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dd>It needs to be combined with the api-secret. You can get it from the <a href="../Auth/KeyPair">Key Pair Endpoints</a>.</dd>
   <dt><b>api-secret</b> (<i>string</i>)</dt>
-  <dd>It needs to be combined with the api-key. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dd>It needs to be combined with the api-key. You can get it from the <a href="../Auth/KeyPair">Key Pair Endpoints</a>.</dd>
   </dl>
   </dd>
-  <dt><b>groups</b> (<i>string</i>)</dt>
-  <dd>This parameter specifies your access level or certain information. Default <i>global</i></dd>
   <dt><b>limit</b> (<i>int</i>)</dt>
   <dd>This parameter specifies the maximum number of results you wish to retrieve per page. (Default is 10)</dd>
   <dt><b>page</b> (<i>int</i>)</dt>
@@ -104,7 +102,6 @@ For example:
 }
 ```
 <h3><b class="label label-red">Code 401</b>Authentication required</h3>
-Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request. See <a> Authentication API Page</a> for more details.
 

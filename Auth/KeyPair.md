@@ -363,7 +363,7 @@ For example:
 <h3><b class="label label-yellow">Code 500</b>Internal server error</h3>
 We get this code when an internal server error occurs. This is not user related.
 
-## Verify KeyPair{#verifyKeyPair}
+## Verify KeyPair {#verifyKeyPair}
 
 This API endpoint verifies the KeyPair using code sent by email.
 

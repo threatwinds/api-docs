@@ -7,7 +7,15 @@ nav_order: 2
 
 # User
 
-## Create User
+<nav>
+Table of Content:
+  <ul>
+    <li><a href="#createUser">Create User</a></li>
+    <li><a href="#getUserById">Get User by ID</a></li>
+    </ul>
+</nav>
+
+## Create User {#createUser}
 This API endpoint creates a new user and an unverified session.
 
 **EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/user
@@ -130,7 +138,7 @@ For example:
 }
 ```
 
-<h3>Get user by id</h3>
+## Get user by id {#getUserById}
 
 This API endpoint retrieves a user with a given id.<br><br>
 

@@ -26,7 +26,7 @@ Query DSL and aggregation capabilities provide a robust and flexible platform fo
         <li><a href="#termLevel">Term-Level Queries</a>
           <ol>
             <li><a href="#term">Term Query</a></li>
-            <li><a href="#terms">Terms Query</a></li>
+            <li><a href="#term">Terms Query</a></li>
             <li><a href="#ids">Ids Query</a></li>
             <li><a href="#range">Range Query</a></li>
             <li><a href="#prefix">Prefix Query</a></li>
@@ -48,7 +48,6 @@ Query DSL and aggregation capabilities provide a robust and flexible platform fo
           </ol>
         </li>
         <li><a href="#advancedOptions">Advanced Options Section</a></li>
-      </ol>
     </li>
   </ol>
 </nav>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Example 3
+title: Website Reputation Chrome Extension
 parent: Use Cases
 nav_order: 3
 ---

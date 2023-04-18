@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Example 2
+title: Negative Reputation Domains list
 parent: Use Cases
 nav_order: 2
 ---

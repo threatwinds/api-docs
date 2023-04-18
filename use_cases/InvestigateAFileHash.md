@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Example 1
+title: Investigate a file Hash
 parent: Use Cases
 nav_order: 1
 ---

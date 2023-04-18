@@ -14,14 +14,14 @@ Our API provides efficient analysis of entities' relationship records over time 
   
 <dl>
   <dt><b>Autentication</b></dt>
-  <dd>Authentication can be via Authorization header or Key-Pair. See the See <a href="/QUICKSTART#auth">Quick Start Auth</a> for a short explanation.<dl>
+  <dd>Authentication can be via Authorization header or Key-Pair. See the See <a href="../QUICKSTART#auth">Quick Start Auth</a> for a short explanation.<dl>
   <dt><b>Authorization</b> (<i>string</i>)</dt>
   <dd>The authorization header of the session if it is your authentication method.<br>
       <code>e.g.: Bearer fq6JoEFTsxiXAl1cVxPDnK4emIQCwaUBfq6JoEFTsxiXAl1cVxPDnK4emIQCwaUB</code></dd>
   <dt><b>api-key</b> (<i>string</i>)</dt>
-  <dd>It needs to be combined with the api-secret. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dd>It needs to be combined with the api-secret. You can get it from the <a href="../Auth/KeyPair">Key Pair Endpoints</a>.</dd>
   <dt><b>api-secret</b> (<i>string</i>)</dt>
-  <dd>It needs to be combined with the api-key. You can get it from the <a href="./auth/KeyPair">Key Pair Endpoints</a>.</dd>
+  <dd>It needs to be combined with the api-key. You can get it from the <a href="../Auth/KeyPair">Key Pair Endpoints</a>.</dd>
   </dl>
   </dd>
   <dt><b>limit</b> (<i>int</i>)</dt>
@@ -42,9 +42,9 @@ Our API provides efficient analysis of entities' relationship records over time 
 
 <dl>
   <dt><b>query</b> (<i>json</i>)</dt>
-  <dd>"The 'query' parameter allows users to specify their search query. For more information on how to construct valid query, please refer to the documentation on the 'QUERY' parameter available at <a href='./queryandagg/QUERY'></a>."</dd>
+  <dd>"The 'query' parameter allows users to specify their search query. For more information on how to construct valid query, please refer to the documentation on the 'QUERY' parameter available at <a href='./queryandagg/QUERY'>Query Page</a>.</dd>
   <dt><b>agg</b> (<i>json</i>)</dt>
-  <dd>The 'aggregations' parameter allows users to specify one or more aggregations to perform on the search results. Aggregations are used to group and summarize search results according to specific criteria, such as the number of occurrences of a particular term or the average value of a particular field. For more information on how to construct valid aggregation strings, please refer to the documentation on the 'AGGREGATION' parameter available at <a href='./queryandagg/AGGREGATIONS'></a></dd>
+  <dd>The 'aggregations' parameter allows users to specify one or more aggregations to perform on the search results. Aggregations are used to group and summarize search results according to specific criteria, such as the number of occurrences of a particular term or the average value of a particular field. For more information on how to construct valid aggregation strings, please refer to the documentation on the 'AGGREGATION' parameter available at <a href='./queryandagg/AGGREGATIONS'>Aggregation Page</a></dd>
   <dt><b>collapse</b> (<i>json</i>)</dt>
   <dd>The 'collapse' parameter is an optional parameter that allows users to collapse search results based on a specified field value. When a collapse field is specified, only the first document within each collapsed group is returned. <b>It's important to note that when specifying a field for collapsing, you should use the ".keyword" suffix</b></dd>
  <dt><b>source</b> (<i>json</i>)</dt>
@@ -83,7 +83,7 @@ In the previous example, we are retrieving records that show every time a win Tr
 {: .note }
 "To retrieve all records sorted by their most recent occurrence, simply make a request with an empty JSON object. The API will return the records in descending order, from the most recent to the oldest.
 
-To perform a history search, use a **POST**</span> request, for example:
+To perform a history search, use a <b class="label label-green">POST</b> request, for example:
 
 ```bash
 curl -X 'POST' \
