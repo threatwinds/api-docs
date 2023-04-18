@@ -5,7 +5,7 @@ parent: Search
 nav_order: 2
 ---
 
-# Get Comments {#getComments}
+# Get Comments
 
 This API endpoint is designed to retrieve the comments associated with a specific entity.
 

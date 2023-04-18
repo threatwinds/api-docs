@@ -4,7 +4,7 @@ title: Relations
 parent: Search
 nav_order: 2
 ---
-# Get Relations by entity id{#entityById}
+# Get Relations by entity id {#RelationsByEntityId}
 This endpoint retrieves all the entities associated with a given entity based on their relationship. This API can provide valuable information for identifying relationships and patterns between entities, such as malware, domains, IP addresses, etc.
 <br><br>
 
