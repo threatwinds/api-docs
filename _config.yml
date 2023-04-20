@@ -29,6 +29,5 @@ callouts:
     color: red
 
 aux_links:
-  Git: https://github.com/ThreatWinds/Documentation
-  Blog: https://developers.threatwinds.com
-  Support: https://support.threatwinds.com
+  Documentation Git: https://github.com/ThreatWinds/Documentation
+  Developers Blog: https://developers.threatwinds.com
