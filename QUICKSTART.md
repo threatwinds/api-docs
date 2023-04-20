@@ -113,8 +113,8 @@ The query should look like this to achieve the user case:
 Here's how this query accomplishes these tasks:
 
 * The **most-active-malwares** aggregation uses the <a href="./search/queryandagg/QUERY#term">terms</a> aggregation to group the malware reports by their name, and then returns the top 50 most frequent ones.
-* The **malware_per_minut**e aggregation uses the <a href="./search/queryandagg/AGGREGATIONS#histogram">date_histogram</a> aggregation to group the malware reports by day.
-The **query** section use a <a href="./search/queryandagg/QUERY#filter">filter</a> the results to only include malware reports within the last 5 minutes.
+* The **malware_per_minute** aggregation uses the <a href="./search/queryandagg/AGGREGATIONS#histogram">date_histogram</a> aggregation to group the malware reports per minute.
+* The **query** section use a <a href="./search/queryandagg/QUERY#filter">filter</a> the results to only include malware reports within the last 5 minutes.
 
 
 **STEP 4**:Now we can make the request! To make it, you can use a tool like cURL or an HTTP client like Postman. Here is an example cURL command using the query you provided:
