@@ -32,3 +32,6 @@ aux_links:
   Platform: https://threatwinds.com
   GitHub: https://github.com/ThreatWinds
   Developer Center: https://developers.threatwinds.com
+
+ga_tracking: G-2XGJLEJ20P
+ga_tracking_anonymize_ip: true
