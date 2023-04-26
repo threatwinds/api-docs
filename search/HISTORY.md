@@ -8,7 +8,7 @@ nav_order: 2
 # Get Entities Records History
 This software interface offers robust search functionality for entity report history by providing an OpenSearch-like query search option. This enables you to easily and effectively search through a vast number of reports. Furthermore, it provides aggregation features that enable you to conduct intricate data analysis on your search results.
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/search/v1/entities/history><br><br>
+**EndPoint:** https://intelligence.threatwinds.com/api/search/v1/entities/history<br><br>
 
 ### Parameters
   
@@ -241,7 +241,6 @@ For example:
 }
 ```
 <h3><b class="label label-red">Code 401</b>Authentication required</h3>
-Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request. See <a> Authentication API Page</a> for more details.
 

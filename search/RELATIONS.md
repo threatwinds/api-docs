@@ -8,7 +8,7 @@ nav_order: 2
 This endpoint retrieves all the entities associated with a given entity based on their relationship. This API can provide valuable information for identifying relationships and patterns between entities, such as malware, domains, IP addresses, etc.
 <br><br>
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/search/v1/entity/{id}/relations>
+**EndPoint:** https://intelligence.threatwinds.com/api/search/v1/entity/{id}/relations
 
 ### Parameters
   

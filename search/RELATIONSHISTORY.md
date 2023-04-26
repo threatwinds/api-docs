@@ -231,7 +231,6 @@ For example:
 }
 ```
 <h3><b class="label label-red">Code 401</b>Authentication required</h3>
-Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request. See <a> Authentication API Page</a> for more details.
 

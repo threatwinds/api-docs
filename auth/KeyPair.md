@@ -21,7 +21,7 @@ Table of Content:
 ## Create KeyPair {#createKeyPair}
 This API endpoint creates an unverified KeyPair.<br><br>
 
-**EndPoint**: <https://intelligence.threatwinds.com/api/auth/v2/keypair>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/keypair
 
 ### Parameters
   
@@ -117,7 +117,6 @@ e.g.:
 }
 ```
 <h3><b class="label label-red">Code 401</b>Authentication required</h3>
-Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request.
 
@@ -152,7 +151,7 @@ For example:
 
 This API endpoint delte a KeyPair.
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/keypair>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/keypair
 
 ### Parameters
 
@@ -262,7 +261,7 @@ For example:
 
 This API endpoint to get the user KeyPairs.<br><br>
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/keypairs>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/keypairs
 
 ### Parameters
 
@@ -341,7 +340,6 @@ For example:
 }
 ```
 <h3><b class="label label-red">Code 401</b>Authentication required</h3>
-Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request.
 
@@ -573,7 +571,6 @@ For example:
 }
 ```
 <h3><b class="label label-red">Code 401</b>Authentication required</h3>
-Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request.
 

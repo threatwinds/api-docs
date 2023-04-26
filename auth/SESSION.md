@@ -331,7 +331,6 @@ For example:
 }
 ```
 <h3><b class="label label-red">Code 401</b>Authentication required</h3>
-Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request.
 
@@ -358,7 +357,7 @@ We get this code when an internal server error occurs. This is not session relat
 ## Verify Session {#verifySession}
 
 This API endpoint verifies the Sign-in of a session using code sent by email.
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/session/verification>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/session/verification
 
 ### Parameters
 
@@ -535,7 +534,6 @@ For example:
 }
 ```
 <h3><b class="label label-red">Code 401</b>Authentication required</h3>
-Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request.
 
@@ -654,7 +652,6 @@ For example:
 }
 ```
 <h3><b class="label label-red">Code 401</b>Authentication required</h3>
-Authentication required</h5>
 
 The 401 error code indicates that you need authentication to do this request. See <a> Authentication API Page</a> for more details.
 

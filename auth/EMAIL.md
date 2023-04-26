@@ -21,7 +21,7 @@ Table of Content:
 ## Create Email {#createEmail}
 This API endpoint creates an unverified Email and sends a verification code.
 
-**EndPoint** : https://intelligence.threatwinds.com/api/auth/v2/email
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/email
 
 ### Parameters
 <dl>
@@ -139,7 +139,7 @@ For example:
 
 This API endpoint deletes an Email.
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/email>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/email
 
 ### Parameters
 
@@ -250,7 +250,7 @@ For example:
 
 This API endpoint gets the user's emails.<br><br>
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/emails>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/emails
 
 ### Parameters
 
@@ -462,7 +462,7 @@ For example:
 
 This API endpoint sends a new verification code.
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/auth/v2/email/verification>
+**EndPoint:** https://intelligence.threatwinds.com/api/auth/v2/email/verification
 
 ### Parameters
 <dl>

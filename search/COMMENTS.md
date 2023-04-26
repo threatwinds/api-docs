@@ -9,7 +9,7 @@ nav_order: 2
 
 This API endpoint is designed to retrieve the comments associated with a specific entity.
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/search/v1/comments/{id}>
+**EndPoint:** https://intelligence.threatwinds.com/api/search/v1/comments/{id}
 
 ### Parameters
   

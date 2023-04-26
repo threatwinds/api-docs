@@ -170,7 +170,7 @@ We get this code when an internal server error occurs. This is not session relat
 This API endpoint retrieves the entity that matches the given id.
 <br><br>
 
-**EndPoint:** <https://intelligence.threatwinds.com/api/search/v1/entity/{id}>
+**EndPoint:** https://intelligence.threatwinds.com/api/search/v1/entity/{id}
 
 ### Parameters
   
