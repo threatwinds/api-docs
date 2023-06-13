@@ -29,8 +29,7 @@ callouts:
     color: red
 
 aux_links:
-  Website: https://threatwinds.com
-  Platform: https://app.threatwinds.com
+  Platform: https://threatwinds.com
   GitHub: https://github.com/ThreatWinds
   Developer Center: https://developers.threatwinds.com
 
