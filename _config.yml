@@ -29,9 +29,9 @@ callouts:
     color: red
 
 aux_links:
-  Platform: https://threatwinds.com
+  App: https://threatwinds.com
   GitHub: https://github.com/ThreatWinds
-  Developer Center: https://developers.threatwinds.com
+  Support: https://support.threatwinds.com/help/1606218418
 
 ga_tracking: G-S1QNNPZWEM
 ga_tracking_anonymize_ip: false
