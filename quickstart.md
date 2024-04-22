@@ -2,7 +2,7 @@
 layout: default
 title: Quickstart
 nav_order: 2
-permalink: /quickstart.md
+permalink: /quickstart
 ---
 
 # Quickstart

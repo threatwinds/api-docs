@@ -3,6 +3,7 @@ layout: default
 title: Email
 parent: Authentication
 nav_order: 2
+permalink: /auth/email
 ---
 
 # Email

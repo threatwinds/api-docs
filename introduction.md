@@ -28,7 +28,7 @@ Our API offers a range of features that can be tailored to your specific needs, 
 
 ## Getting started
 
-* [Quickstart](quickstart.md)
+* [Quickstart](/quickstart)
 
 ## Get involved
 
