@@ -16,7 +16,7 @@ Table of Content:
 * [Verify Email](#verifyEmail)
 * [Set Preferred Email](#setPreferredEmail)
   
-## Create email
+## Create email {#createEmail}
 This API endpoint creates an unverified Email and sends a verification code.
 
 **Endpoint:** https://intelligence.threatwinds.com/api/auth/v2/email
@@ -45,7 +45,7 @@ curl -X 'POST' \
 
 > To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
 
-## Delete email
+## Delete email {#deleteEmail}
 
 This API endpoint deletes an Email.
 
@@ -72,7 +72,7 @@ curl -X 'DELETE' \
 
 > To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
 
-## Get emails
+## Get emails {#getEmails}
 
 This API endpoint gets the user's emails.
 
@@ -96,7 +96,7 @@ curl -X 'GET' \
 
 > To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
 
-## Verify email
+## Verify email {#verifyEmail}
 
 This API endpoint verifies the email using code sent by email.
 
@@ -130,7 +130,7 @@ curl -X 'PUT' \
 
 > To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
 
-## Set email as preferred
+## Set email as preferred {#setPreferredEmail}
 
 This API endpoint sets an email as preferred
 
