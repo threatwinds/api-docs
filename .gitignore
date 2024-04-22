@@ -1,4 +1,2 @@
 .DS_Store
-_sass/.DS_Store
-assets/.DS_Store
-search/.DS_Store
+.idea/
