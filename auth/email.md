@@ -10,15 +10,11 @@ permalink: /auth/email
 
 Table of Content:
   
-[Create Email](#createEmail)
-
-[Delete Email](#deleteEmail)
-
-[Get Emails](#getEmails)
-
-[Verify Email](#verifyEmail)
-
-[Set Preferred Email](#setPreferredEmail)
+* [Create Email](#createEmail)
+* [Delete Email](#deleteEmail)
+* [Get Emails](#getEmails)
+* [Verify Email](#verifyEmail)
+* [Set Preferred Email](#setPreferredEmail)
   
 ## Create email
 This API endpoint creates an unverified Email and sends a verification code.
