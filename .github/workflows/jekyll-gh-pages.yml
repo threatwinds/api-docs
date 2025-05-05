@@ -30,13 +30,25 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          source: ./
-          destination: ./_site
+          ruby-version: '3.1'
+          bundler-cache: true
+      - name: Install Dependencies
+        run: |
+          cd api-docs
+          bundle install
+      - name: Build with Jekyll
+        run: |
+          cd api-docs
+          bundle exec jekyll build --destination ./_site
+        env:
+          JEKYLL_ENV: production
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: api-docs/_site
 
   # Deployment job
   deploy:
