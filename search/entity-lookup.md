@@ -61,7 +61,7 @@ A successful response will return a JSON object containing the entity details:
 
 ```json
 {
-  "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
+  "id": "ip-5ca22ef8ea2e234234",
   "type": "ip",
   "@timestamp": "2023-06-15T14:30:00Z",
   "reputation": 3,
@@ -72,12 +72,10 @@ A successful response will return a JSON object containing the entity details:
   "tags": ["dns", "google", "public"],
   "visibleBy": ["public"],
   "attributes": {
-    "value": "8.8.8.8",
-    "label": "Google Public DNS",
-    "description": "Google's public DNS server",
+    "ip": "8.8.8.8",
     "asn": 15169,
-    "organization": "Google LLC",
-    "country_code": "US"
+    "aso": "Google LLC",
+    "country": "United States"
   }
 }
 ```
@@ -103,5 +101,3 @@ The response includes all available information about the entity, including:
 * **401** - Unauthorized
 * **403** - Forbidden
 * **500** - Internal server error
-
-> For more detailed information about responses and error codes, please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/search/v1/swagger/index.html).

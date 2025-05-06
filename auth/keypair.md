@@ -9,13 +9,13 @@ permalink: /auth/keypair
 # Key Pairs
 
 Table of Content:
-  
+
 * [Create key pair](#createKeyPair)
 * [Check key pair](#checkKeyPair)
 * [Delete key pair](#deleteKeyPair)
 * [Get key pairs](#getKeyPairs)
 * [Verify key pair](#verifyKeyPair)
-  
+
 ## Create key pair {#createKeyPair}
 This API endpoint creates a new API key pair and returns the key, secret, and verification code ID.
 
@@ -24,13 +24,13 @@ This API endpoint creates a new API key pair and returns the key, secret, and ve
 ### Parameters
 * **Authorization** header _string_  
 This Authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for the request.
-    
+
 * **name** body _string_  
 A descriptive name for the key pair to help you identify it later. _e.g.: "My Application Key"_
 
 * **days** body _integer_  
 The number of days until the key pair expires. _e.g.: 365_
-   
+
 To create a key pair, use a **POST** request, for example:
 
 ```bash
@@ -62,8 +62,6 @@ A successful response will return a JSON object containing the API key, API secr
 ```
 
 > **Important**: Store the API secret securely. It will not be displayed again.
-
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
 
 ## Check key pair {#checkKeyPair}
 
@@ -108,8 +106,6 @@ A successful response will return a JSON object containing information about the
 }
 ```
 
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
-
 ## Delete key pair {#deleteKeyPair}
 
 This API endpoint deletes a key pair.
@@ -142,8 +138,6 @@ A successful response will return a JSON object with a success message:
   "message": "acknowledged"
 }
 ```
-
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
 
 ## Get key pairs {#getKeyPairs}
 
@@ -190,8 +184,6 @@ A successful response will return a JSON object containing an array of key pairs
 }
 ```
 
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
-
 ## Verify key pair {#verifyKeyPair}
 
 This API endpoint verifies a key pair using a verification code.
@@ -232,5 +224,3 @@ A successful response will return a JSON object with a success message:
   "message": "acknowledged"
 }
 ```
-
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).

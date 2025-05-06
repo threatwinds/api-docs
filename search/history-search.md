@@ -89,6 +89,7 @@ A successful response will return a JSON object containing the historical entity
   "results": [
     {
       "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
+      "entityId": "ip-sha256",
       "type": "ip",
       "@timestamp": "2023-06-15T14:30:00Z",
       "attributes": {
@@ -99,6 +100,7 @@ A successful response will return a JSON object containing the historical entity
     },
     {
       "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
+      "entityId": "ip-sha256",
       "@timestamp": "2023-05-20T10:15:00Z",
       "type": "ip",
       "attributes": {
@@ -109,6 +111,7 @@ A successful response will return a JSON object containing the historical entity
     },
     {
       "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
+      "entityId": "ip-sha256",
       "@timestamp": "2023-04-10T08:45:00Z",
       "type": "ip",
       "attributes": {
@@ -329,5 +332,3 @@ The response includes:
 * **401** - Unauthorized
 * **403** - Forbidden
 * **500** - Internal server error
-
-> For more detailed information about responses and error codes, please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/search/v1/swagger/index.html).

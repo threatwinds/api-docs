@@ -9,10 +9,10 @@ permalink: /auth/user
 # Users
 
 Table of Content:
-  
+
 * [Create user](#createUser)
 * [Get user by ID](#getUserById)
-  
+
 ## Create user {#createUser}
 This API endpoint creates a new user account and sends a verification code.
 
@@ -27,7 +27,7 @@ The full name of the user. _e.g.: "John Doe"_
 
 * **alias** body _string_  
 A username or alias for the user. _e.g.: "johny"_
-   
+
 To create a user, use a **POST** request, for example:
 
 ```bash
@@ -59,8 +59,6 @@ A successful response will return a JSON object containing session information a
 
 > **Note**: After creating a user, you need to verify the session using the verification code sent to the provided email address. See the [Verify session](#verifySession) section in the [Sessions](/auth/session) documentation.
 
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
-
 ## Get user by ID {#getUserById}
 
 This API endpoint retrieves information about a user by their ID.
@@ -89,5 +87,3 @@ A successful response will return a JSON object containing basic information abo
   "alias": "johny"
 }
 ```
-
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).

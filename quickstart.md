@@ -10,13 +10,13 @@ Welcome to the quickstart guide for ThreatWinds API! This guide is designed to h
 
 To make the most of ThreatWinds, it's crucial to have a clear idea of what you want to accomplish. To assist you in achieving your goals, we provide comprehensive documentation and usage guidelines for each of our APIs. This documentation includes detailed explanations of the various APIs available to you.
 
-Before we dive in, it's important to note that you can test our APIs using the **Swagger UI**. This interactive documentation allows you to explore the API's capabilities and experiment with different queries, making it an invaluable resource as you begin working with the APIs.
+Before we dive in, it's important to note that you can test our APIs using our comprehensive API documentation. This documentation allows you to explore the API's capabilities and understand different queries, making it an invaluable resource as you begin working with the APIs.
 
 ### Restful API
-* [Authentication API](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html)
-* [Search API](https://intelligence.threatwinds.com/api/search/v1/swagger/index.html)
-* [Analytics API](https://intelligence.threatwinds.com/api/analytics/v1/swagger/index.html)
-* [Ingest API](https://intelligence.threatwinds.com/api/ingest/v1/swagger/index.html)
+* [Authentication API](/auth)
+* [Search API](/search)
+* [Analytics API](/analytics)
+* [Ingest API](/ingest)
 
 **Now, let's get started**
 

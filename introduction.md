@@ -38,6 +38,6 @@ By adding your own threat data, you can help make our system more accurate and r
 
 We welcome all contributions, no matter how big or small. Whether you have information on a specific threat or a general trend, your contribution can help us build a more comprehensive and accurate picture of the cyber-security landscape.
 
-> See more about [Ingest API](https://intelligence.threatwinds.com/api/ingest/v1/swagger/index.html)
+> See more about [Ingest API](/ingest)
 
 **Thank you for choosing ThreatWinds, and we look forward to seeing the innovative ways in which you use our technology to enhance your own products and services.**

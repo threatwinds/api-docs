@@ -1,0 +1,104 @@
+---
+layout: default
+title: Comment
+parent: Ingest API
+nav_order: 3
+---
+
+# Comment Endpoint
+
+The Comment endpoint allows you to add comments to entities or relations in the ThreatWinds platform.
+
+## Insert Comment
+
+This endpoint allows you to insert a comment for an entity or a relation.
+
+### Endpoint
+
+```
+POST /api/ingest/v1/comment
+```
+
+### Request Headers
+
+| Header | Description |
+|--------|-------------|
+| `Authorization` | Bearer token for authentication (optional if using API key/secret) |
+| `api-key` | Your API key (optional if using Authorization header) |
+| `api-secret` | Your API secret (optional if using Authorization header) |
+| `user-id` | User ID (optional) |
+| `groups` | User groups (optional) |
+
+### Required Roles
+
+Access to this endpoint is controlled by role-based permissions defined in the gateway. Users must have at least one of the required roles assigned to their account to access this endpoint.
+
+Required role: `reporter`
+
+This endpoint requires the `reporter` role, which allows users to submit threat intelligence data to the platform.
+
+### Request Body
+
+The request body should be a JSON object with the following structure:
+
+```json
+{
+  "entityID": "string",
+  "comment": "string",
+  "parentID": "string",
+  "visibleBy": [
+    "string"
+  ]
+}
+```
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `entityID` | string | The ID of the entity to which the comment is attached |
+| `comment` | string | The comment text |
+| `parentID` | string | Optional ID of a parent comment (for threaded comments) |
+| `visibleBy` | array | Optional array of groups that can see the comment (defaults to user's groups if not provided) |
+
+### Response
+
+#### Success Response (202 Accepted)
+
+```json
+{
+  "message": "acknowledged"
+}
+```
+
+#### Error Responses
+
+| Status Code | Description |
+|-------------|-------------|
+| 400 | Bad Request - Invalid input data |
+| 401 | Unauthorized - Authentication failed |
+| 403 | Forbidden - Insufficient permissions |
+
+### Example
+
+```bash
+curl -X POST "https://intelligence.threatwinds.com/api/ingest/v1/comment" \
+  -H "Content-Type: application/json" \
+  -H "api-key: your-api-key" \
+  -H "api-secret: your-api-secret" \
+  -d '{
+    "entityID": "ip-a1b2c3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890",
+    "comment": "This IP has been observed in multiple phishing campaigns.",
+    "visibleBy": ["group1", "group2"]
+  }'
+```
+
+### Use Cases
+
+Comments can be used for various purposes in threat intelligence:
+
+1. **Analyst Notes**: Add observations or analysis about an entity
+2. **Context Information**: Provide additional context that might not fit in standard attributes
+3. **Investigation Updates**: Document findings during an investigation
+4. **Collaboration**: Share insights with team members
+5. **Historical Records**: Keep track of changes or observations over time

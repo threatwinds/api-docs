@@ -9,14 +9,14 @@ permalink: /auth/session
 # Sessions
 
 Table of Content:
-  
+
 * [Create session](#createSession)
 * [Check session](#checkSession)
 * [Close session](#closeSession)
 * [Extend session](#extendSession)
 * [Verify session](#verifySession)
 * [Get sessions](#getSessions)
-  
+
 ## Create session {#createSession}
 This API endpoint starts a new session and sends a one-time password for verification.
 
@@ -25,7 +25,7 @@ This API endpoint starts a new session and sends a one-time password for verific
 ### Parameters
 * **email** body _string_  
 The email address associated with your account. This email will be used to send the verification code. _e.g.: "john@doe.net"_
-   
+
 To create a session, use a **POST** request, for example:
 
 ```bash
@@ -54,8 +54,6 @@ A successful response will return a JSON object containing session information a
 ```
 
 > **Note**: The session is not fully active until it is verified with the verification code sent to your email.
-
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
 
 ## Check session {#checkSession}
 
@@ -96,8 +94,6 @@ A successful response will return a JSON object containing information about the
 }
 ```
 
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
-
 ## Close session {#closeSession}
 
 This API endpoint closes a session.
@@ -131,8 +127,6 @@ A successful response will return a JSON object with a success message:
 }
 ```
 
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
-
 ## Extend session {#extendSession}
 
 This API endpoint extends the current session's expiration time.
@@ -162,8 +156,6 @@ A successful response will return a JSON object with a success message:
   "message": "acknowledged"
 }
 ```
-
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
 
 ## Verify session {#verifySession}
 
@@ -201,8 +193,6 @@ A successful response will return a JSON object with a success message:
   "message": "acknowledged"
 }
 ```
-
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
 
 ## Get sessions {#getSessions}
 
@@ -248,5 +238,3 @@ A successful response will return a JSON object containing an array of active se
   ]
 }
 ```
-
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).

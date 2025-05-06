@@ -36,4 +36,4 @@ The base URL for the Auth API is:
 https://intelligence.threatwinds.com/api/auth/v2
 ```
 
-For detailed information about each endpoint, please refer to the specific documentation pages or the [Swagger UI](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
+For detailed information about each endpoint, please refer to the specific documentation pages.

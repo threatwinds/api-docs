@@ -40,4 +40,4 @@ The base URL for the Feeds API is:
 https://intelligence.threatwinds.com/api/feeds/v1
 ```
 
-For detailed information about each endpoint, please refer to the specific documentation pages or the [Swagger UI](https://intelligence.threatwinds.com/api/feeds/v1/swagger/index.html).
+For detailed information about each endpoint, please refer to the specific documentation pages.

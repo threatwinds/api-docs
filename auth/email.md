@@ -9,13 +9,13 @@ permalink: /auth/email
 # Email
 
 Table of Content:
-  
+
 * [Create email](#createEmail)
 * [Delete email](#deleteEmail)
 * [Get emails](#getEmails)
 * [Verify email](#verifyEmail)
 * [Set email as preferred](#setPreferredEmail)
-  
+
 ## Create email {#createEmail}
 This API endpoint creates an unverified Email and sends a verification code.
 
@@ -24,10 +24,10 @@ This API endpoint creates an unverified Email and sends a verification code.
 ### Parameters
 * **Authorization** header _string_  
 This Authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for the request.
-    
+
 * **Address** body _string_  
 The email parameter represents a user's email address that is going to be associated with their account. This email address is used for communication with the user, and may also be used as a way to reset their password or verify their account. _e.g.: john@doe.net_
-   
+
 To create an email, use a **POST** request, for example:
 
 ```bash
@@ -42,8 +42,6 @@ curl -X 'POST' \
 ```
 
 ### Returns
-
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
 
 ## Delete email {#deleteEmail}
 
@@ -70,8 +68,6 @@ curl -X 'DELETE' \
 
 ### Returns
 
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
-
 ## Get emails {#getEmails}
 
 This API endpoint gets the user's emails.
@@ -93,8 +89,6 @@ curl -X 'GET' \
 ```
 
 ### Returns
-
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
 
 ## Verify email {#verifyEmail}
 
@@ -128,8 +122,6 @@ curl -X 'PUT' \
 
 ### Returns
 
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).
-
 ## Set email as preferred {#setPreferredEmail}
 
 This API endpoint sets an email as preferred
@@ -158,5 +150,3 @@ curl -X 'PUT' \
 ```
 
 ### Returns
-
-> To get information about responses and error codes please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/auth/v2/swagger/index.html).

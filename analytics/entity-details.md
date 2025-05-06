@@ -140,5 +140,3 @@ Example response:
 * **401** - Unauthorized
 * **403** - Forbidden
 * **500** - Internal server error
-
-> For more detailed information about responses and error codes, please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/analytics/v1/swagger/index.html).

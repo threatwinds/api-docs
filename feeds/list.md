@@ -80,5 +80,3 @@ Example response:
 
 * **400** - Bad request
 * **500** - Internal server error
-
-> For more detailed information about responses and error codes, please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/feeds/v1/swagger/index.html).

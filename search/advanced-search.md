@@ -648,8 +648,7 @@ A successful response will return a JSON object containing the search results an
       "id": "6a2b4c5d-6e7f-8g9h-0i1j-2k3l4m5n6o7p",
       "type": "ip",
       "attributes": {
-        "value": "8.8.4.4",
-        "text": "Google Public DNS"
+        "ip": "8.8.4.4"
       },
       "reputation": 3,
       "accuracy": 3,
@@ -705,5 +704,3 @@ The response includes:
 * **401** - Unauthorized
 * **403** - Forbidden
 * **500** - Internal server error
-
-> For more detailed information about responses and error codes, please refer to the [Restful API definition](https://intelligence.threatwinds.com/api/search/v1/swagger/index.html).
