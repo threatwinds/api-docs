@@ -89,8 +89,8 @@ Example response:
   },
   "metadata": {
     "asn": 15169,
-    "organization": "Google LLC",
-    "country": "US"
+    "aso": "Google LLC",
+    "country": "United States"
   },
   "geolocations": [
     {
