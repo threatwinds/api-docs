@@ -26,8 +26,8 @@ POST /api/ingest/v1/entity
 | `Authorization` | Bearer token for authentication (optional if using API key/secret) |
 | `api-key` | Your API key (optional if using Authorization header) |
 | `api-secret` | Your API secret (optional if using Authorization header) |
-| `user-id` | User ID (optional) |
-| `groups` | User groups (optional) |
+
+> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 ### Required Roles
 
@@ -85,7 +85,7 @@ In ThreatWinds, entity IDs follow the format `[type]-[sha256]` where:
 - `type` is the entity type (e.g., "ip", "domain", "url")
 - `sha256` is the SHA-256 hash of the entity's main attribute
 
-The main attribute always exists and its key is the same as the type of the entity. For example, an IP entity with the value "192.168.1.1" would have an ID like `ip-a1b2c3d4e5f6...` where `a1b2c3d4e5f6...` is the SHA-256 hash of "192.168.1.1".
+The main attribute always exists and its key is the same as the type of the entity. For example, an IP entity with the value "203.0.113.1" would have an ID like `ip-a1b2c3d4e5f6...` where `a1b2c3d4e5f6...` is the SHA-256 hash of "203.0.113.1".
 
 ### Response
 
@@ -115,9 +115,9 @@ curl -X POST "https://intelligence.threatwinds.com/api/ingest/v1/entity" \
   -d '{
     "type": "ip",
     "attributes": {
-      "ip": "192.168.1.1",
-      "source": "manual",
-      "confidence": "high"
+      "ip": "203.0.113.1",
+      "text": "manual",
+      "value": "high"
     },
     "reputation": -1,
     "tags": ["malicious", "scanner"],
@@ -175,8 +175,8 @@ curl -X POST "https://intelligence.threatwinds.com/api/ingest/v1/well-known" \
     "type": "domain",
     "attributes": {
       "domain": "example.com",
-      "source": "trusted_source",
-      "confidence": "high"
+      "text": "trusted_source",
+      "value": "high"
     }
   }'
 ```
@@ -198,8 +198,8 @@ GET /api/ingest/v1/definitions
 | `Authorization` | Bearer token for authentication (optional if using API key/secret) |
 | `api-key` | Your API key (optional if using Authorization header) |
 | `api-secret` | Your API secret (optional if using Authorization header) |
-| `user-id` | User ID (optional) |
-| `groups` | User groups (optional) |
+
+> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 ### Required Roles
 
@@ -218,12 +218,12 @@ This endpoint requires the `trusted` role, which allows access to trusted or ver
   {
     "type": "ip",
     "description": "IP address",
-    "attributes": ["source", "confidence", "country"]
+    "attributes": ["text", "value", "country"]
   },
   {
     "type": "domain",
     "description": "Domain name",
-    "attributes": ["source", "confidence", "registrar"]
+    "attributes": ["text", "value", "whois-registrar"]
   }
 ]
 ```

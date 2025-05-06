@@ -26,8 +26,8 @@ POST /api/ingest/v1/scan
 | `Authorization` | Bearer token for authentication (optional if using API key/secret) |
 | `api-key` | Your API key (optional if using Authorization header) |
 | `api-secret` | Your API secret (optional if using Authorization header) |
-| `user-id` | User ID (optional) |
-| `groups` | User groups (optional) |
+
+> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 ### Required Roles
 
@@ -96,7 +96,7 @@ curl -X POST "https://intelligence.threatwinds.com/api/ingest/v1/scan" \
   -H "api-key: your-api-key" \
   -H "api-secret: your-api-secret" \
   -d '{
-    "target": "192.168.1.1",
+    "target": "203.0.113.1",
     "webhook": {
       "url": "https://your-webhook-url.com/callback",
       "headers": [

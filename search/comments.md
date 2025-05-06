@@ -23,11 +23,7 @@ This API endpoint allows you to retrieve comments associated with a specific thr
 * **api-secret** header _string_ (optional)  
   Your API secret.
 
-* **user-id** header _string_ (optional)  
-  User ID for filtering results.
-
-* **groups** header _string_ (optional)  
-  Groups for filtering results.
+> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 * **id** path _string_ (required)  
   The unique identifier of the entity for which you want to retrieve comments.

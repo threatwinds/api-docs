@@ -23,11 +23,7 @@ This API endpoint allows you to search for threat intelligence entities using a 
 * **api-secret** header _string_ (optional)  
   Your API secret.
 
-* **user-id** header _string_ (optional)  
-  User ID for filtering results.
-
-* **groups** header _string_ (optional)  
-  Groups for filtering results.
+> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 * **limit** query _integer_ (optional)  
   Maximum number of results to return. Default is 10.

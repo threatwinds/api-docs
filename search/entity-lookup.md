@@ -23,11 +23,7 @@ This API endpoint allows you to retrieve a threat intelligence entity by specify
 * **api-secret** header _string_ (optional)  
   Your API secret.
 
-* **user-id** header _string_ (optional)  
-  User ID for filtering results.
-
-* **groups** header _string_ (optional)  
-  Groups for filtering results.
+> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 * **EntityGet** body _object_ (required)  
   The entity type and value to look up.

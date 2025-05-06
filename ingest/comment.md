@@ -26,8 +26,8 @@ POST /api/ingest/v1/comment
 | `Authorization` | Bearer token for authentication (optional if using API key/secret) |
 | `api-key` | Your API key (optional if using Authorization header) |
 | `api-secret` | Your API secret (optional if using Authorization header) |
-| `user-id` | User ID (optional) |
-| `groups` | User groups (optional) |
+
+> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 ### Required Roles
 
