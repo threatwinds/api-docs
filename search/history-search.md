@@ -89,7 +89,7 @@ A successful response will return a JSON object containing the historical entity
   "results": [
     {
       "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
-      "entityId": "ip-sha256",
+      "entityID": "ip-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2",
       "type": "ip",
       "@timestamp": "2023-06-15T14:30:00Z",
       "attributes": {
@@ -100,7 +100,7 @@ A successful response will return a JSON object containing the historical entity
     },
     {
       "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
-      "entityId": "ip-sha256",
+      "entityID": "ip-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2",
       "@timestamp": "2023-05-20T10:15:00Z",
       "type": "ip",
       "attributes": {
@@ -111,7 +111,7 @@ A successful response will return a JSON object containing the historical entity
     },
     {
       "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
-      "entityId": "ip-sha256",
+      "entityID": "ip-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2",
       "@timestamp": "2023-04-10T08:45:00Z",
       "type": "ip",
       "attributes": {
@@ -253,6 +253,7 @@ A successful response will return a JSON object containing the historical entity
   "results": [
     {
       "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
+      "entityID": "ip-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2",
       "type": "ip",
       "@timestamp": "2023-06-15T14:30:00Z",
       "attributes": {
@@ -264,6 +265,7 @@ A successful response will return a JSON object containing the historical entity
     },
     {
       "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
+      "entityID": "ip-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2",
       "type": "ip",
       "@timestamp": "2023-05-20T10:15:00Z",
       "attributes": {
@@ -275,6 +277,7 @@ A successful response will return a JSON object containing the historical entity
     },
     {
       "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
+      "entityID": "ip-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2",
       "type": "ip",
       "@timestamp": "2023-04-10T08:45:00Z",
       "attributes": {

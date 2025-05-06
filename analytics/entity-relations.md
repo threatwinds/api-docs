@@ -46,7 +46,7 @@ To get relations for a specific entity, use a **GET** request, for example:
 
 ```bash
 curl -X 'GET' \
-  'https://intelligence.threatwinds.com/api/analytics/v1/entity/5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e/relations?limit=10&levels=2' \
+  'https://intelligence.threatwinds.com/api/analytics/v1/entity/ip-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2/relations?limit=10&levels=2' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer fq6JoEFTsxiXAl1cVdPDnK4emIQCwaUBfq9JoEFTsxhXAl1cVxPDnK4emIQCwaUB'
 ```
@@ -55,7 +55,7 @@ Or using API key and secret:
 
 ```bash
 curl -X 'GET' \
-  'https://intelligence.threatwinds.com/api/analytics/v1/entity/5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e/relations?limit=10&levels=2' \
+  'https://intelligence.threatwinds.com/api/analytics/v1/entity/ip-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2/relations?limit=10&levels=2' \
   -H 'accept: application/json' \
   -H 'api-key: your-api-key' \
   -H 'api-secret: your-api-secret'
@@ -74,7 +74,7 @@ Example response:
 {
   "nodes": [
     {
-      "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
+      "id": "ip-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2",
       "type": "ip",
       "@timestamp": "2023-06-15T14:30:00Z",
       "reputation": 3,
@@ -89,7 +89,7 @@ Example response:
       }
     },
     {
-      "id": "7a1b3c2d-4e5f-6g7h-8i9j-0k1l2m3n4o5p",
+      "id": "domain-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2",
       "type": "domain",
       "@timestamp": "2023-06-10T12:00:00Z",
       "reputation": 3,
@@ -106,8 +106,8 @@ Example response:
   ],
   "relations": [
     {
-      "source": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
-      "target": "7a1b3c2d-4e5f-6g7h-8i9j-0k1l2m3n4o5p"
+      "source": "ip-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2",
+      "target": "domain-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2"
     }
   ]
 }
