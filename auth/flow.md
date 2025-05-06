@@ -106,7 +106,6 @@ When using bearer token authentication:
 2. **For Server-to-Server Communication**:
    - Use API key authentication
    - Store the API key and secret securely
-   - Use the minimum required roles for the API key
 
 3. **For Mobile Applications**:
    - Use bearer token authentication
@@ -116,4 +115,3 @@ When using bearer token authentication:
 ## Related Documentation
 
 - [Email Authentication](/auth/email) - Managing email addresses for authentication
-- [Routes Management](/gateway/routes) - Managing Gateway routes
