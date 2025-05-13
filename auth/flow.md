@@ -53,49 +53,6 @@ ThreatWinds supports two primary authentication methods:
    - If valid, the Gateway checks if the API key has the required roles for the requested resource
    - If authorized, the Gateway forwards the request to the appropriate microservice
 
-## Gateway Route Configuration
-
-The Gateway uses route configurations to determine:
-
-| Configuration Aspect | Description                                          |
-|----------------------|------------------------------------------------------|
-| **Authentication**   | Whether a route is public or requires authentication |
-| **Authorization**    | Required roles to access a protected route           |
-| **Routing**          | Microservice to forward the request to               |
-
-Example route configuration:
-
-```json
-{
-  "method": "GET",
-  "relativePath": "/api/search/v1/entities/simple",
-  "redirectTo": "https://search-2zmeoijpja-uc.a.run.app",
-  "public": false,
-  "roles": ["user", "admin"],
-  "enabled": true,
-  "optional": false,
-  "description": "Simple entity search endpoint",
-  "region": "us-central1"
-}
-```
-
-In this example:
-
-| Property       | Value                                    | Meaning                                                           |
-|----------------|------------------------------------------|-------------------------------------------------------------------|
-| **public**     | false                                    | The route isn't public, so authentication is required             |
-| **roles**      | ["user", "admin"]                        | The user must have either the "user" or "admin" role to access it |
-| **redirectTo** | "https://search-2zmeoijpja-uc.a.run.app" | The request is forwarded to the Search API microservice           |
-
-## Public vs. Protected Routes
-
-Some routes in the ThreatWinds API are public and don't require authentication:
-
-| Route Type           | Examples                                                                          | Authentication Required     |
-|----------------------|-----------------------------------------------------------------------------------|-----------------------------|
-| **Public Routes**    | • Login endpoints<br>• Password reset endpoints<br>• Some documentation endpoints | No                          |
-| **Protected Routes** | • All other API endpoints                                                         | Yes, with appropriate roles |
-
 ## Session Management
 
 When using bearer token authentication:
