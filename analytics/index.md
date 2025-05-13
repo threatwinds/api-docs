@@ -21,8 +21,8 @@ ThreatWinds Analytics API allows you to:
 
 Like all ThreatWinds APIs, the Analytics API requires authentication. You can authenticate using either:
 
-1. **Authorization Header**: Include a bearer token in the Authorization header
-2. **API Key and Secret**: Include your API key and secret in the request headers
+1. **Authorization Header:** include a bearer token in the Authorization header
+2. **API Key and Secret:** include your API key and secret in the request headers
 
 For more details on authentication, see the [Authentication](/auth) section.
 

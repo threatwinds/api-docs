@@ -21,11 +21,11 @@ POST /api/ingest/v1/entity
 
 ### Request Headers
 
-| Header | Description |
-|--------|-------------|
+| Header          | Description                                                        |
+|-----------------|--------------------------------------------------------------------|
 | `Authorization` | Bearer token for authentication (optional if using API key/secret) |
-| `api-key` | Your API key (optional if using Authorization header) |
-| `api-secret` | Your API secret (optional if using Authorization header) |
+| `api-key`       | Your API key (optional if using Authorization header)              |
+| `api-secret`    | Your API secret (optional if using Authorization header)           |
 
 > **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
@@ -69,23 +69,17 @@ The request body should be a JSON object with the following structure:
 
 #### Parameters
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `type` | string | The type of the entity (e.g., "ip", "domain", "url") |
-| `attributes` | object | Attributes for the entity. Must include a key matching the entity type |
-| `associations` | array | Optional associations with other entities |
-| `reputation` | integer | Reputation score for the entity (e.g., -1 for malicious, 0 for neutral, 1 for benign) |
-| `correlate` | array | Optional list of attribute names to create additional entities from |
-| `tags` | array | Optional tags to categorize the entity |
-| `visibleBy` | array | Optional list of groups that can see the entity (defaults to user's groups if not provided) |
+| Parameter      | Type    | Description                                                                                 |
+|----------------|---------|---------------------------------------------------------------------------------------------|
+| `type`         | string  | The type of the entity (e.g., "ip", "domain", "url")                                        |
+| `attributes`   | object  | Attributes for the entity. Must include a key matching the entity type                      |
+| `associations` | array   | Optional associations with other entities                                                   |
+| `reputation`   | integer | Reputation score for the entity (e.g., -1 for malicious, 0 for neutral, 1 for benign)       |
+| `correlate`    | array   | Optional list of attribute names to create additional entities from                         |
+| `tags`         | array   | Optional tags to categorize the entity                                                      |
+| `visibleBy`    | array   | Optional list of groups that can see the entity (defaults to user's groups if not provided) |
 
-### Entity ID Format
-
-In ThreatWinds, entity IDs follow the format `[type]-[sha256]` where:
-- `type` is the entity type (e.g., "ip", "domain", "url")
-- `sha256` is the SHA-256 hash of the entity's main attribute
-
-The main attribute always exists and its key is the same as the type of the entity. For example, an IP entity with the value "203.0.113.1" would have an ID like `ip-a1b2c3d4e5f6...` where `a1b2c3d4e5f6...` is the SHA-256 hash of "203.0.113.1".
+> **Note**: the main attribute must exist, and its key is the same as the type of the entity. For example, an IP entity with the value "203.0.113.1" must have a field "attributes.ip" with the value "203.0.113.1" otherwise the request returns error code 400.
 
 ### Response
 
@@ -99,11 +93,11 @@ The main attribute always exists and its key is the same as the type of the enti
 
 #### Error Responses
 
-| Status Code | Description |
-|-------------|-------------|
-| 400 | Bad Request - Invalid input data |
-| 401 | Unauthorized - Authentication failed |
-| 403 | Forbidden - Insufficient permissions |
+| Status Code | Description                          |
+|-------------|--------------------------------------|
+| 400         | Bad Request - Invalid input data     |
+| 401         | Unauthorized - Authentication failed |
+| 403         | Forbidden - Insufficient permissions |
 
 ### Example
 
@@ -193,11 +187,11 @@ GET /api/ingest/v1/definitions
 
 ### Request Headers
 
-| Header | Description |
-|--------|-------------|
+| Header          | Description                                                        |
+|-----------------|--------------------------------------------------------------------|
 | `Authorization` | Bearer token for authentication (optional if using API key/secret) |
-| `api-key` | Your API key (optional if using Authorization header) |
-| `api-secret` | Your API secret (optional if using Authorization header) |
+| `api-key`       | Your API key (optional if using Authorization header)              |
+| `api-secret`    | Your API secret (optional if using Authorization header)           |
 
 > **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 

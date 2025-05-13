@@ -21,13 +21,13 @@ POST /api/ingest/v1/association
 
 ### Request Headers
 
-| Header | Description |
-|--------|-------------|
+| Header          | Description                                                        |
+|-----------------|--------------------------------------------------------------------|
 | `Authorization` | Bearer token for authentication (optional if using API key/secret) |
-| `api-key` | Your API key (optional if using Authorization header) |
-| `api-secret` | Your API secret (optional if using Authorization header) |
+| `api-key`       | Your API key (optional if using Authorization header)              |
+| `api-secret`    | Your API secret (optional if using Authorization header)           |
 
-> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and shouldn't be provided by the client.
 
 ### Required Roles
 
@@ -50,10 +50,12 @@ The request body should be a JSON object with the following structure:
 
 #### Parameters
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `entityID` | string | The ID of the source entity in the association |
+| Parameter         | Type   | Description                                    |
+|-------------------|--------|------------------------------------------------|
+| `entityID`        | string | The ID of the source entity in the association |
 | `relatedEntityID` | string | The ID of the target entity in the association |
+
+> **Note**: you need to provide valid entities IDs that already exist in the system. Entitiy IDs in ThreatWinds follow the format `[type]-[hash]` where `type` is the entity type and `hash` is the SHA3-256 hash of the entity's main attribute. You can get entity IDs by first creating entities using the `/entity` endpoint and/or by querying entities through the Search API.
 
 ### Response
 
@@ -67,11 +69,11 @@ The request body should be a JSON object with the following structure:
 
 #### Error Responses
 
-| Status Code | Description |
-|-------------|-------------|
-| 400 | Bad Request - Invalid input data |
-| 401 | Unauthorized - Authentication failed |
-| 403 | Forbidden - Insufficient permissions |
+| Status Code | Description                          |
+|-------------|--------------------------------------|
+| 400         | Bad Request - Invalid input data     |
+| 401         | Unauthorized - Authentication failed |
+| 403         | Forbidden - Insufficient permissions |
 
 ### Example
 
@@ -85,5 +87,3 @@ curl -X POST "https://intelligence.threatwinds.com/api/ingest/v1/association" \
     "relatedEntityID": "domain-f67890abcdef1234567890abcdef1234567890abcdef1234567890a1b2c3d4e5"
   }'
 ```
-
-> **Note**: You need to provide valid entity IDs that already exist in the system. Entity IDs in ThreatWinds follow the format `[type]-[sha256]` where `type` is the entity type and `sha256` is the SHA-256 hash of the entity's main attribute. For more details, see the [Entity ID Format](#entity-id-format) section in the Entity documentation. You can obtain entity IDs by first creating entities using the `/entity` endpoint or by querying existing entities through the Analytics API.

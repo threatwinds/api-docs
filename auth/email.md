@@ -17,7 +17,7 @@ Table of Content:
 * [Set email as preferred](#setPreferredEmail)
 
 ## Create email {#createEmail}
-This API endpoint creates an unverified Email and sends a verification code.
+This API endpoint creates an unverified email and sends a verification code.
 
 **Endpoint:** https://intelligence.threatwinds.com/api/auth/v2/email
 
@@ -26,7 +26,10 @@ This API endpoint creates an unverified Email and sends a verification code.
 This Authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for the request.
 
 * **Address** body _string_  
-The email parameter represents a user's email address that is going to be associated with their account. This email address is used for communication with the user, and may also be used as a way to reset their password or verify their account. _e.g.: john@doe.net_
+The email parameter represents a user's email address that's going to be associated with their account.
+  This email address is used for communication with the user
+  and may also be used as a way to reset their password or verify their account.
+  e.g.: john@doe.net
 
 To create an email, use a **POST** request, for example:
 
@@ -45,7 +48,7 @@ curl -X 'POST' \
 
 ## Delete email {#deleteEmail}
 
-This API endpoint deletes an Email.
+This API endpoint deletes an email.
 
 **Endpoint:** https://intelligence.threatwinds.com/api/auth/v2/email/:id
 
@@ -79,7 +82,7 @@ This API endpoint gets the user's emails.
 * **Authorization** header _string_
   This authorization header can be obtained from an active session of the account.
 
-To get the currents emails, use a **GET** request, for example:
+To get the current emails, use a **GET** request, for example:
 
 ```bash
 curl -X 'GET' \
@@ -102,7 +105,8 @@ This API endpoint verifies the email using code sent by email.
 This authorization header can be obtained from an active session of the account.
 
 * **verificationCodeID** body _uuid_  
-You can obtain it from the email that you wish to verify at the time of its creation. e.g.: "1c233e4a-27e7-4b77-8b0d-9a35cf212afe"
+You can get it from the email that you wish to verify at the time of its creation.
+  e.g.: "1c233e4a-27e7-4b77-8b0d-9a35cf212afe"
 
 * **code** body _integer_  
 This code is sent to your email when it is created. e.g.: "757564"
@@ -134,7 +138,8 @@ This API endpoint sets an email as preferred
   This authorization header can be obtained from an active session of the account.
 
 * **emailID** body _uuid_  
-The id of the email that would like to set as preferred. e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e
+The id of the email that'd like to set as preferred.
+  e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e
 
 To set a preferred email, use a **PUT** request, for example:
 
@@ -150,3 +155,11 @@ curl -X 'PUT' \
 ```
 
 ### Returns
+
+A successful response returns a JSON object with a success message:
+
+```json
+{
+  "message": "acknowledged"
+}
+```

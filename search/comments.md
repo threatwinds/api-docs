@@ -23,7 +23,7 @@ This API endpoint allows you to retrieve comments associated with a specific thr
 * **api-secret** header _string_ (optional)  
   Your API secret.
 
-> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 * **id** path _string_ (required)  
   The unique identifier of the entity for which you want to retrieve comments.
@@ -96,23 +96,23 @@ A successful response will return a JSON object containing the comments:
 
 The response includes:
 
-* **items** - Total number of comments matching the query
-* **pages** - Total number of pages available
-* **results** - Array of comments associated with the entity
+* **items:** total number of comments matching the query
+* **pages:** total number of pages available
+* **results:** array of comments associated with the entity
 
 Each comment object includes:
-* **id** - Unique identifier of the comment
-* **entityID** - ID of the entity the comment is associated with
-* **comment** - The comment text
-* **userID** - ID of the user who created the comment
-* **parentID** - ID of the parent comment (if it's a reply)
-* **@timestamp** - Timestamp when the comment was created
-* **visibleBy** - Array of visibility settings for the comment
+* **id:** unique identifier of the comment
+* **entityID:** the ID of the entity the comment is associated with
+* **comment:** the comment text
+* **userID:** the ID of the user who created the comment
+* **parentID:** the ID of the parent comment (if it's a reply)
+* **@timestamp:** timestamp when the comment was created
+* **visibleBy:** array of visibility settings for the comment
 
 ## Error Codes
 
-* **204** - No content (no comments found)
-* **400** - Bad request
-* **401** - Unauthorized
-* **403** - Forbidden
-* **500** - Internal server error
+* **204:** no content (no comments found)
+* **400:** bad request
+* **401:** unauthorized
+* **403:** forbidden
+* **500:** internal server error

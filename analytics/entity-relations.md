@@ -23,7 +23,7 @@ This API endpoint provides relationship information about a specific threat inte
 * **api-secret** header _string_ (optional)  
   Your API secret.
 
-> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and shouldn't be provided by the client.
 
 * **id** path _string_ (required)  
   The unique identifier of the entity you want to retrieve relations for.
@@ -34,7 +34,7 @@ This API endpoint provides relationship information about a specific threat inte
 * **levels** query _integer_ (optional)  
   Number of relationship levels to include in the graph.
 
-> Note: You must use either the Authorization header OR the API key and secret combination.
+> Note: you must use either the Authorization header OR the API key and secret combination.
 
 ## Request
 
@@ -59,10 +59,10 @@ curl -X 'GET' \
 
 ## Response
 
-A successful response will return a JSON object containing graph data with nodes and relations:
+A successful response returns a JSON object containing graph data with nodes and relations:
 
-* **nodes** - Array of entity objects representing the nodes in the graph. Note that the `value` field in the `attributes` object only contains strings, numbers, or booleans, never maps, arrays, or other complex structures.
-* **relations** - Array of relationship objects connecting the nodes
+* **nodes:** array of entity objects representing the nodes in the graph. Note that the `value` field in the `attributes` object only contains strings, numbers, or booleans, never maps, arrays, or other complex structures.
+* **relations:** array of relationship objects connecting the nodes
 
 Example response:
 
@@ -111,7 +111,7 @@ Example response:
 
 ## Error Codes
 
-* **400** - Bad request
-* **401** - Unauthorized
-* **403** - Forbidden
-* **500** - Internal server error
+* **400:** bad request
+* **401:** unauthorized
+* **403:** forbidden
+* **500:** internal server error

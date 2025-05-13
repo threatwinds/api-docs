@@ -23,7 +23,7 @@ This API endpoint allows you to perform complex searches for threat intelligence
 * **api-secret** header _string_ (optional)  
   Your API secret.
 
-> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 * **limit** query _integer_ (optional)  
   Maximum number of results to return. Default is 10.
@@ -40,7 +40,7 @@ This API endpoint allows you to perform complex searches for threat intelligence
 * **AdvancedSearch** body _object_ (required)  
   The advanced search query parameters.
 
-> Note: You must use either the Authorization header OR the API key and secret combination. For more details on authentication, see the [Authentication](/auth) documentation.
+> Note: you must use either the Authorization header OR the API key and secret combination. For more details on authentication, see the [Authentication](/auth) documentation.
 
 ## Request
 
@@ -116,64 +116,64 @@ curl -X 'POST' \
 
 The request body parameters include:
 
-* **query** _object_ (required) - The query object using OpenSearch query DSL
-  * **must** - Conditions that must match (AND)
-  * **should** - Conditions that should match (OR)
-  * **must_not** - Conditions that must not match (NOT)
-  * **filter** - Conditions that must match but don't affect the score
-  * **minimum_should_match** - Minimum number of should clauses that must match
+* **query** _object_ (required)—The query object using OpenSearch query DSL
+  * **must:** conditions that must match (AND)
+  * **should:** conditions that should match (OR)
+  * **must_not:** conditions that must not match (NOT)
+  * **filter:** conditions that must match but don't affect the score
+  * **minimum_should_match:** minimum number of should clauses that must match
+* **aggs** _object_ (optional)—Aggregations to perform on the data
+* **source** _object_ (optional)—Fields to include or exclude in the response
+* **collapse** _object_ (optional)—Field to collapse results on
+* **script_fields** _object_ (optional)—Computed fields
+* **search_after** _array_ (optional)—Pagination using search_after
 
-> Note: In the example above, we're using a `term` query to filter by the `type` field with a value of `"ip"`. For a comprehensive list of all possible entity types, see the [Entity Types](/search/entity-types) page.
-* **aggs** _object_ (optional) - Aggregations to perform on the data
-* **source** _object_ (optional) - Fields to include or exclude in the response
-* **collapse** _object_ (optional) - Field to collapse results on
-* **script_fields** _object_ (optional) - Computed fields
-* **search_after** _array_ (optional) - Pagination using search_after
+> Note: in the example preceding, it's in use a `term` query to filter by the `type` field with a value of `"ip"`. For a comprehensive list of all possible entity types, see the [Entity Types](/search/entity-types) page.
 
 ## OpenSearch Query DSL
 
 The advanced search endpoint uses OpenSearch Query DSL (Domain Specific Language), which provides a rich and flexible way to define queries. The query is structured as a JSON object with specific fields and operators.
 
-> **Note**: To effectively use the advanced search capabilities, it's important to understand the entity structure and field types. For detailed information about entity mapping, including field types, searchability, and how to use `.keyword` fields, see the [Entity Mapping](/search/entity-mapping) documentation.
+> **Note**: to effectively use the advanced search capabilities, it's important to understand the entity structure and field types. For detailed information about entity mapping, including field types, searchability, and how to use `.keyword` fields, see the [Entity Mapping](/search/entity-mapping) documentation.
 
 ### Query Types
 
 The following query types can be used within the `must`, `should`, `must_not`, and `filter` clauses:
 
-* **term** - Exact match on a field
-* **terms** - Match if field has any of the specified values
-* **ids** - Match documents with the specified IDs
-* **range** - Match if field value is within a specified range
-* **exists** - Match if field exists
-* **prefix** - Match if field value starts with a specified prefix
-* **fuzzy** - Match similar terms based on Levenshtein distance
-* **wildcard** - Match using wildcards
-* **regexp** - Match using regular expressions
-* **match** - Full-text search on a field
-* **multi_match** - Full-text search on multiple fields
-* **match_bool_prefix** - Match prefix of words
-* **match_phrase** - Match exact phrase
-* **match_phrase_prefix** - Match phrase prefix
-* **query_string** - Query with a syntax (AND, OR, NOT)
-* **simple_query_string** - Simplified query string syntax
+* **term:** exact match on a field
+* **terms:** match if the field has any of the specified values
+* **ids:** match documents with the specified IDs
+* **range:** match if the field value is within a specified range
+* **exists:** match if field exists
+* **prefix:** match if the field value starts with a specified prefix
+* **fuzzy:** match similar terms based on Levenshtein distance
+* **wildcard:** match using wildcards
+* **regexp:** match using regular expressions
+* **match:** full-text search on a field
+* **multi_match:** full-text search on multiple fields
+* **match_bool_prefix:** match prefix of words
+* **match_phrase:** match exact phrase
+* **match_phrase_prefix:** match phrase prefix
+* **query_string:** query with a syntax (AND, OR, NOT)
+* **simple_query_string:** simplified query string syntax
 
 ### Aggregation Types
 
 The `aggs` field allows you to perform various aggregations on your data:
 
-* **terms** - Group by field values
-* **range** - Group by ranges of values
-* **date_histogram** - Group by date intervals
-* **histogram** - Group by numeric intervals
-* **avg** - Calculate average of a field
-* **sum** - Calculate sum of a field
-* **min** - Find minimum value of a field
-* **max** - Find maximum value of a field
-* **cardinality** - Count unique values
-* **stats** - Calculate statistics (count, min, max, avg, sum)
-* **extended_stats** - Calculate extended statistics
-* **percentiles** - Calculate percentiles
-* **top_hits** - Return top matching hits
+* **terms:** group by field values
+* **range:** group by ranges of values
+* **date_histogram:** group by date intervals
+* **histogram:** group by numeric intervals
+* **avg:** calculate average of a field
+* **sum:** calculate sum of a field
+* **min:** find minimum value of a field
+* **max:** find maximum value of a field
+* **cardinality:** count unique values
+* **stats:** calculate statistics (count, min, max, avg, sum)
+* **extended_stats:** calculate extended statistics
+* **percentiles:** calculate percentiles
+* **top_hits:** return top matching hits
 
 ### Source Filtering
 
@@ -285,7 +285,7 @@ Full-text search for entities with "google" in their attributes:
 
 ### Query with Multiple Clauses
 
-Search for IP entities with high reputation that are not tagged as malicious:
+Search for IP entities with a high reputation that aren't tagged as malicious:
 
 ```json
 {
@@ -357,7 +357,7 @@ Search for entities with a field value that starts with a specific prefix:
 
 ### Fuzzy Query
 
-Search for entities with a field value that is similar to a specific value (allowing for typos):
+Search for entities with a field value that's similar to a specific value (allowing for typos):
 
 ```json
 {
@@ -590,7 +590,7 @@ Group entities by the month they were last seen:
 
 ### Nested Aggregations
 
-Group by entity type and then calculate average reputation for each type:
+Group by entity type and then calculate an average reputation for each type:
 
 ```json
 {
@@ -690,15 +690,15 @@ A successful response will return a JSON object containing the search results an
 
 The response includes:
 
-* **items** - Total number of items matching the query
-* **pages** - Total number of pages available
-* **results** - Array of entities matching the search criteria
-* **aggregations** - Results of any aggregations requested in the query
+* **items:** total number of items matching the query
+* **pages:** total number of pages available
+* **results:** array of entities matching the search criteria
+* **aggregations:** results of any aggregations requested in the query
 
 ## Error Codes
 
-* **204** - No content (no results found)
-* **400** - Bad request
-* **401** - Unauthorized
-* **403** - Forbidden
-* **500** - Internal server error
+* **204:** no content (no results found)
+* **400:** bad request
+* **401:** unauthorized
+* **403:** forbidden
+* **500:** internal server error

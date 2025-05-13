@@ -23,12 +23,12 @@ This API endpoint provides detailed information about a specific threat intellig
 * **api-secret** header _string_ (optional)  
   Your API secret.
 
-> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and shouldn't be provided by the client.
 
 * **id** path _string_ (required)  
   The unique identifier of the entity you want to retrieve details for.
 
-> Note: You must use either the Authorization header OR the API key and secret combination.
+> Note: you must use either the Authorization header OR the API key and secret combination.
 
 ## Request
 
@@ -53,13 +53,13 @@ curl -X 'GET' \
 
 ## Response
 
-A successful response will return a JSON object containing detailed information about the entity, including:
+A successful response returns a JSON object containing detailed information about the entity, including:
 
-* **attributes** - Core attributes of the entity (type, value, reputation, accuracy, etc.). Note that the `value` field only contains strings, numbers, or booleans, never maps, arrays, or other complex structures.
-* **metadata** - Additional metadata associated with the entity
-* **geolocations** - Geolocation information if applicable (for IP addresses, domains, etc.)
-* **latest_associations** - Recent entities associated with this entity
-* **extended_metadata** - Additional detailed metadata
+* **attributes:** core attributes of the entity (type, value, reputation, accuracy, etc.). Note that the `value` field only contains strings, numbers, or booleans, never maps, arrays, or other complex structures.
+* **metadata:** additional metadata associated with the entity
+* **geolocations:** geolocation information if applicable (for IP addresses, domains, etc.)
+* **latest_associations:** recent entities associated with this entity
+* **extended_metadata:** additional detailed metadata
 
 Example response:
 
@@ -131,8 +131,8 @@ Example response:
 
 ## Error Codes
 
-* **204** - No content (entity not found)
-* **400** - Bad request
-* **401** - Unauthorized
-* **403** - Forbidden
-* **500** - Internal server error
+* **204:** no content (entity not found)
+* **400:** bad request
+* **401:** unauthorized
+* **403:** forbidden
+* **500:** internal server error

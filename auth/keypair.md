@@ -16,7 +16,7 @@ Table of Content:
 * [Get key pairs](#getKeyPairs)
 * [Verify key pair](#verifyKeyPair)
 
-## Create key pair {#createKeyPair}
+## Create a key pair {#createKeyPair}
 This API endpoint creates a new API key pair and returns the key, secret, and verification code ID.
 
 **Endpoint:** https://intelligence.threatwinds.com/api/auth/v2/keypair
@@ -63,7 +63,7 @@ A successful response will return a JSON object containing the API key, API secr
 
 > **Important**: Store the API secret securely. It will not be displayed again.
 
-## Check key pair {#checkKeyPair}
+## Check a key pair {#checkKeyPair}
 
 This API endpoint checks a key pair and returns its privileges.
 
@@ -106,7 +106,7 @@ A successful response will return a JSON object containing information about the
 }
 ```
 
-## Delete key pair {#deleteKeyPair}
+## Delete a key pair {#deleteKeyPair}
 
 This API endpoint deletes a key pair.
 

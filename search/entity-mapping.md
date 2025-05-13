@@ -18,17 +18,17 @@ The ThreatWinds platform uses OpenSearch to store and index threat intelligence 
 
 All entities in the ThreatWinds platform share a common structure:
 
-* **id** - Unique identifier of the entity
-* **type** - Type of the entity (e.g., "ip", "domain", "hash")
-* **@timestamp** - Timestamp when the entity was last updated
-* **reputation** - Current reputation score
-* **bestReputation** - Best historical reputation score
-* **worstReputation** - Worst historical reputation score
-* **accuracy** - Accuracy score
-* **lastSeen** - Timestamp when the entity was last seen
-* **tags** - Array of tags associated with the entity
-* **visibleBy** - Array of visibility settings
-* **attributes** - Object containing entity-specific attributes
+* **id:** unique identifier of the entity
+* **type:** type of the entity (e.g., "ip", "domain", "hash")
+* **@timestamp:** timestamp when the entity was last updated
+* **reputation:** current reputation score
+* **bestReputation:** best historical reputation score
+* **worstReputation:** worst historical reputation score
+* **accuracy:** accuracy score
+* **lastSeen:** timestamp when the entity was last seen
+* **tags:** array of tags associated with the entity
+* **visibleBy:** an array of visibility settings
+* **attributes:** object containing entity-specific attributes
 
 ## Entity Types and Attributes
 
@@ -36,29 +36,29 @@ The Search API supports a wide range of entity types, each with its own set of a
 
 ### IP Address (`ip`)
 
-* **ip** - The IP address value
-* **asn** - Autonomous System Number
-* **aso** - Autonomous System Organization
-* **country** - Country where the IP is located
-* **city** - City where the IP is located
-* **latitude** - Geographical latitude
-* **longitude** - Geographical longitude
+* **ip:** the IP address value
+* **asn:** autonomous System Number
+* **aso:** autonomous System Organization
+* **country:** the country where the IP is located
+* **city:** city where the IP is located
+* **latitude:** geographical latitude
+* **longitude:** geographical longitude
 
 ### Domain (`domain`)
 
-* **domain** - The domain name
-* **whois-registrar** - Domain registrar information
+* **domain:** the domain name
+* **whois-registrar:** domain registrar information
 
 ### URL (`url`)
 
-* **url** - The URL value
-* **domain** - Associated domain name
+* **url:** the URL value
+* **domain:** associated domain name
 
 ### Malware (`malware`)
 
-* **malware** - Malware name
-* **malware-family** - Malware family
-* **malware-type** - Type of malware
+* **malware:** the malware name
+* **malware-family:** malware family
+* **malware-type:** type of malware
 
 ## OpenSearch mapping
 
@@ -151,17 +151,17 @@ The Search API supports a wide range of entity types, each with its own set of a
 
 **Explanation of Terms:**
 
-* **Full-text Search:** This type of search analyzes the text content, breaking it down into individual terms (tokens) after processing (e.g., lowercasing, removing punctuation, stemming). It's suitable for finding words or phrases within larger blocks of text, and relevance scoring plays a significant role. Fields of type `text` are analyzed and support full-text search.
-* **Term-level Search (Keyword Search):** This type of search looks for exact matches of terms. It does not analyze the query string in the same way full-text search does. It's used for filtering by exact values, as well as for sorting and aggregations. Fields of type `keyword`, numeric types, dates, booleans, and IP addresses support term-level searches directly. For `text` fields, a `.keyword` multi-field is typically used for term-level operations.
-* **`.keyword` Suffix:** For fields mapped as `text`, OpenSearch often creates a multi-field (sub-field) typically named `<field_name>.keyword`.
-  * The main `text` field (e.g., `attributes.city`) is analyzed and used for full-text searches.
-  * The `.keyword` field (e.g., `attributes.city.keyword`) is *not* analyzed and stores the original string as a single term. This is essential for exact matching, sorting, and aggregations on that text.
-* **Analyzed:** Indicates that the field's content is processed by an analyzer before indexing. For example, "Quick Brown Fox" might be indexed as "quick", "brown", "fox".
-* **N/A (Not Applicable):** Used for object fields which are containers, or when the concept doesn't directly apply.
+* **Full-text Search:** this type of search analyzes the text content, breaking it down into individual terms (tokens) after processing (e.g., lowercasing, removing punctuation, stemming). It's suitable for finding words or phrases within larger blocks of text, and relevance scoring plays a significant role. Fields of type `text` are analyzed and support full-text search.
+* **Term-level Search (Keyword Search):** this type of search looks for exact matches of terms. It does not analyze the query string in the same way full-text search does. It's used for filtering by exact values, as well as for sorting and aggregations. Fields of type `keyword`, numeric types, dates, booleans, and IP addresses support term-level searches directly. For `text` fields, a `.keyword` multi-field is typically used for term-level operations.
+* **`.keyword` Suffix:** for fields mapped as `text`, OpenSearch often creates a multi-field (subfield) typically named `<field_name>.keyword`.
+  * The main `text` field (for example, `attributes.city`) is analyzed and used for full-text searches.
+  * The `.keyword` field (for example, `attributes.city.keyword`) is *not* analyzed and stores the original string as a single term. This is essential for exact matching, sorting, and aggregations on that text.
+* **Analyzed:** indicates that the field's content is processed by an analyzer before indexing. For example, "Quick Brown Fox" might be indexed as "quick", "brown", "fox".
+* **N/A (Not Applicable):** used for object fields which are containers, or when the concept doesn't directly apply.
 
 ## Related Documentation
 
-* [Entity Retrieval](/search/entity) - How to retrieve entity details
-* [Entity Types](/search/entity-types) - List of all entity types
-* [Simple Search](/search/simple-search) - How to perform simple searches
-* [Advanced Search](/search/advanced-search) - How to perform advanced searches
+* [Entity Retrieval](/search/entity): how to retrieve entity details
+* [Entity Types](/search/entity-types): list of all entity types
+* [Simple Search](/search/simple-search): how to perform simple searches
+* [Advanced Search](/search/advanced-search): how to perform advanced searches

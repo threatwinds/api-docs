@@ -21,11 +21,11 @@ POST /api/ingest/v1/comment
 
 ### Request Headers
 
-| Header | Description |
-|--------|-------------|
+| Header          | Description                                                        |
+|-----------------|--------------------------------------------------------------------|
 | `Authorization` | Bearer token for authentication (optional if using API key/secret) |
-| `api-key` | Your API key (optional if using Authorization header) |
-| `api-secret` | Your API secret (optional if using Authorization header) |
+| `api-key`       | Your API key (optional if using Authorization header)              |
+| `api-secret`    | Your API secret (optional if using Authorization header)           |
 
 > **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
@@ -52,14 +52,16 @@ The request body should be a JSON object with the following structure:
 }
 ```
 
+> **Note**: you need to provide valid entity IDs that already exist in the system. Entity IDs in ThreatWinds follow the format `[type]-[hash]` where `type` is the entity type and `hash` is the SHA3-256 hash of the entity's main attribute. You can obtain entity IDs by first creating entities using the `/entity` endpoint and/or by querying entities through the Search API.
+
 #### Parameters
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `entityID` | string | The ID of the entity to which the comment is attached |
-| `comment` | string | The comment text |
-| `parentID` | string | Optional ID of a parent comment (for threaded comments) |
-| `visibleBy` | array | Optional array of groups that can see the comment (defaults to user's groups if not provided) |
+| Parameter   | Type   | Description                                                                                   |
+|-------------|--------|-----------------------------------------------------------------------------------------------|
+| `entityID`  | string | The ID of the entity to which the comment is attached                                         |
+| `comment`   | string | The comment text                                                                              |
+| `parentID`  | string | Optional ID of a parent comment (for threaded comments)                                       |
+| `visibleBy` | array  | Optional array of groups that can see the comment (defaults to user's groups if not provided) |
 
 ### Response
 
@@ -73,11 +75,11 @@ The request body should be a JSON object with the following structure:
 
 #### Error Responses
 
-| Status Code | Description |
-|-------------|-------------|
-| 400 | Bad Request - Invalid input data |
-| 401 | Unauthorized - Authentication failed |
-| 403 | Forbidden - Insufficient permissions |
+| Status Code | Description                          |
+|-------------|--------------------------------------|
+| 400         | Bad Request - Invalid input data     |
+| 401         | Unauthorized - Authentication failed |
+| 403         | Forbidden - Insufficient permissions |
 
 ### Example
 
@@ -97,8 +99,7 @@ curl -X POST "https://intelligence.threatwinds.com/api/ingest/v1/comment" \
 
 Comments can be used for various purposes in threat intelligence:
 
-1. **Analyst Notes**: Add observations or analysis about an entity
-2. **Context Information**: Provide additional context that might not fit in standard attributes
-3. **Investigation Updates**: Document findings during an investigation
-4. **Collaboration**: Share insights with team members
-5. **Historical Records**: Keep track of changes or observations over time
+1. **Analyst Notes**: add observations or analysis of an entity
+2. **Context Information**: provide additional context that might not fit in standard attributes
+3. **Investigation Updates**: document findings during an investigation
+4. **Collaboration**: share insights with team members

@@ -57,7 +57,7 @@ A successful response will return a JSON object containing session information a
 }
 ```
 
-> **Note**: After creating a user, you need to verify the session using the verification code sent to the provided email address. See the [Verify session](#verifySession) section in the [Sessions](/auth/session) documentation.
+> **Note**: after creating a user, you need to verify the session using the verification code sent to the provided email address. See the [Verify session](#verifySession) section in the [Sessions](/auth/session) documentation.
 
 ## Get user by ID {#getUserById}
 

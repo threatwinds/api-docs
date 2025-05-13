@@ -18,8 +18,8 @@ ThreatWinds uses a microservices architecture where all API requests pass throug
 
 ThreatWinds supports two primary authentication methods:
 
-1. **Bearer Token Authentication** - Using an Authorization header with a bearer token
-2. **API Key Authentication** - Using API key and API secret headers
+1. **Bearer Token Authentication**: using an Authorization header with a bearer token
+2. **API Key Authentication**: using API key and API secret headers
 
 ## Authentication Flow
 
@@ -31,7 +31,7 @@ ThreatWinds supports two primary authentication methods:
    - The client validates the session through the Auth API
 
 2. **Authenticated Request**:
-   - The client includes the bearer token in the Authorization header of subsequent requests
+   - The client includes the bearer token in the Authorization header of later requests
    - The Gateway receives the request and extracts the bearer token
    - The Gateway validates the token with the Auth API
    - If valid, the Gateway checks if the user has the required roles for the requested resource
@@ -41,8 +41,8 @@ ThreatWinds supports two primary authentication methods:
 
 1. **API Key Creation**:
    - The client creates an API key and secret through the Auth API
-   - The Auth API returns the key and secret to the client, with a verification ID and sends an email with the verification code
-   - The client verify the creation of the key through the Auth API
+   - The Auth API returns the key and secret to the client with a verification ID and sends an email with the verification code
+   - The client verifies the creation of the key through the Auth API
 
 2. **Authenticated Request**:
    - The client includes the API key and secret in the request headers
@@ -56,8 +56,8 @@ ThreatWinds supports two primary authentication methods:
 The Gateway uses route configurations to determine:
 
 1. Whether a route is public or requires authentication
-2. Which roles are required to access a protected route
-3. Which microservice to forward the request to
+2. Required roles to access a protected route
+3. Microservice to forward the request to
 
 Example route configuration:
 
@@ -76,9 +76,9 @@ Example route configuration:
 ```
 
 In this example:
-- The route is not public, so authentication is required
+- The route isn't public, so authentication is required
 - The user must have either the "user" or "admin" role to access it
-- The request will be forwarded to the Search API microservice
+- The request is forwarded to the Search API microservice
 
 ## Public vs. Protected Routes
 
@@ -100,7 +100,7 @@ When using bearer token authentication:
 
 1. **For Web Applications**:
    - Use bearer token authentication
-   - Store the token securely (e.g., in an HTTP-only cookie)
+   - Store the token securely (for example, in an HTTP-only cookie)
    - Implement token refresh logic
 
 2. **For Server-to-Server Communication**:

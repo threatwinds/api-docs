@@ -24,7 +24,8 @@ This API endpoint starts a new session and sends a one-time password for verific
 
 ### Parameters
 * **email** body _string_  
-The email address associated with your account. This email will be used to send the verification code. _e.g.: "john@doe.net"_
+The email address associated with your account. This email will be used to send the verification code. 
+    e.g.: "john@doe.net"
 
 To create a session, use a **POST** request, for example:
 
@@ -53,7 +54,7 @@ A successful response will return a JSON object containing session information a
 }
 ```
 
-> **Note**: The session is not fully active until it is verified with the verification code sent to your email.
+> **Note**: the session is not fully active until it is verified with the verification code sent to your email.
 
 ## Check session {#checkSession}
 

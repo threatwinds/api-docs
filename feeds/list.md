@@ -50,9 +50,9 @@ curl -X 'GET' \
 
 A successful response will return a JSON array of feed items, each containing:
 
-* **name** - The name of the feed (e.g., "ip", "md5")
-* **type** - The type of the feed (e.g., "accumulative", "daily")
-* **accuracy** - The accuracy level of the feed (e.g., "level1", "level2", "level3")
+* **name:** the name of the feed (for example, "ip", "md5")
+* **type:** the type of the feed (for example, "accumulative", "daily")
+* **accuracy:** the accuracy level of the feed (for example, "level1", "level2", "level3")
 
 Example response:
 
@@ -78,5 +78,5 @@ Example response:
 
 ## Error Codes
 
-* **400** - Bad request
-* **500** - Internal server error
+* **400:** bad request
+* **500:** internal server error

@@ -23,8 +23,8 @@ ThreatWinds Auth API allows you to:
 
 ThreatWinds supports two primary authentication methods:
 
-1. **Bearer Token Authentication** - Using an Authorization header with a bearer token
-2. **API Key Authentication** - Using API key and API secret headers
+1. **Bearer Token Authentication:** using an Authorization header with a bearer token
+2. **API Key Authentication:** using API key and API secret headers
 
 For more details on the authentication flow, see the [Authentication Flow](/auth/flow) page.
 

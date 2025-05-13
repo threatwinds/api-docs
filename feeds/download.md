@@ -59,17 +59,17 @@ curl -X 'GET' \
 
 A successful response will return the feed file content in one of the following formats:
 
-* **application/gzip** - Compressed feed file
-* **application/x-ndjson** - Newline-delimited JSON
-* **text/plain** - Plain text
+* **application/gzip:** compressed feed file
+* **application/x-ndjson:**: newline-delimited JSON
+* **text/plain:** plain text
 
 The format depends on the feed type and the Accept header in your request.
 
 ## Error Codes
 
-* **204** - File not found
-* **400** - Bad request
-* **500** - Internal server error
+* **204:** file not found
+* **400:** bad request
+* **500:** internal server error
 
 # Checksum Verification
 

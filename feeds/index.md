@@ -19,16 +19,16 @@ ThreatWinds Feeds API allows you to:
 
 The feeds are categorized by:
 
-- **Accuracy Level**: level1, level2, level3
-- **Type**: accumulative, daily
-- **Name**: Various indicators like ip, md5, etc.
+- **Accuracy Level:** level1, level2, level3
+- **Type:** accumulative, daily
+- **Name:** various indicators like ip, md5, etc.
 
 ## Authentication
 
 Like all ThreatWinds APIs, the Feeds API requires authentication. You can authenticate using either:
 
-1. **Authorization Header**: Include a bearer token in the Authorization header
-2. **API Key and Secret**: Include your API key and secret in the request
+1. **Authorization Header:** include a bearer token in the Authorization header
+2. **API Key and Secret:** include your API key and secret in the request
 
 For more details on authentication, see the [Authentication](/auth) section.
 

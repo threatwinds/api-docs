@@ -27,7 +27,7 @@ This API endpoint allows you to search for historical records of threat intellig
 * **api-secret** header _string_ (optional)  
   Your API secret.
 
-> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 * **limit** query _integer_ (optional)  
   Maximum number of results to return. Default is 10.
@@ -44,7 +44,7 @@ This API endpoint allows you to search for historical records of threat intellig
 * **SimpleSearch** body _object_ (required)  
   The search query parameters.
 
-> Note: You must use either the Authorization header OR the API key and secret combination.
+> Note: you must use either the Authorization header OR the API key and secret combination.
 
 ### Request
 
@@ -69,10 +69,10 @@ curl -X 'POST' \
 
 The request body parameters include:
 
-* **query** _string_ (required) - The search term (e.g., an IP address, domain, hash, etc.). For a comprehensive list of all possible entity types, see the [Entity Types](/search/entity-types) page.
-* **accuracy** _integer_ (optional) - Minimum accuracy level (0 to 3)
-* **reputation** _integer_ (optional) - Minimum reputation score (-3 to 3)
-* **source** _object_ (optional) - Fields to include or exclude in the response
+* **query** _string_ (required)—The search term (e.g., an IP address, domain, hash, etc.). For a comprehensive list of all possible entity types, see the [Entity Types](/search/entity-types) page.
+* **accuracy** _integer_ (optional)—Minimum accuracy level (0 to 3)
+* **reputation** _integer_ (optional)—Minimum reputation score (-3 to 3)
+* **source** _object_ (optional)—Fields to include or exclude in the response
 
 ### Response
 
@@ -122,9 +122,9 @@ A successful response will return a JSON object containing the historical entity
 
 The response includes:
 
-* **items** - Total number of historical records matching the query
-* **pages** - Total number of pages available
-* **results** - Array of historical entity records matching the search criteria
+* **items:** total number of historical records matching the query
+* **pages:** total number of pages available
+* **results:** array of historical entity records matching the search criteria
 
 ## Advanced History Search
 
@@ -143,7 +143,7 @@ This API endpoint allows you to perform complex searches for historical records 
 * **api-secret** header _string_ (optional)  
   Your API secret.
 
-> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and shouldn't be provided by the client.
 
 * **limit** query _integer_ (optional)  
   Maximum number of results to return. Default is 10.
@@ -160,7 +160,7 @@ This API endpoint allows you to perform complex searches for historical records 
 * **AdvancedSearch** body _object_ (required)  
   The advanced search query parameters.
 
-> Note: You must use either the Authorization header OR the API key and secret combination.
+> Note: you must use either the Authorization header OR the API key and secret combination.
 
 ### Request
 
@@ -225,14 +225,14 @@ curl -X 'POST' \
 
 The request body parameters include:
 
-* **query** _object_ (required) - The query object using OpenSearch-like query DSL
-  * **must** - Conditions that must match (AND)
-  * **should** - Conditions that should match (OR)
-  * **must_not** - Conditions that must not match (NOT)
-  * **filter** - Conditions that must match but don't affect the score
-  * **minimum_should_match** - Minimum number of should clauses that must match
-* **aggs** _object_ (optional) - Aggregations to perform on the data
-* **source** _object_ (optional) - Fields to include or exclude in the response
+* **query** _object_ (required)—the query object using OpenSearch-like query DSL
+  * **must:** conditions that must match (AND)
+  * **should:** conditions that should match (OR)
+  * **must_not:** conditions that must not match (NOT)
+  * **filter:** conditions that must match but don't affect the score
+  * **minimum_should_match:** minimum number of should clauses that must match
+* **aggs** _object_ (optional)—aggregations to perform on the data
+* **source** _object_ (optional)—fields to include or exclude in the response
 
 ### Response
 
@@ -315,15 +315,15 @@ A successful response will return a JSON object containing the historical entity
 
 The response includes:
 
-* **items** - Total number of historical records matching the query
-* **pages** - Total number of pages available
-* **results** - Array of historical entity records matching the search criteria
-* **aggregations** - Results of any aggregations requested in the query
+* **items:** total number of historical records matching the query
+* **pages:** total number of pages available
+* **results:** array of historical entity records matching the search criteria
+* **aggregations:** results of any aggregations requested in the query
 
 ## Error Codes
 
-* **204** - No content (no results found)
-* **400** - Bad request
-* **401** - Unauthorized
-* **403** - Forbidden
-* **500** - Internal server error
+* **204:** no content (no results found)
+* **400:** bad request
+* **401:** unauthorized
+* **403:** forbidden
+* **500:** internal server error

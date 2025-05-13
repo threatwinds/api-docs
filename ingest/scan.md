@@ -21,13 +21,13 @@ POST /api/ingest/v1/scan
 
 ### Request Headers
 
-| Header | Description |
-|--------|-------------|
+| Header          | Description                                                        |
+|-----------------|--------------------------------------------------------------------|
 | `Authorization` | Bearer token for authentication (optional if using API key/secret) |
-| `api-key` | Your API key (optional if using Authorization header) |
-| `api-secret` | Your API secret (optional if using Authorization header) |
+| `api-key`       | Your API key (optional if using Authorization header)              |
+| `api-secret`    | Your API secret (optional if using Authorization header)           |
 
-> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 ### Required Roles
 
@@ -58,12 +58,12 @@ The request body should be a JSON object with the following structure:
 
 #### Parameters
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `target` | string | The IP address or hostname to scan (must be a valid IP or FQDN) |
-| `webhook` | object | Optional webhook configuration for scan completion notifications |
-| `webhook.url` | string | URL to call when the scan is complete |
-| `webhook.headers` | array | Optional headers to include in the webhook request |
+| Parameter         | Type   | Description                                                      |
+|-------------------|--------|------------------------------------------------------------------|
+| `target`          | string | The IP address or hostname to scan (must be a valid IP or FQDN)  |
+| `webhook`         | object | Optional webhook configuration for scan completion notifications |
+| `webhook.url`     | string | URL to call when the scan is complete                            |
+| `webhook.headers` | array  | Optional headers to include in the webhook request               |
 
 ### Response
 
@@ -77,16 +77,16 @@ The request body should be a JSON object with the following structure:
 ```
 
 The API returns different status codes based on the task status:
-- 202 Accepted: When a new scan task is created (status: "new")
-- 200 OK: When returning an existing scan task (status: "queued", "running", or "done")
+- 202 Accepted: when a new scan task is created (status: "new")
+- 200 OK: when returning an existing scan task (status: "queued", "running", or "done")
 
 #### Error Responses
 
-| Status Code | Description |
-|-------------|-------------|
-| 400 | Bad Request - Invalid input data |
-| 401 | Unauthorized - Authentication failed |
-| 403 | Forbidden - Insufficient permissions |
+| Status Code | Description                          |
+|-------------|--------------------------------------|
+| 400         | Bad Request - Invalid input data     |
+| 401         | Unauthorized - Authentication failed |
+| 403         | Forbidden - Insufficient permissions |
 
 ### Example
 
@@ -126,13 +126,13 @@ When you submit a target for scanning, the ThreatWinds platform automatically pe
 - Service detection to identify running services
 - SSL/TLS certificate information collection and analysis
 
-> **Note**: You don't need to specify a scan type in your request. The system automatically determines the appropriate scans to run based on the target.
+> **Note**: you don't need to specify a scan type in your request. The system automatically determines the appropriate scans to run based on the target.
 
 ## Scan Results
 
 After a scan is completed, the results are automatically ingested into the ThreatWinds platform as entities and associations. You can access these results through the Analytics API.
 
-> **Note**: The scan endpoint only returns a task ID and status. To retrieve the actual scan results, you need to use the Analytics API once the scan is complete.
+> **Note**: the scan endpoint only returns a task ID and status. To retrieve the actual scan results, you need to use the Analytics API once the scan is complete.
 
 ### Data Generated from Scans
 
