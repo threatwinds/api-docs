@@ -13,12 +13,12 @@ The Search API provides powerful search capabilities for threat intelligence ent
 
 ThreatWinds Search API allows you to:
 
-- Search for threat intelligence entities using simple queries
-- Perform advanced searches with complex filters and aggregations
-- Search in the entity history
-- Retrieve detailed information about specific entities
-- View relationships between entities
-- Access comments associated with entities
+- Search for threat intelligence entities using [simple queries](/search/simple-search)
+- Perform [advanced searches](/search/advanced-search) with complex filters and aggregations
+- Search in the [entity history](/search/history-search)
+- Retrieve detailed information about [specific entities](/search/entity-lookup)
+- View relationships between [entities](/search/entity)
+- Access [comments](/search/comments) associated with entities
 - Browse a comprehensive list of [entity types](/search/entity-types)
 
 ## Authentication

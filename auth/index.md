@@ -13,10 +13,10 @@ The Authentication API (Auth API) is responsible for user authentication, sessio
 
 ThreatWinds Auth API allows you to:
 
-- Create and manage user accounts
-- Authenticate users through email verification
-- Manage user sessions
-- Create and manage API keys for programmatic access
+- Create and manage [user accounts](/auth/user)
+- Authenticate users through [email verification](/auth/email)
+- Manage user [sessions](/auth/session)
+- Create and manage [API keys](/auth/keypair) for programmatic access
 - Verify and validate authentication credentials
 
 ## Authentication Methods

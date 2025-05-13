@@ -8,7 +8,7 @@ permalink: /search/simple-search
 
 # Simple Search
 
-This API endpoint allows you to search for threat intelligence entities using a simple query language. It's designed for straightforward searches where you want to find entities matching specific criteria without constructing complex queries.
+This API endpoint allows you to search for threat intelligence entities using a simple query language. It's designed for straightforward searches where you want to find entities matching specific criteria without constructing complex queries. For more sophisticated search capabilities, see the [Advanced Search](/search/advanced-search) documentation.
 
 **Endpoint:** https://intelligence.threatwinds.com/api/search/v1/entities/simple
 
@@ -40,7 +40,7 @@ This API endpoint allows you to search for threat intelligence entities using a 
 * **SimpleSearch** body _object_ (required)  
   The search query parameters.
 
-> Note: You must use either the Authorization header OR the API key and secret combination.
+> Note: You must use either the Authorization header OR the API key and secret combination. For more details on authentication, see the [Authentication](/auth) documentation.
 
 ## Request
 

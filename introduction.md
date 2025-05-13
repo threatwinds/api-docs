@@ -29,6 +29,10 @@ Our API offers a range of features that can be tailored to your specific needs, 
 ## Getting started
 
 * [Quickstart](/quickstart)
+* [Authentication](/auth)
+* [Search API](/search)
+* [Analytics API](/analytics)
+* [Ingest API](/ingest)
 
 ## Get involved
 
@@ -38,6 +42,6 @@ By adding your own threat data, you can help make our system more accurate and r
 
 We welcome all contributions, no matter how big or small. Whether you have information on a specific threat or a general trend, your contribution can help us build a more comprehensive and accurate picture of the cyber-security landscape.
 
-> See more about [Ingest API](/ingest)
+> See more about [Ingest API](/ingest) to learn how to contribute threat intelligence data
 
 **Thank you for choosing ThreatWinds, and we look forward to seeing the innovative ways in which you use our technology to enhance your own products and services.**

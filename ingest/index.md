@@ -13,11 +13,11 @@ The Ingest API allows you to submit and manage threat intelligence data in the T
 
 ThreatWinds Ingest API allows you to:
 
-- Submit new threat intelligence entities to the platform
-- Create associations between entities
-- Add comments to entities or relations
+- Submit new threat intelligence [entities](/ingest/entity) to the platform
+- Create [associations](/ingest/association) between entities
+- Add [comments](/ingest/comment) to entities or relations
 - Mark entities as "well-known" (trusted)
-- Schedule scans for IPs or hostnames
+- Schedule [scans](/ingest/scan) for IPs or hostnames
 - Retrieve entity definitions
 
 ## Authentication
@@ -64,11 +64,11 @@ https://intelligence.threatwinds.com/api/ingest/v1
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/entity` | POST | Insert a new entity with associations |
-| `/association` | POST | Insert an association between entities |
-| `/comment` | POST | Add a comment to an entity or relation |
+| [`/entity`](/ingest/entity) | POST | Insert a new entity with associations |
+| [`/association`](/ingest/association) | POST | Insert an association between entities |
+| [`/comment`](/ingest/comment) | POST | Add a comment to an entity or relation |
 | `/well-known` | POST | Insert a well-known (trusted) entity |
-| `/scan` | POST | Schedule a scan for an IP or hostname |
+| [`/scan`](/ingest/scan) | POST | Schedule a scan for an IP or hostname |
 | `/definitions` | GET | Retrieve entity definitions |
 
 For detailed information about each endpoint, please refer to the specific documentation pages.

@@ -13,8 +13,8 @@ The Feeds API provides access to ThreatWinds threat intelligence feeds. These fe
 
 ThreatWinds Feeds API allows you to:
 
-- Get a list of all available feeds
-- Download feed files based on accuracy level, type, and name
+- Get a [list of all available feeds](/feeds/list)
+- [Download feed files](/feeds/download) based on accuracy level, type, and name
 - Access feed checksums for verification
 
 The feeds are categorized by:

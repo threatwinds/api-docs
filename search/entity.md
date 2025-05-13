@@ -8,7 +8,7 @@ permalink: /search/entity
 
 # Entity Retrieval
 
-This API endpoint allows you to retrieve detailed information about a specific threat intelligence entity by its ID.
+This API endpoint allows you to retrieve detailed information about a specific threat intelligence entity by its ID. If you don't know the entity ID, you can use the [Simple Search](/search/simple-search) or [Advanced Search](/search/advanced-search) endpoints to find entities based on various criteria.
 
 **Endpoint:** https://intelligence.threatwinds.com/api/search/v1/entity/{id}
 
@@ -28,7 +28,7 @@ This API endpoint allows you to retrieve detailed information about a specific t
 * **id** path _string_ (required)  
   The unique identifier of the entity you want to retrieve.
 
-> Note: You must use either the Authorization header OR the API key and secret combination.
+> Note: You must use either the Authorization header OR the API key and secret combination. For more details on authentication, see the [Authentication](/auth) documentation.
 
 ## Request
 
@@ -89,6 +89,8 @@ The response includes all available information about the entity, including:
 * **tags** - Array of tags associated with the entity
 * **visibleBy** - Array of visibility settings
 * **attributes** - Object containing entity-specific attributes
+
+For detailed information about the entity structure and attributes, see the [Entity Mapping](/search/entity-mapping) documentation.
 
 ## Entity Relations
 

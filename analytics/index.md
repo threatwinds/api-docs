@@ -13,8 +13,8 @@ The Analytics API provides detailed information and analysis of threat intellige
 
 ThreatWinds Analytics API allows you to:
 
-- Get detailed information about threat intelligence entities
-- View relationships between entities in a graph format
+- Get [detailed information](/analytics/entity-details) about threat intelligence entities
+- View [relationships between entities](/analytics/entity-relations) in a graph format
 - Access extended metadata and geolocation information
 
 ## Authentication

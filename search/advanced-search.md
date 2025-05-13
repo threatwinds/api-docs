@@ -8,7 +8,7 @@ permalink: /search/advanced-search
 
 # Advanced Search
 
-This API endpoint allows you to perform complex searches for threat intelligence entities using advanced filters and aggregations. It provides more flexibility and power than the simple search endpoint, allowing you to construct sophisticated queries using OpenSearch-like query syntax.
+This API endpoint allows you to perform complex searches for threat intelligence entities using advanced filters and aggregations. It provides more flexibility and power than the [simple search](/search/simple-search) endpoint, allowing you to construct sophisticated queries using OpenSearch-like query syntax. If you need a more straightforward search interface, consider using the [Simple Search](/search/simple-search) instead.
 
 **Endpoint:** https://intelligence.threatwinds.com/api/search/v1/entities/advanced
 
@@ -40,7 +40,7 @@ This API endpoint allows you to perform complex searches for threat intelligence
 * **AdvancedSearch** body _object_ (required)  
   The advanced search query parameters.
 
-> Note: You must use either the Authorization header OR the API key and secret combination.
+> Note: You must use either the Authorization header OR the API key and secret combination. For more details on authentication, see the [Authentication](/auth) documentation.
 
 ## Request
 
@@ -133,6 +133,8 @@ The request body parameters include:
 ## OpenSearch Query DSL
 
 The advanced search endpoint uses OpenSearch Query DSL (Domain Specific Language), which provides a rich and flexible way to define queries. The query is structured as a JSON object with specific fields and operators.
+
+> **Note**: To effectively use the advanced search capabilities, it's important to understand the entity structure and field types. For detailed information about entity mapping, including field types, searchability, and how to use `.keyword` fields, see the [Entity Mapping](/search/entity-mapping) documentation.
 
 ### Query Types
 
