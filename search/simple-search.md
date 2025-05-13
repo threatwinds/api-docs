@@ -83,7 +83,7 @@ A successful response will return a JSON object containing the search results:
       "id": "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e",
       "type": "ip",
       "attributes": {
-        "value": "8.8.8.8"
+        "ip": "8.8.8.8"
       },
       "reputation": 3,
       "accuracy": 3
