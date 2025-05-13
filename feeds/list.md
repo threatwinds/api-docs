@@ -14,16 +14,13 @@ This API endpoint returns a list of all available threat intelligence feeds.
 
 ## Parameters
 
-* **Authorization** header _string_ (optional)  
-  This authorization header can be obtained from an active session of the account.
+| Parameter         | Location | Type   | Required  | Description                                                        |
+|-------------------|----------|--------|-----------|-------------------------------------------------------------------|
+| **Authorization** | header   | string | Optional* | Bearer token obtained from an active session                       |
+| **api-key**       | header   | string | Optional* | Your API key                                                       |
+| **api-secret**    | header   | string | Optional* | Your API secret                                                    |
 
-* **api-key** header _string_ (optional)  
-  Your API key.
-
-* **api-secret** header _string_ (optional)  
-  Your API secret.
-
-> Note: You must use either the Authorization header OR the API key and secret combination.
+> **Note:** You must use either the Authorization header OR the API key and secret combination.
 
 ## Request
 
@@ -50,9 +47,11 @@ curl -X 'GET' \
 
 A successful response will return a JSON array of feed items, each containing:
 
-* **name:** the name of the feed (for example, "ip", "md5")
-* **type:** the type of the feed (for example, "accumulative", "daily")
-* **accuracy:** the accuracy level of the feed (for example, "level1", "level2", "level3")
+| Field        | Description                                                                |
+|--------------|----------------------------------------------------------------------------|
+| **name**     | The name of the feed (for example, "ip", "md5")                            |
+| **type**     | The type of the feed (for example, "accumulative", "daily")                |
+| **accuracy** | The accuracy level of the feed (for example, "level1", "level2", "level3") |
 
 Example response:
 
@@ -78,5 +77,7 @@ Example response:
 
 ## Error Codes
 
-* **400:** bad request
-* **500:** internal server error
+| Status Code | Description           | Possible Cause                                          |
+|-------------|-----------------------|---------------------------------------------------------|
+| **400**     | Bad Request           | Invalid request parameters or malformed JSON            |
+| **500**     | Internal Server Error | Server-side error; please contact support if persistent |

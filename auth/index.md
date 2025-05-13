@@ -13,18 +13,22 @@ The Authentication API (Auth API) is responsible for user authentication, sessio
 
 ThreatWinds Auth API allows you to:
 
-- Create and manage [user accounts](/auth/user)
-- Authenticate users through [email verification](/auth/email)
-- Manage user [sessions](/auth/session)
-- Create and manage [API keys](/auth/keypair) for programmatic access
-- Verify and validate authentication credentials
+| Feature                   | Description                                        | Documentation                     |
+|---------------------------|----------------------------------------------------|-----------------------------------|
+| User Management           | Create and manage user accounts                    | [User API](/auth/user)            |
+| Email Authentication      | Authenticate users through email verification      | [Email API](/auth/email)          |
+| Session Management        | Create and manage user sessions                    | [Session API](/auth/session)      |
+| API Key Management        | Create and manage API keys for programmatic access | [Key Pair API](/auth/keypair)     |
+| Authentication Validation | Verify and validate authentication credentials     | [Authentication Flow](/auth/flow) |
 
 ## Authentication Methods
 
 ThreatWinds supports two primary authentication methods:
 
-1. **Bearer Token Authentication:** using an Authorization header with a bearer token
-2. **API Key Authentication:** using API key and API secret headers
+| Authentication Method           | Description                                      | Best For                                       |
+|---------------------------------|--------------------------------------------------|------------------------------------------------|
+| **Bearer Token Authentication** | Uses an Authorization header with a bearer token | Web applications and interactive sessions      |
+| **API Key Authentication**      | Uses API key and API secret headers              | Third-party integrations and automated systems |
 
 For more details on the authentication flow, see the [Authentication Flow](/auth/flow) page.
 

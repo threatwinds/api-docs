@@ -27,7 +27,7 @@ POST /api/ingest/v1/scan
 | `api-key`       | Your API key (optional if using Authorization header)              |
 | `api-secret`    | Your API secret (optional if using Authorization header)           |
 
-> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note:** The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 ### Required Roles
 
@@ -126,13 +126,13 @@ When you submit a target for scanning, the ThreatWinds platform automatically pe
 - Service detection to identify running services
 - SSL/TLS certificate information collection and analysis
 
-> **Note**: you don't need to specify a scan type in your request. The system automatically determines the appropriate scans to run based on the target.
+> **Note:** You don't need to specify a scan type in your request. The system automatically determines the appropriate scans to run based on the target.
 
 ## Scan Results
 
 After a scan is completed, the results are automatically ingested into the ThreatWinds platform as entities and associations. You can access these results through the Analytics API.
 
-> **Note**: the scan endpoint only returns a task ID and status. To retrieve the actual scan results, you need to use the Analytics API once the scan is complete.
+> **Note:** The scan endpoint only returns a task ID and status. To retrieve the actual scan results, you need to use the Analytics API once the scan is complete.
 
 ### Data Generated from Scans
 

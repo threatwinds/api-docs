@@ -14,33 +14,32 @@ This API endpoint allows you to perform complex searches for threat intelligence
 
 ## Parameters
 
-* **Authorization** header _string_ (optional)  
-  This authorization header can be obtained from an active session of the account.
+### Headers
 
-* **api-key** header _string_ (optional)  
-  Your API key.
+| Header            | Type   | Required  | Description                                  |
+|-------------------|--------|-----------|----------------------------------------------|
+| **Authorization** | string | Optional* | Bearer token obtained from an active session |
+| **api-key**       | string | Optional* | Your API key                                 |
+| **api-secret**    | string | Optional* | Your API secret                              |
 
-* **api-secret** header _string_ (optional)  
-  Your API secret.
+> **Note:** The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
-> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+### Query Parameters
 
-* **limit** query _integer_ (optional)  
-  Maximum number of results to return. Default is 10.
+| Parameter | Type    | Required | Description                                                 |
+|-----------|---------|----------|-------------------------------------------------------------|
+| **limit** | integer | No       | Maximum number of results to return. Default is 10          |
+| **page**  | integer | No       | Page number for pagination. Default is 1                    |
+| **sort**  | string  | No       | Field to sort results by                                    |
+| **order** | string  | No       | Sort order, either "asc" (ascending) or "desc" (descending) |
 
-* **page** query _integer_ (optional)  
-  Page number for pagination. Default is 1.
+### Request Body
 
-* **sort** query _string_ (optional)  
-  Field to sort results by.
+| Parameter          | Type   | Required | Description                          |
+|--------------------|--------|----------|--------------------------------------|
+| **AdvancedSearch** | object | Yes      | The advanced search query parameters |
 
-* **order** query _string_ (optional)  
-  Sort order, either "asc" (ascending) or "desc" (descending).
-
-* **AdvancedSearch** body _object_ (required)  
-  The advanced search query parameters.
-
-> Note: you must use either the Authorization header OR the API key and secret combination. For more details on authentication, see the [Authentication](/auth) documentation.
+> **Note:** You must use either the Authorization header OR the API key and secret combination. For more details on authentication, see the [Authentication](/auth) documentation.
 
 ## Request
 
@@ -116,64 +115,75 @@ curl -X 'POST' \
 
 The request body parameters include:
 
-* **query** _object_ (required)—The query object using OpenSearch query DSL
-  * **must:** conditions that must match (AND)
-  * **should:** conditions that should match (OR)
-  * **must_not:** conditions that must not match (NOT)
-  * **filter:** conditions that must match but don't affect the score
-  * **minimum_should_match:** minimum number of should clauses that must match
-* **aggs** _object_ (optional)—Aggregations to perform on the data
-* **source** _object_ (optional)—Fields to include or exclude in the response
-* **collapse** _object_ (optional)—Field to collapse results on
-* **script_fields** _object_ (optional)—Computed fields
-* **search_after** _array_ (optional)—Pagination using search_after
+| Parameter         | Type   | Required | Description                                  |
+|-------------------|--------|----------|----------------------------------------------|
+| **query**         | object | Yes      | The query object using OpenSearch query DSL  |
+| **aggs**          | object | No       | Aggregations to perform on the data          |
+| **source**        | object | No       | Fields to include or exclude in the response |
+| **collapse**      | object | No       | Field to collapse results on                 |
+| **script_fields** | object | No       | Computed fields                              |
+| **search_after**  | array  | No       | Pagination using search_after                |
 
-> Note: in the example preceding, it's in use a `term` query to filter by the `type` field with a value of `"ip"`. For a comprehensive list of all possible entity types, see the [Entity Types](/search/entity-types) page.
+The **query** object can contain the following clauses:
+
+| Clause                   | Description                                           | Logic                       |
+|--------------------------|-------------------------------------------------------|-----------------------------|
+| **must**                 | Conditions that must match                            | AND                         |
+| **should**               | Conditions that should match                          | OR                          |
+| **must_not**             | Conditions that must not match                        | NOT                         |
+| **filter**               | Conditions that must match but don't affect the score | AND (without scoring)       |
+| **minimum_should_match** | Minimum number of should clauses that must match      | Threshold for OR conditions |
+
+> **Note:** In the example preceding, it's in use a `term` query to filter by the `type` field with a value of `"ip"`. For a comprehensive list of all possible entity types, see the [Entity Types](/search/entity-types) page.
 
 ## OpenSearch Query DSL
 
 The advanced search endpoint uses OpenSearch Query DSL (Domain Specific Language), which provides a rich and flexible way to define queries. The query is structured as a JSON object with specific fields and operators.
 
-> **Note**: to effectively use the advanced search capabilities, it's important to understand the entity structure and field types. For detailed information about entity mapping, including field types, searchability, and how to use `.keyword` fields, see the [Entity Mapping](/search/entity-mapping) documentation.
+> **Note:** To effectively use the advanced search capabilities, it's important to understand the entity structure and field types. For detailed information about entity mapping, including field types, searchability, and how to use `.keyword` fields, see the [Entity Mapping](/search/entity-mapping) documentation.
 
 ### Query Types
 
 The following query types can be used within the `must`, `should`, `must_not`, and `filter` clauses:
 
-* **term:** exact match on a field
-* **terms:** match if the field has any of the specified values
-* **ids:** match documents with the specified IDs
-* **range:** match if the field value is within a specified range
-* **exists:** match if field exists
-* **prefix:** match if the field value starts with a specified prefix
-* **fuzzy:** match similar terms based on Levenshtein distance
-* **wildcard:** match using wildcards
-* **regexp:** match using regular expressions
-* **match:** full-text search on a field
-* **multi_match:** full-text search on multiple fields
-* **match_bool_prefix:** match prefix of words
-* **match_phrase:** match exact phrase
-* **match_phrase_prefix:** match phrase prefix
-* **query_string:** query with a syntax (AND, OR, NOT)
-* **simple_query_string:** simplified query string syntax
+| Query Type              | Description                                             | Use Case                                                      |
+|-------------------------|---------------------------------------------------------|---------------------------------------------------------------|
+| **term**                | Exact match on a field                                  | When you need exact matching on a specific field value        |
+| **terms**               | Match if the field has any of the specified values      | When you want to match multiple possible values               |
+| **ids**                 | Match documents with the specified IDs                  | When you want to retrieve specific entities by ID             |
+| **range**               | Match if the field value is within a specified range    | For numeric or date ranges (e.g., reputation scores)          |
+| **exists**              | Match if field exists                                   | When you need to find entities that have a specific attribute |
+| **prefix**              | Match if the field value starts with a specified prefix | For partial matching at the beginning of a value              |
+| **fuzzy**               | Match similar terms based on Levenshtein distance       | When you need to account for typos or spelling variations     |
+| **wildcard**            | Match using wildcards                                   | When you need pattern matching with * and ? wildcards         |
+| **regexp**              | Match using regular expressions                         | For complex pattern matching                                  |
+| **match**               | Full-text search on a field                             | For general text searching with relevance scoring             |
+| **multi_match**         | Full-text search on multiple fields                     | When you want to search the same term across different fields |
+| **match_bool_prefix**   | Match prefix of words                                   | For search-as-you-type functionality                          |
+| **match_phrase**        | Match exact phrase                                      | When word order matters in your search                        |
+| **match_phrase_prefix** | Match phrase prefix                                     | For phrase matching with the last term as a prefix            |
+| **query_string**        | Query with a syntax (AND, OR, NOT)                      | For advanced users who need complex query syntax              |
+| **simple_query_string** | Simplified query string syntax                          | For user-facing search boxes with simple syntax               |
 
 ### Aggregation Types
 
 The `aggs` field allows you to perform various aggregations on your data:
 
-* **terms:** group by field values
-* **range:** group by ranges of values
-* **date_histogram:** group by date intervals
-* **histogram:** group by numeric intervals
-* **avg:** calculate average of a field
-* **sum:** calculate sum of a field
-* **min:** find minimum value of a field
-* **max:** find maximum value of a field
-* **cardinality:** count unique values
-* **stats:** calculate statistics (count, min, max, avg, sum)
-* **extended_stats:** calculate extended statistics
-* **percentiles:** calculate percentiles
-* **top_hits:** return top matching hits
+| Aggregation Type   | Description                                      | Use Case                                                         |
+|--------------------|--------------------------------------------------|------------------------------------------------------------------|
+| **terms**          | Group by field values                            | When you want to see distribution of values in a field           |
+| **range**          | Group by ranges of values                        | For grouping numeric data into buckets (e.g., reputation ranges) |
+| **date_histogram** | Group by date intervals                          | For time-based analysis (e.g., entities per month)               |
+| **histogram**      | Group by numeric intervals                       | For numeric data distribution analysis                           |
+| **avg**            | Calculate average of a field                     | When you need the mean value of a numeric field                  |
+| **sum**            | Calculate sum of a field                         | When you need the total of a numeric field                       |
+| **min**            | Find minimum value of a field                    | When you need the smallest value in a dataset                    |
+| **max**            | Find maximum value of a field                    | When you need the largest value in a dataset                     |
+| **cardinality**    | Count unique values                              | When you need to know how many distinct values exist             |
+| **stats**          | Calculate statistics (count, min, max, avg, sum) | For basic statistical analysis in one request                    |
+| **extended_stats** | Calculate extended statistics                    | For more detailed statistical analysis                           |
+| **percentiles**    | Calculate percentiles                            | For understanding data distribution                              |
+| **top_hits**       | Return top matching hits                         | When you want to see examples from each bucket                   |
 
 ### Source Filtering
 
@@ -690,15 +700,19 @@ A successful response will return a JSON object containing the search results an
 
 The response includes:
 
-* **items:** total number of items matching the query
-* **pages:** total number of pages available
-* **results:** array of entities matching the search criteria
-* **aggregations:** results of any aggregations requested in the query
+| Field            | Type    | Description                                        |
+|------------------|---------|----------------------------------------------------|
+| **items**        | integer | Total number of items matching the query           |
+| **pages**        | integer | Total number of pages available                    |
+| **results**      | array   | Array of entities matching the search criteria     |
+| **aggregations** | object  | Results of any aggregations requested in the query |
 
 ## Error Codes
 
-* **204:** no content (no results found)
-* **400:** bad request
-* **401:** unauthorized
-* **403:** forbidden
-* **500:** internal server error
+| Status Code | Description           | Possible Cause                                          |
+|-------------|-----------------------|---------------------------------------------------------|
+| **204**     | No Content            | No results found matching your query criteria           |
+| **400**     | Bad Request           | Invalid request parameters or malformed JSON            |
+| **401**     | Unauthorized          | Missing or invalid authentication credentials           |
+| **403**     | Forbidden             | Authenticated user lacks permission for this operation  |
+| **500**     | Internal Server Error | Server-side error; please contact support if persistent |

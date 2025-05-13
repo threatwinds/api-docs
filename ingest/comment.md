@@ -27,7 +27,7 @@ POST /api/ingest/v1/comment
 | `api-key`       | Your API key (optional if using Authorization header)              |
 | `api-secret`    | Your API secret (optional if using Authorization header)           |
 
-> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note:** The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 ### Required Roles
 
@@ -52,7 +52,7 @@ The request body should be a JSON object with the following structure:
 }
 ```
 
-> **Note**: you need to provide valid entity IDs that already exist in the system. Entity IDs in ThreatWinds follow the format `[type]-[hash]` where `type` is the entity type and `hash` is the SHA3-256 hash of the entity's main attribute. You can obtain entity IDs by first creating entities using the `/entity` endpoint and/or by querying entities through the Search API.
+> **Note:** You need to provide valid entity IDs that already exist in the system. Entity IDs in ThreatWinds follow the format `[type]-[hash]` where `type` is the entity type and `hash` is the SHA3-256 hash of the entity's main attribute. You can obtain entity IDs by first creating entities using the `/entity` endpoint and/or by querying entities through the Search API.
 
 #### Parameters
 

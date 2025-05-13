@@ -19,14 +19,12 @@ This API endpoint creates a new user account and sends a verification code.
 **Endpoint:** https://intelligence.threatwinds.com/api/auth/v2/user
 
 ### Parameters
-* **email** body _string_  
-The email address for the new user account. This email will be used for authentication and communication. _e.g.: "john@doe.net"_
 
-* **fullName** body _string_  
-The full name of the user. _e.g.: "John Doe"_
-
-* **alias** body _string_  
-A username or alias for the user. _e.g.: "johny"_
+| Parameter    | Location | Type   | Required | Description                                                                                               | Example        |
+|--------------|----------|--------|----------|-----------------------------------------------------------------------------------------------------------|----------------|
+| **email**    | body     | string | Yes      | The email address for the new user account. This email will be used for authentication and communication. | "john@doe.net" |
+| **fullName** | body     | string | Yes      | The full name of the user.                                                                                | "John Doe"     |
+| **alias**    | body     | string | Yes      | A username or alias for the user.                                                                         | "johny"        |
 
 To create a user, use a **POST** request, for example:
 
@@ -57,7 +55,7 @@ A successful response will return a JSON object containing session information a
 }
 ```
 
-> **Note**: after creating a user, you need to verify the session using the verification code sent to the provided email address. See the [Verify session](#verifySession) section in the [Sessions](/auth/session) documentation.
+> **Note:** After creating a user, you need to verify the session using the verification code sent to the provided email address. See the [Verify session](#verifySession) section in the [Sessions](/auth/session) documentation.
 
 ## Get user by ID {#getUserById}
 
@@ -67,8 +65,9 @@ This API endpoint retrieves information about a user by their ID.
 
 ### Parameters
 
-* **id** path _string_  
-The unique identifier of the user. e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e
+| Parameter | Location | Type   | Required | Description                        | Example                              |
+|-----------|----------|--------|----------|------------------------------------|--------------------------------------|
+| **id**    | path     | string | Yes      | The unique identifier of the user. | 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e |
 
 To get a user by ID, use a **GET** request, for example:
 

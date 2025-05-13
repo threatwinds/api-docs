@@ -23,9 +23,10 @@ This API endpoint starts a new session and sends a one-time password for verific
 **Endpoint:** https://intelligence.threatwinds.com/api/auth/v2/session
 
 ### Parameters
-* **email** body _string_  
-The email address associated with your account. This email will be used to send the verification code. 
-    e.g.: "john@doe.net"
+
+| Parameter | Location | Type   | Required | Description                                                                                            | Example        |
+|-----------|----------|--------|----------|--------------------------------------------------------------------------------------------------------|----------------|
+| **email** | body     | string | Yes      | The email address associated with your account. This email will be used to send the verification code. | "john@doe.net" |
 
 To create a session, use a **POST** request, for example:
 
@@ -54,7 +55,7 @@ A successful response will return a JSON object containing session information a
 }
 ```
 
-> **Note**: the session is not fully active until it is verified with the verification code sent to your email.
+> **Note:** The session is not fully active until it is verified with the verification code sent to your email.
 
 ## Check session {#checkSession}
 
@@ -64,8 +65,9 @@ This API endpoint checks a user session and returns privileges.
 
 ### Parameters
 
-* **Authorization** header _string_  
-The bearer token received when creating and verifying the session.
+| Parameter         | Location | Type   | Required | Description                                                        |
+|-------------------|----------|--------|----------|--------------------------------------------------------------------|
+| **Authorization** | header   | string | Yes      | The bearer token received when creating and verifying the session. |
 
 To check a session, use a **GET** request, for example:
 
@@ -103,11 +105,10 @@ This API endpoint closes a session.
 
 ### Parameters
 
-* **Authorization** header _string_  
-The bearer token for an active session.
-
-* **id** path _string_  
-The ID of the session to close. e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e
+| Parameter         | Location | Type   | Required | Description                             | Example                              |
+|-------------------|----------|--------|----------|-----------------------------------------|--------------------------------------|
+| **Authorization** | header   | string | Yes      | The bearer token for an active session. |                                      |
+| **id**            | path     | string | Yes      | The ID of the session to close.         | 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e |
 
 To close a session, use a **DELETE** request, for example:
 
@@ -136,8 +137,9 @@ This API endpoint extends the current session's expiration time.
 
 ### Parameters
 
-* **Authorization** header _string_  
-The bearer token for the session you want to extend.
+| Parameter         | Location | Type   | Required | Description                                          |
+|-------------------|----------|--------|----------|------------------------------------------------------|
+| **Authorization** | header   | string | Yes      | The bearer token for the session you want to extend. |
 
 To extend a session, use a **PUT** request, for example:
 
@@ -166,11 +168,10 @@ This API endpoint verifies a session using the verification code sent during ses
 
 ### Parameters
 
-* **verificationCodeID** body _string_  
-The verification code ID received when creating the session. e.g.: "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e"
-
-* **code** body _string_  
-The verification code sent to your email. e.g.: "654321"
+| Parameter              | Location | Type   | Required | Description                                                  | Example                                |
+|------------------------|----------|--------|----------|--------------------------------------------------------------|----------------------------------------|
+| **verificationCodeID** | body     | string | Yes      | The verification code ID received when creating the session. | "5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e" |
+| **code**               | body     | string | Yes      | The verification code sent to your email.                    | "654321"                               |
 
 To verify a session, use a **PUT** request, for example:
 
@@ -203,8 +204,9 @@ This API endpoint gets all active sessions for the current user.
 
 ### Parameters
 
-* **Authorization** header _string_  
-The bearer token for an active session.
+| Parameter | Location | Type | Required | Description |
+|-----------|----------|------|----------|-------------|
+| **Authorization** | header | string | Yes | The bearer token for an active session. |
 
 To get all sessions, use a **GET** request, for example:
 

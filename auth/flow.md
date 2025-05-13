@@ -18,8 +18,10 @@ ThreatWinds uses a microservices architecture where all API requests pass throug
 
 ThreatWinds supports two primary authentication methods:
 
-1. **Bearer Token Authentication**: using an Authorization header with a bearer token
-2. **API Key Authentication**: using API key and API secret headers
+| Authentication Method           | Description                                       |
+|---------------------------------|---------------------------------------------------|
+| **Bearer Token Authentication** | Using an Authorization header with a bearer token |
+| **API Key Authentication**      | Using API key and API secret headers              |
 
 ## Authentication Flow
 
@@ -55,9 +57,11 @@ ThreatWinds supports two primary authentication methods:
 
 The Gateway uses route configurations to determine:
 
-1. Whether a route is public or requires authentication
-2. Required roles to access a protected route
-3. Microservice to forward the request to
+| Configuration Aspect | Description                                          |
+|----------------------|------------------------------------------------------|
+| **Authentication**   | Whether a route is public or requires authentication |
+| **Authorization**    | Required roles to access a protected route           |
+| **Routing**          | Microservice to forward the request to               |
 
 Example route configuration:
 
@@ -76,42 +80,45 @@ Example route configuration:
 ```
 
 In this example:
-- The route isn't public, so authentication is required
-- The user must have either the "user" or "admin" role to access it
-- The request is forwarded to the Search API microservice
+
+| Property       | Value                                    | Meaning                                                           |
+|----------------|------------------------------------------|-------------------------------------------------------------------|
+| **public**     | false                                    | The route isn't public, so authentication is required             |
+| **roles**      | ["user", "admin"]                        | The user must have either the "user" or "admin" role to access it |
+| **redirectTo** | "https://search-2zmeoijpja-uc.a.run.app" | The request is forwarded to the Search API microservice           |
 
 ## Public vs. Protected Routes
 
-Some routes in the ThreatWinds API are public and don't require authentication, such as:
-- Login endpoints
-- Password reset endpoints
-- Some documentation endpoints
+Some routes in the ThreatWinds API are public and don't require authentication:
 
-All other routes require authentication and appropriate roles.
+| Route Type           | Examples                                                                          | Authentication Required     |
+|----------------------|-----------------------------------------------------------------------------------|-----------------------------|
+| **Public Routes**    | • Login endpoints<br>• Password reset endpoints<br>• Some documentation endpoints | No                          |
+| **Protected Routes** | • All other API endpoints                                                         | Yes, with appropriate roles |
 
 ## Session Management
 
 When using bearer token authentication:
-- Sessions have a limited lifetime
-- The client is responsible for refreshing the session before it expires
-- The Auth API provides endpoints for session management (create, refresh, validate, revoke)
+
+| Aspect                     | Description                                                                                |
+|----------------------------|--------------------------------------------------------------------------------------------|
+| **Session Lifetime**       | Sessions have a limited lifetime                                                           |
+| **Refresh Responsibility** | The client is responsible for refreshing the session before it expires                     |
+| **Management Endpoints**   | The Auth API provides endpoints for session management (create, refresh, validate, revoke) |
 
 ## Best Practices
 
-1. **For Web Applications**:
-   - Use bearer token authentication
-   - Store the token securely (for example, in an HTTP-only cookie)
-   - Implement token refresh logic
-
-2. **For Server-to-Server Communication**:
-   - Use API key authentication
-   - Store the API key and secret securely
-
-3. **For Mobile Applications**:
-   - Use bearer token authentication
-   - Store the token securely in the device's secure storage
-   - Implement token refresh logic
+| Application Type                   | Recommended Authentication  | Security Practices                                                                                  |
+|------------------------------------|-----------------------------|-----------------------------------------------------------------------------------------------------|
+| **Web Applications**               | Bearer token authentication | • Store the token securely (for example, in an HTTP-only cookie)<br>• Implement token refresh logic |
+| **Server-to-Server Communication** | API key authentication      | • Store the API key and secret securely                                                             |
+| **Mobile Applications**            | Bearer token authentication | • Store the token securely in the device's secure storage<br>• Implement token refresh logic        |
 
 ## Related Documentation
 
-- [Email Authentication](/auth/email) - Managing email addresses for authentication
+| Documentation                        | Description                                 |
+|--------------------------------------|---------------------------------------------|
+| [Email Authentication](/auth/email)  | Managing email addresses for authentication |
+| [Session Management](/auth/session)  | Creating and managing user sessions         |
+| [Key Pair Management](/auth/keypair) | Creating and managing API keys              |
+| [User Management](/auth/user)        | Creating and managing user accounts         |

@@ -13,16 +13,20 @@ The Analytics API provides detailed information and analysis of threat intellige
 
 ThreatWinds Analytics API allows you to:
 
-- Get [detailed information](/analytics/entity-details) about threat intelligence entities
-- View [relationships between entities](/analytics/entity-relations) in a graph format
-- Access extended metadata and geolocation information
+| Feature                                         | Description                                                 |
+|-------------------------------------------------|-------------------------------------------------------------|
+| [Entity Details](/analytics/entity-details)     | Get detailed information about threat intelligence entities |
+| [Entity Relations](/analytics/entity-relations) | View relationships between entities in a graph format       |
+| Metadata Access                                 | Access extended metadata and geolocation information        |
 
 ## Authentication
 
 Like all ThreatWinds APIs, the Analytics API requires authentication. You can authenticate using either:
 
-1. **Authorization Header:** include a bearer token in the Authorization header
-2. **API Key and Secret:** include your API key and secret in the request headers
+| Authentication Method    | Description                                            |
+|--------------------------|--------------------------------------------------------|
+| **Authorization Header** | Include a bearer token in the Authorization header     |
+| **API Key and Secret**   | Include your API key and secret in the request headers |
 
 For more details on authentication, see the [Authentication](/auth) section.
 

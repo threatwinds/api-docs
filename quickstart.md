@@ -13,17 +13,21 @@ Welcome to the ThreatWinds API Quickstart Guide! This guide provides practical e
 
 ThreatWinds offers several RESTful APIs to help you work with threat intelligence data:
 
-* [Authentication API](/auth) - Manage user sessions and API keys
-* [Search API](/search) - Find and query threat intelligence entities
-* [Analytics API](/analytics) - Analyze relationships and details of threats
-* [Ingest API](/ingest) - Submit new threat intelligence to the platform
+| API                | Description                                    | Documentation               |
+|--------------------|------------------------------------------------|-----------------------------|
+| Authentication API | Manage user sessions and API keys              | [Documentation](/auth)      |
+| Search API         | Find and query threat intelligence entities    | [Documentation](/search)    |
+| Analytics API      | Analyze relationships and details of threats   | [Documentation](/analytics) |
+| Ingest API         | Submit new threat intelligence to the platform | [Documentation](/ingest)    |
 
 ## Authentication
 
 ThreatWinds supports two authentication methods:
 
-1. **Session-based authentication** with an Authorization header (for web applications)
-2. **API key authentication** with key pairs (for third-party integrations)
+| Authentication Method            | Description                                      | Best For                                       |
+|----------------------------------|--------------------------------------------------|------------------------------------------------|
+| **Session-based authentication** | Uses an Authorization header with a bearer token | Web applications and interactive sessions      |
+| **API key authentication**       | Uses API key and secret pairs                    | Third-party integrations and automated systems |
 
 ### Creating a Session (Authorization Header)
 
@@ -51,7 +55,7 @@ Response:
 }
 ```
 
-> **Note**: The session is not fully active until it is verified with the verification code sent to your email.
+> **Note:** The session is not fully active until it is verified with the verification code sent to your email.
 
 Verify the session with the code received in your email:
 
@@ -128,7 +132,7 @@ Response:
 }
 ```
 
-> **Important**: Store the API secret securely. It will not be displayed again.
+> **Important:** Store the API secret securely. It won't be displayed again.
 
 After creating a key pair, you need to verify it:
 
@@ -164,7 +168,17 @@ ThreatWinds provides multiple ways to search for threat intelligence entities.
 
 ### Simple Search
 
-Use simple search for straightforward queries:
+Use simple search for straightforward queries. The following parameters can be used in your search:
+
+| Parameter         | Type    | Required | Description                              |
+|-------------------|---------|----------|------------------------------------------|
+| `query`           | string  | Yes      | The search term (IP, domain, hash, etc.) |
+| `accuracy`        | integer | No       | Minimum accuracy level (0 to 3)          |
+| `reputation`      | integer | No       | Minimum reputation score (-3 to 3)       |
+| `source.includes` | array   | No       | Fields to include in the response        |
+| `source.excludes` | array   | No       | Fields to exclude from the response      |
+
+Example request:
 
 ```bash
 curl -X 'POST' \
@@ -188,7 +202,23 @@ This searches for the IP address "8.8.8.8" with a minimum accuracy of 1 and a mi
 
 ### Advanced Search
 
-For more complex queries, use advanced search:
+For more complex queries, use advanced search. The query structure follows a Boolean logic format:
+
+| Query Section | Purpose              | Description                                       |
+|---------------|----------------------|---------------------------------------------------|
+| `must`        | Required conditions  | All conditions must match (AND logic)             |
+| `should`      | Preferred conditions | At least one condition should match (OR logic)    |
+| `must_not`    | Excluded conditions  | None of these conditions should match (NOT logic) |
+
+Common query types:
+
+| Query Type | Purpose       | Example                                                |
+|------------|---------------|--------------------------------------------------------|
+| `term`     | Exact match   | `{"term": {"type": {"value": "ip"}}}`                  |
+| `match`    | Partial match | `{"match": {"attributes.ip": {"query": "203.0.113"}}}` |
+| `range`    | Numeric range | `{"range": {"reputation": {"gte": -3, "lte": -1}}}`    |
+
+Example request:
 
 ```bash
 curl -X 'POST' \
@@ -252,7 +282,7 @@ curl -X 'GET' \
   -H 'api-secret: your-api-secret'
 ```
 
-> **Note**: This endpoint requires the `trusted` role. Alternatively, you can view the comprehensive list of entity types in the [Entity Types](/search/entity-types) documentation.
+> **Note:** This endpoint requires the `trusted` role. Alternatively, you can view the comprehensive list of entity types in the [Entity Types](/search/entity-types) documentation.
 
 ## Analyzing Threat Intelligence
 
@@ -342,16 +372,11 @@ curl -X 'POST' \
 
 ## Next Steps
 
-Now that you understand the basics of working with the ThreatWinds API, you can:
+Now that you understand the basics of working with the ThreatWinds API, here are the recommended next steps:
 
-1. Explore the detailed documentation for each API
-2. Create more complex queries using the advanced search capabilities
-3. Build integrations with your security tools
-4. Set up automated reporting of threat intelligence
-
-For more detailed information, refer to the specific API documentation:
-
-* [Authentication API](/auth)
-* [Search API](/search)
-* [Analytics API](/analytics)
-* [Ingest API](/ingest)
+| Step                          | Description                                  | Resources                                                                                                    |
+|-------------------------------|----------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| 1. Explore API documentation  | Dive deeper into each API's capabilities     | [Authentication API](/auth)<br>[Search API](/search)<br>[Analytics API](/analytics)<br>[Ingest API](/ingest) |
+| 2. Create advanced queries    | Build more sophisticated search queries      | [Advanced Search](/search/advanced-search)                                                                   |
+| 3. Build integrations         | Connect ThreatWinds with your security tools | [API Key Authentication](#creating-a-key-pair-for-third-party-integrations)                                  |
+| 4. Set up automated reporting | Contribute threat intelligence data          | [Ingest API](/ingest)                                                                                        |

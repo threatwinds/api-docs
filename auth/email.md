@@ -22,14 +22,11 @@ This API endpoint creates an unverified email and sends a verification code.
 **Endpoint:** https://intelligence.threatwinds.com/api/auth/v2/email
 
 ### Parameters
-* **Authorization** header _string_  
-This Authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for the request.
 
-* **Address** body _string_  
-The email parameter represents a user's email address that's going to be associated with their account.
-  This email address is used for communication with the user
-  and may also be used as a way to reset their password or verify their account.
-  e.g.: john@doe.net
+| Parameter | Location | Type | Required | Description | Example |
+|-----------|----------|------|----------|-------------|---------|
+| **Authorization** | header | string | Yes | This Authorization header can be obtained from an active session of the account. Please ensure that the session is active before attempting to retrieve the authorization header for the request. | |
+| **address** | body | string | Yes | The email parameter represents a user's email address that's going to be associated with their account. This email address is used for communication with the user and may also be used as a way to reset their password or verify their account. | "john@doe.net" |
 
 To create an email, use a **POST** request, for example:
 
@@ -54,11 +51,10 @@ This API endpoint deletes an email.
 
 ### Parameters
 
-* **Authorization** header _string_  
-This authorization header can be obtained from an active session of the account.
-
-* **ID** path _uuid_  
-The id of the email that you want to delete. e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e
+| Parameter | Location | Type | Required | Description | Example |
+|-----------|----------|------|----------|-------------|---------|
+| **Authorization** | header | string | Yes | This authorization header can be obtained from an active session of the account. | |
+| **id** | path | uuid | Yes | The id of the email that you want to delete. | 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e |
 
 To delete an email, use a **DELETE** request, for example:
 
@@ -79,8 +75,9 @@ This API endpoint gets the user's emails.
 
 ### Parameters
 
-* **Authorization** header _string_
-  This authorization header can be obtained from an active session of the account.
+| Parameter | Location | Type | Required | Description |
+|-----------|----------|------|----------|-------------|
+| **Authorization** | header | string | Yes | This authorization header can be obtained from an active session of the account. |
 
 To get the current emails, use a **GET** request, for example:
 
@@ -101,15 +98,11 @@ This API endpoint verifies the email using code sent by email.
 
 ### Parameters
 
-* **Authorization** header _string_  
-This authorization header can be obtained from an active session of the account.
-
-* **verificationCodeID** body _uuid_  
-You can get it from the email that you wish to verify at the time of its creation.
-  e.g.: "1c233e4a-27e7-4b77-8b0d-9a35cf212afe"
-
-* **code** body _integer_  
-This code is sent to your email when it is created. e.g.: "757564"
+| Parameter              | Location | Type    | Required | Description                                                                        | Example                                |
+|------------------------|----------|---------|----------|------------------------------------------------------------------------------------|----------------------------------------|
+| **Authorization**      | header   | string  | Yes      | This authorization header can be obtained from an active session of the account.   |                                        |
+| **verificationCodeID** | body     | uuid    | Yes      | You can get it from the email that you wish to verify at the time of its creation. | "1c233e4a-27e7-4b77-8b0d-9a35cf212afe" |
+| **code**               | body     | integer | Yes      | This code is sent to your email when it is created.                                | "757564"                               |
 
 To verify an email, use a **PUT** request, for example:
 
@@ -134,12 +127,10 @@ This API endpoint sets an email as preferred
 
 ### Parameters
 
-* **Authorization** header _string_  
-  This authorization header can be obtained from an active session of the account.
-
-* **emailID** body _uuid_  
-The id of the email that'd like to set as preferred.
-  e.g.: 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e
+| Parameter         | Location | Type   | Required | Description                                                                      | Example                              |
+|-------------------|----------|--------|----------|----------------------------------------------------------------------------------|--------------------------------------|
+| **Authorization** | header   | string | Yes      | This authorization header can be obtained from an active session of the account. |                                      |
+| **emailID**       | body     | uuid   | Yes      | The id of the email that you'd like to set as preferred.                         | 5f35d2c4-5633-4b16-bbf0-5ca22ef8ea2e |
 
 To set a preferred email, use a **PUT** request, for example:
 

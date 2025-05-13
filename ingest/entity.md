@@ -27,7 +27,7 @@ POST /api/ingest/v1/entity
 | `api-key`       | Your API key (optional if using Authorization header)              |
 | `api-secret`    | Your API secret (optional if using Authorization header)           |
 
-> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note:** The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 ### Required Roles
 
@@ -79,7 +79,7 @@ The request body should be a JSON object with the following structure:
 | `tags`         | array   | Optional tags to categorize the entity                                                      |
 | `visibleBy`    | array   | Optional list of groups that can see the entity (defaults to user's groups if not provided) |
 
-> **Note**: the main attribute must exist, and its key is the same as the type of the entity. For example, an IP entity with the value "203.0.113.1" must have a field "attributes.ip" with the value "203.0.113.1" otherwise the request returns error code 400.
+> **Note:** The main attribute must exist, and its key is the same as the type of the entity. For example, an IP entity with the value "203.0.113.1" must have a field "attributes.ip" with the value "203.0.113.1" otherwise the request returns error code 400.
 
 ### Response
 
@@ -193,7 +193,7 @@ GET /api/ingest/v1/definitions
 | `api-key`       | Your API key (optional if using Authorization header)              |
 | `api-secret`    | Your API secret (optional if using Authorization header)           |
 
-> **Note**: The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+> **Note:** The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
 ### Required Roles
 

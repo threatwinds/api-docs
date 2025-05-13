@@ -27,7 +27,7 @@ POST /api/ingest/v1/association
 | `api-key`       | Your API key (optional if using Authorization header)              |
 | `api-secret`    | Your API secret (optional if using Authorization header)           |
 
-> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and shouldn't be provided by the client.
+> **Note:** The `user-id` and `groups` headers are added automatically by the API gateway when required and shouldn't be provided by the client.
 
 ### Required Roles
 
@@ -55,7 +55,7 @@ The request body should be a JSON object with the following structure:
 | `entityID`        | string | The ID of the source entity in the association |
 | `relatedEntityID` | string | The ID of the target entity in the association |
 
-> **Note**: you need to provide valid entities IDs that already exist in the system. Entitiy IDs in ThreatWinds follow the format `[type]-[hash]` where `type` is the entity type and `hash` is the SHA3-256 hash of the entity's main attribute. You can get entity IDs by first creating entities using the `/entity` endpoint and/or by querying entities through the Search API.
+> **Note:** You need to provide valid entities IDs that already exist in the system. Entitiy IDs in ThreatWinds follow the format `[type]-[hash]` where `type` is the entity type and `hash` is the SHA3-256 hash of the entity's main attribute. You can get entity IDs by first creating entities using the `/entity` endpoint and/or by querying entities through the Search API.
 
 ### Response
 

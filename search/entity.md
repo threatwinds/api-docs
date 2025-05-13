@@ -14,21 +14,23 @@ This API endpoint allows you to retrieve detailed information about a specific t
 
 ## Parameters
 
-* **Authorization** header _string_ (optional)  
-  This authorization header can be obtained from an active session of the account.
+### Headers
 
-* **api-key** header _string_ (optional)  
-  Your API key.
+| Parameter         | Type   | Required  | Description                                  |
+|-------------------|--------|-----------|----------------------------------------------|
+| **Authorization** | string | Optional* | Bearer token obtained from an active session |
+| **api-key**       | string | Optional* | Your API key                                 |
+| **api-secret**    | string | Optional* | Your API secret                              |
 
-* **api-secret** header _string_ (optional)  
-  Your API secret.
+> **Note:** The `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
 
-> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and should not be provided by the client.
+### Path Parameters
 
-* **id** path _string_ (required)  
-  The unique identifier of the entity you want to retrieve.
+| Parameter | Type   | Required | Description                                              |
+|-----------|--------|----------|----------------------------------------------------------|
+| **id**    | string | Yes      | The unique identifier of the entity you want to retrieve |
 
-> Note: You must use either the Authorization header OR the API key and secret combination. For more details on authentication, see the [Authentication](/auth) documentation.
+> **Note:** You must use either the Authorization header OR the API key and secret combination. For more details on authentication, see the [Authentication](/auth) documentation.
 
 ## Request
 
@@ -78,17 +80,19 @@ A successful response will return a JSON object containing the entity details:
 
 The response includes all available information about the entity, including:
 
-* **id:** unique identifier of the entity
-* **type:** type of the entity (e.g., "ip", "domain", "hash"). For a comprehensive list of all possible entity types, see the [Entity Types](/search/entity-types) page.
-* **@timestamp:** timestamp when the entity was last updated
-* **reputation:** current reputation score
-* **bestReputation:** best historical reputation score
-* **worstReputation:** worst historical reputation score
-* **accuracy:** accuracy score
-* **lastSeen:** timestamp when the entity was last seen
-* **tags:** array of tags associated with the entity
-* **visibleBy:** array of visibility settings
-* **attributes:** object containing entity-specific attributes
+| Field               | Description                                                                                                                                                 |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **id**              | Unique identifier of the entity                                                                                                                             |
+| **type**            | Type of the entity (e.g., "ip", "domain", "hash"). For a comprehensive list of all possible entity types, see the [Entity Types](/search/entity-types) page |
+| **@timestamp**      | Timestamp when the entity was last updated                                                                                                                  |
+| **reputation**      | Current reputation score                                                                                                                                    |
+| **bestReputation**  | Best historical reputation score                                                                                                                            |
+| **worstReputation** | Worst historical reputation score                                                                                                                           |
+| **accuracy**        | Accuracy score                                                                                                                                              |
+| **lastSeen**        | Timestamp when the entity was last seen                                                                                                                     |
+| **tags**            | Array of tags associated with the entity                                                                                                                    |
+| **visibleBy**       | Array of visibility settings                                                                                                                                |
+| **attributes**      | Object containing entity-specific attributes                                                                                                                |
 
 For detailed information about the entity structure and attributes, see the [Entity Mapping](/search/entity-mapping) documentation.
 
@@ -100,11 +104,13 @@ To retrieve the relations of an entity, you can use the related endpoint:
 
 This endpoint accepts the same authentication parameters as the entity retrieval endpoint, plus additional query parameters:
 
-* **limit** query _integer_ (optional)—Maximum number of relations to return
-* **page** query _integer_ (optional)—Page number for pagination
-* **sort** query _string_ (optional)—Field to sort relations by
-* **order** query _string_ (optional)—Sort order ("asc" or "desc")
-* **types** query _string_ (optional)—Filter relations by entity types
+| Parameter | Type    | Required | Description                                                 |
+|-----------|---------|----------|-------------------------------------------------------------|
+| **limit** | integer | No       | Maximum number of relations to return                       |
+| **page**  | integer | No       | Page number for pagination                                  |
+| **sort**  | string  | No       | Field to sort relations by                                  |
+| **order** | string  | No       | Sort order, either "asc" (ascending) or "desc" (descending) |
+| **types** | string  | No       | Filter relations by entity types (comma-separated list)     |
 
 Example request:
 
@@ -117,8 +123,10 @@ curl -X 'GET' \
 
 ## Error Codes
 
-* **204:** no content (entity not found)
-* **400:** bad request
-* **401:** unauthorized
-* **403:** forbidden
-* **500:** internal server error
+| Status Code | Description           | Possible Cause                                          |
+|-------------|-----------------------|---------------------------------------------------------|
+| **204**     | No Content            | Entity not found                                        |
+| **400**     | Bad Request           | Invalid request parameters or malformed JSON            |
+| **401**     | Unauthorized          | Missing or invalid authentication credentials           |
+| **403**     | Forbidden             | Authenticated user lacks permission for this operation  |
+| **500**     | Internal Server Error | Server-side error; please contact support if persistent |

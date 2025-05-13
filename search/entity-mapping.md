@@ -18,17 +18,19 @@ The ThreatWinds platform uses OpenSearch to store and index threat intelligence 
 
 All entities in the ThreatWinds platform share a common structure:
 
-* **id:** unique identifier of the entity
-* **type:** type of the entity (e.g., "ip", "domain", "hash")
-* **@timestamp:** timestamp when the entity was last updated
-* **reputation:** current reputation score
-* **bestReputation:** best historical reputation score
-* **worstReputation:** worst historical reputation score
-* **accuracy:** accuracy score
-* **lastSeen:** timestamp when the entity was last seen
-* **tags:** array of tags associated with the entity
-* **visibleBy:** an array of visibility settings
-* **attributes:** object containing entity-specific attributes
+| Field               | Type    | Description                                       |
+|---------------------|---------|---------------------------------------------------|
+| **id**              | string  | Unique identifier of the entity                   |
+| **type**            | string  | Type of the entity (e.g., "ip", "domain", "hash") |
+| **@timestamp**      | date    | Timestamp when the entity was last updated        |
+| **reputation**      | integer | Current reputation score (-3 to 3)                |
+| **bestReputation**  | integer | Best historical reputation score                  |
+| **worstReputation** | integer | Worst historical reputation score                 |
+| **accuracy**        | integer | Accuracy score (0 to 3)                           |
+| **lastSeen**        | date    | Timestamp when the entity was last seen           |
+| **tags**            | array   | Array of tags associated with the entity          |
+| **visibleBy**       | array   | Array of visibility settings                      |
+| **attributes**      | object  | Object containing entity-specific attributes      |
 
 ## Entity Types and Attributes
 
@@ -36,118 +38,126 @@ The Search API supports a wide range of entity types, each with its own set of a
 
 ### IP Address (`ip`)
 
-* **ip:** the IP address value
-* **asn:** autonomous System Number
-* **aso:** autonomous System Organization
-* **country:** the country where the IP is located
-* **city:** city where the IP is located
-* **latitude:** geographical latitude
-* **longitude:** geographical longitude
+| Attribute     | Description                         |
+|---------------|-------------------------------------|
+| **ip**        | The IP address value                |
+| **asn**       | Autonomous System Number            |
+| **aso**       | Autonomous System Organization      |
+| **country**   | The country where the IP is located |
+| **city**      | City where the IP is located        |
+| **latitude**  | Geographical latitude               |
+| **longitude** | Geographical longitude              |
 
 ### Domain (`domain`)
 
-* **domain:** the domain name
-* **whois-registrar:** domain registrar information
+| Attribute           | Description                  |
+|---------------------|------------------------------|
+| **domain**          | The domain name              |
+| **whois-registrar** | Domain registrar information |
 
 ### URL (`url`)
 
-* **url:** the URL value
-* **domain:** associated domain name
+| Attribute  | Description            |
+|------------|------------------------|
+| **url**    | The URL value          |
+| **domain** | Associated domain name |
 
 ### Malware (`malware`)
 
-* **malware:** the malware name
-* **malware-family:** malware family
-* **malware-type:** type of malware
+| Attribute          | Description      |
+|--------------------|------------------|
+| **malware**        | The malware name |
+| **malware-family** | Malware family   |
+| **malware-type**   | Type of malware  |
 
 ## OpenSearch mapping
 
-| Field Path                               | OpenSearch Type   | Supports Full-text Search | Supports Term-level Search | How to Perform Term Search & `.keyword` Usage                                                                                               |
-|------------------------------------------|-------------------|---------------------------|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| @timestamp                               | date              | No                        | Yes                        | Query `@timestamp` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                         |
-| accuracy                                 | long              | No                        | Yes                        | Query `accuracy` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                           |
-| attributes                               | object            | N/A                       | N/A                        | This is an object field. Searchability depends on its sub-fields.                                                                           |
-| attributes.adversary                     | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.adversary`. For exact term matches, sorting, or aggregations, query `attributes.adversary.keyword`.     |
-| attributes.asn                           | long              | No                        | Yes                        | Query `attributes.asn` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                      |
-| attributes.aso                           | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.aso`. For exact term matches, sorting, or aggregations, query `attributes.aso.keyword`.               |
-| attributes.breach                        | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.breach`. For exact term matches, sorting, or aggregations, query `attributes.breach.keyword`.         |
-| attributes.breach-count                  | long              | No                        | Yes                        | Query `attributes.breach-count` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                            |
-| attributes.breach-date                   | date              | No                        | Yes                        | Query `attributes.breach-date` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                              |
-| attributes.breach-description            | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.breach-description`. For exact term matches, sorting, or aggregations, query `attributes.breach-description.keyword`. |
-| attributes.btc                           | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.btc`. For exact term matches, sorting, or aggregations, query `attributes.btc.keyword`.               |
-| attributes.certificate-fingerprint       | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.certificate-fingerprint`. For exact term matches, sorting, or aggregations, query `attributes.certificate-fingerprint.keyword`.|
-| attributes.cidr                          | ip_range          | No                        | Yes                        | Query `attributes.cidr` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                    |
-| attributes.city                          | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.city`. For exact term matches, sorting, or aggregations, query `attributes.city.keyword`.             |
-| attributes.cookie                        | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.cookie`. For exact term matches, sorting, or aggregations, query `attributes.cookie.keyword`.         |
-| attributes.country                       | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.country`. For exact term matches, sorting, or aggregations, query `attributes.country.keyword`.       |
-| attributes.cpe                           | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.cpe`. For exact term matches, sorting, or aggregations, query `attributes.cpe.keyword`.               |
-| attributes.cve                           | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.cve`. For exact term matches, sorting, or aggregations, query `attributes.cve.keyword`.               |
-| attributes.datetime                      | date              | No                        | Yes                        | Query `attributes.datetime` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                |
-| attributes.descriptor                    | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.descriptor`. For exact term matches, sorting, or aggregations, query `attributes.descriptor.keyword`. |
-| attributes.domain                        | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.domain`. For exact term matches, sorting, or aggregations, query `attributes.domain.keyword`.         |
-| attributes.email                         | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email`. For exact term matches, sorting, or aggregations, query `attributes.email.keyword`.           |
-| attributes.email-address                 | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email-address`. For exact term matches, sorting, or aggregations, query `attributes.email-address.keyword`. |
-| attributes.email-body                    | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email-body`. For exact term matches, sorting, or aggregations, query `attributes.email-body.keyword`. |
-| attributes.email-display-name            | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email-display-name`. For exact term matches, sorting, or aggregations, query `attributes.email-display-name.keyword`. |
-| attributes.email-header                  | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email-header`. For exact term matches, sorting, or aggregations, query `attributes.email-header.keyword`. |
-| attributes.email-subject                 | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email-subject`. For exact term matches, sorting, or aggregations, query `attributes.email-subject.keyword`. |
-| attributes.file                          | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.file`. For exact term matches, sorting, or aggregations, query `attributes.file.keyword`.             |
-| attributes.filename                      | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.filename`. For exact term matches, sorting, or aggregations, query `attributes.filename.keyword`.     |
-| attributes.filename-pattern              | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.filename-pattern`. For exact term matches, sorting, or aggregations, query `attributes.filename-pattern.keyword`. |
-| attributes.github-repository             | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.github-repository`. For exact term matches, sorting, or aggregations, query `attributes.github-repository.keyword`. |
-| attributes.hex                           | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.hex`. For exact term matches, sorting, or aggregations, query `attributes.hex.keyword`.               |
-| attributes.hostname                      | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.hostname`. For exact term matches, sorting, or aggregations, query `attributes.hostname.keyword`.     |
-| attributes.iban                          | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.iban`. For exact term matches, sorting, or aggregations, query `attributes.iban.keyword`.             |
-| attributes.ip                            | ip                | No                        | Yes                        | Query `attributes.ip` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                      |
-| attributes.ja3-fingerprint               | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.ja3-fingerprint`. For exact term matches, sorting, or aggregations, query `attributes.ja3-fingerprint.keyword`.|
-| attributes.ja3-fingerprint-md5           | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.ja3-fingerprint-md5`. For exact term matches, sorting, or aggregations, query `attributes.ja3-fingerprint-md5.keyword`. |
-| attributes.jabber-id                     | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.jabber-id`. For exact term matches, sorting, or aggregations, query `attributes.jabber-id.keyword`.   |
-| attributes.jarm-fingerprint              | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.jarm-fingerprint`. For exact term matches, sorting, or aggregations, query `attributes.jarm-fingerprint.keyword`. |
-| attributes.latitude                      | float             | No                        | Yes                        | Query `attributes.latitude` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                              |
-| attributes.link                          | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.link`. For exact term matches, sorting, or aggregations, query `attributes.link.keyword`.             |
-| attributes.longitude                     | float             | No                        | Yes                        | Query `attributes.longitude` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                             |
-| attributes.malware                       | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.malware`. For exact term matches, sorting, or aggregations, query `attributes.malware.keyword`.       |
-| attributes.malware-family                | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.malware-family`. For exact term matches, sorting, or aggregations, query `attributes.malware-family.keyword`. |
-| attributes.malware-type                  | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.malware-type`. For exact term matches, sorting, or aggregations, query `attributes.malware-type.keyword`. |
-| attributes.md5                           | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.md5`. For exact term matches, sorting, or aggregations, query `attributes.md5.keyword`.               |
-| attributes.mime-type                     | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.mime-type`. For exact term matches, sorting, or aggregations, query `attributes.mime-type.keyword`.   |
-| attributes.mobile-app-id                 | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.mobile-app-id`. For exact term matches, sorting, or aggregations, query `attributes.mobile-app-id.keyword`. |
-| attributes.object                        | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.object`. For exact term matches, sorting, or aggregations, query `attributes.object.keyword`.         |
-| attributes.path                          | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.path`. For exact term matches, sorting, or aggregations, query `attributes.path.keyword`.             |
-| attributes.pattern-in-file               | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.pattern-in-file`. For exact term matches, sorting, or aggregations, query `attributes.pattern-in-file.keyword`. |
-| attributes.pattern-in-memory             | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.pattern-in-memory`. For exact term matches, sorting, or aggregations, query `attributes.pattern-in-memory.keyword`. |
-| attributes.pattern-in-traffic            | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.pattern-in-traffic`. For exact term matches, sorting, or aggregations, query `attributes.pattern-in-traffic.keyword`. |
-| attributes.phone                         | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.phone`. For exact term matches, sorting, or aggregations, query `attributes.phone.keyword`.           |
-| attributes.port                          | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.port`. For exact term matches, sorting, or aggregations, query `attributes.port.keyword`.|
-| attributes.prtn                          | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.prtn`. For exact term matches, sorting, or aggregations, query `attributes.prtn.keyword`.             |
-| attributes.regkey                        | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.regkey`. For exact term matches, sorting, or aggregations, query `attributes.regkey.keyword`.         |
-| attributes.sha1                          | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha1`. For exact term matches, sorting, or aggregations, query `attributes.sha1.keyword`.             |
-| attributes.sha224                        | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha224`. For exact term matches, sorting, or aggregations, query `attributes.sha224.keyword`.         |
-| attributes.sha256                        | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha256`. For exact term matches, sorting, or aggregations, query `attributes.sha256.keyword`.         |
-| attributes.sha3-256                      | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha3-256`. For exact term matches, sorting, or aggregations, query `attributes.sha3-256.keyword`.    |
-| attributes.sha384                        | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha384`. For exact term matches, sorting, or aggregations, query `attributes.sha384.keyword`.         |
-| attributes.sha512                        | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha512`. For exact term matches, sorting, or aggregations, query `attributes.sha512.keyword`.         |
-| attributes.snort-rule                    | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.snort-rule`. For exact term matches, sorting, or aggregations, query `attributes.snort-rule.keyword`. |
-| attributes.ssh-banner                    | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.ssh-banner`. For exact term matches, sorting, or aggregations, query `attributes.ssh-banner.keyword`.|
-| attributes.ssh-fingerprint               | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.ssh-fingerprint`. For exact term matches, sorting, or aggregations, query `attributes.ssh-fingerprint.keyword`.|
-| attributes.suricata-rule                 | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.suricata-rule`. For exact term matches, sorting, or aggregations, query `attributes.suricata-rule.keyword`. |
-| attributes.text                          | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.text`. For exact term matches, sorting, or aggregations, query `attributes.text.keyword`.             |
-| attributes.threat                        | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.threat`. For exact term matches, sorting, or aggregations, query `attributes.threat.keyword`.         |
-| attributes.url                           | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.url`. For exact term matches, sorting, or aggregations, query `attributes.url.keyword`.               |
-| attributes.value                         | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.value`. For exact term matches, sorting, or aggregations, query `attributes.value.keyword`.           |
-| attributes.virustotal-report             | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.virustotal-report`. For exact term matches, sorting, or aggregations, query `attributes.virustotal-report.keyword`. |
-| attributes.whois-registrar               | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.whois-registrar`. For exact term matches, sorting, or aggregations, query `attributes.whois-registrar.keyword`. |
-| attributes.windows-scheduled-task        | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.windows-scheduled-task`. For exact term matches, sorting, or aggregations, query `attributes.windows-scheduled-task.keyword`. |
-| attributes.windows-service-name          | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.windows-service-name`. For exact term matches, sorting, or aggregations, query `attributes.windows-service-name.keyword`. |
-| attributes.yara-rule                     | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.yara-rule`. For exact term matches, sorting, or aggregations, query `attributes.yara-rule.keyword`.   |
-| bestReputation                           | long              | No                        | Yes                        | Query `bestReputation` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                     |
-| lastSeen                                 | date              | No                        | Yes                        | Query `lastSeen` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                           |
-| reputation                               | long              | No                        | Yes                        | Query `reputation` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                         |
-| tags                                     | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `tags`. For exact term matches, sorting, or aggregations, query `tags.keyword`.                                 |
-| type                                     | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `type`. For exact term matches, sorting, or aggregations, query `type.keyword`.                                  |
-| visibleBy                                | text              | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `visibleBy`. For exact term matches, sorting, or aggregations, query `visibleBy.keyword`.                        |
-| wellKnown                                | boolean           | No                        | Yes                        | Query `wellKnown` directly for `true` or `false` values. Not analyzed. No `.keyword` needed.                                                |
-| worstReputation                          | long              | No                        | Yes                        | Query `worstReputation` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                    |
+| Field Path                         | OpenSearch Type | Supports Full-text Search | Supports Term-level Search | How to Perform Term Search & `.keyword` Usage                                                                                                                           |
+|------------------------------------|-----------------|---------------------------|----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| @timestamp                         | date            | No                        | Yes                        | Query `@timestamp` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                                     |
+| accuracy                           | long            | No                        | Yes                        | Query `accuracy` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                                       |
+| attributes                         | object          | N/A                       | N/A                        | This is an object field. Searchability depends on its sub-fields.                                                                                                       |
+| attributes.adversary               | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.adversary`. For exact term matches, sorting, or aggregations, query `attributes.adversary.keyword`.                             |
+| attributes.asn                     | long            | No                        | Yes                        | Query `attributes.asn` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                                 |
+| attributes.aso                     | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.aso`. For exact term matches, sorting, or aggregations, query `attributes.aso.keyword`.                                         |
+| attributes.breach                  | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.breach`. For exact term matches, sorting, or aggregations, query `attributes.breach.keyword`.                                   |
+| attributes.breach-count            | long            | No                        | Yes                        | Query `attributes.breach-count` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                        |
+| attributes.breach-date             | date            | No                        | Yes                        | Query `attributes.breach-date` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                         |
+| attributes.breach-description      | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.breach-description`. For exact term matches, sorting, or aggregations, query `attributes.breach-description.keyword`.           |
+| attributes.btc                     | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.btc`. For exact term matches, sorting, or aggregations, query `attributes.btc.keyword`.                                         |
+| attributes.certificate-fingerprint | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.certificate-fingerprint`. For exact term matches, sorting, or aggregations, query `attributes.certificate-fingerprint.keyword`. |
+| attributes.cidr                    | ip_range        | No                        | Yes                        | Query `attributes.cidr` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                                |
+| attributes.city                    | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.city`. For exact term matches, sorting, or aggregations, query `attributes.city.keyword`.                                       |
+| attributes.cookie                  | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.cookie`. For exact term matches, sorting, or aggregations, query `attributes.cookie.keyword`.                                   |
+| attributes.country                 | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.country`. For exact term matches, sorting, or aggregations, query `attributes.country.keyword`.                                 |
+| attributes.cpe                     | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.cpe`. For exact term matches, sorting, or aggregations, query `attributes.cpe.keyword`.                                         |
+| attributes.cve                     | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.cve`. For exact term matches, sorting, or aggregations, query `attributes.cve.keyword`.                                         |
+| attributes.datetime                | date            | No                        | Yes                        | Query `attributes.datetime` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                            |
+| attributes.descriptor              | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.descriptor`. For exact term matches, sorting, or aggregations, query `attributes.descriptor.keyword`.                           |
+| attributes.domain                  | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.domain`. For exact term matches, sorting, or aggregations, query `attributes.domain.keyword`.                                   |
+| attributes.email                   | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email`. For exact term matches, sorting, or aggregations, query `attributes.email.keyword`.                                     |
+| attributes.email-address           | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email-address`. For exact term matches, sorting, or aggregations, query `attributes.email-address.keyword`.                     |
+| attributes.email-body              | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email-body`. For exact term matches, sorting, or aggregations, query `attributes.email-body.keyword`.                           |
+| attributes.email-display-name      | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email-display-name`. For exact term matches, sorting, or aggregations, query `attributes.email-display-name.keyword`.           |
+| attributes.email-header            | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email-header`. For exact term matches, sorting, or aggregations, query `attributes.email-header.keyword`.                       |
+| attributes.email-subject           | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.email-subject`. For exact term matches, sorting, or aggregations, query `attributes.email-subject.keyword`.                     |
+| attributes.file                    | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.file`. For exact term matches, sorting, or aggregations, query `attributes.file.keyword`.                                       |
+| attributes.filename                | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.filename`. For exact term matches, sorting, or aggregations, query `attributes.filename.keyword`.                               |
+| attributes.filename-pattern        | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.filename-pattern`. For exact term matches, sorting, or aggregations, query `attributes.filename-pattern.keyword`.               |
+| attributes.github-repository       | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.github-repository`. For exact term matches, sorting, or aggregations, query `attributes.github-repository.keyword`.             |
+| attributes.hex                     | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.hex`. For exact term matches, sorting, or aggregations, query `attributes.hex.keyword`.                                         |
+| attributes.hostname                | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.hostname`. For exact term matches, sorting, or aggregations, query `attributes.hostname.keyword`.                               |
+| attributes.iban                    | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.iban`. For exact term matches, sorting, or aggregations, query `attributes.iban.keyword`.                                       |
+| attributes.ip                      | ip              | No                        | Yes                        | Query `attributes.ip` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                                  |
+| attributes.ja3-fingerprint         | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.ja3-fingerprint`. For exact term matches, sorting, or aggregations, query `attributes.ja3-fingerprint.keyword`.                 |
+| attributes.ja3-fingerprint-md5     | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.ja3-fingerprint-md5`. For exact term matches, sorting, or aggregations, query `attributes.ja3-fingerprint-md5.keyword`.         |
+| attributes.jabber-id               | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.jabber-id`. For exact term matches, sorting, or aggregations, query `attributes.jabber-id.keyword`.                             |
+| attributes.jarm-fingerprint        | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.jarm-fingerprint`. For exact term matches, sorting, or aggregations, query `attributes.jarm-fingerprint.keyword`.               |
+| attributes.latitude                | float           | No                        | Yes                        | Query `attributes.latitude` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                            |
+| attributes.link                    | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.link`. For exact term matches, sorting, or aggregations, query `attributes.link.keyword`.                                       |
+| attributes.longitude               | float           | No                        | Yes                        | Query `attributes.longitude` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                           |
+| attributes.malware                 | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.malware`. For exact term matches, sorting, or aggregations, query `attributes.malware.keyword`.                                 |
+| attributes.malware-family          | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.malware-family`. For exact term matches, sorting, or aggregations, query `attributes.malware-family.keyword`.                   |
+| attributes.malware-type            | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.malware-type`. For exact term matches, sorting, or aggregations, query `attributes.malware-type.keyword`.                       |
+| attributes.md5                     | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.md5`. For exact term matches, sorting, or aggregations, query `attributes.md5.keyword`.                                         |
+| attributes.mime-type               | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.mime-type`. For exact term matches, sorting, or aggregations, query `attributes.mime-type.keyword`.                             |
+| attributes.mobile-app-id           | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.mobile-app-id`. For exact term matches, sorting, or aggregations, query `attributes.mobile-app-id.keyword`.                     |
+| attributes.object                  | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.object`. For exact term matches, sorting, or aggregations, query `attributes.object.keyword`.                                   |
+| attributes.path                    | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.path`. For exact term matches, sorting, or aggregations, query `attributes.path.keyword`.                                       |
+| attributes.pattern-in-file         | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.pattern-in-file`. For exact term matches, sorting, or aggregations, query `attributes.pattern-in-file.keyword`.                 |
+| attributes.pattern-in-memory       | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.pattern-in-memory`. For exact term matches, sorting, or aggregations, query `attributes.pattern-in-memory.keyword`.             |
+| attributes.pattern-in-traffic      | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.pattern-in-traffic`. For exact term matches, sorting, or aggregations, query `attributes.pattern-in-traffic.keyword`.           |
+| attributes.phone                   | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.phone`. For exact term matches, sorting, or aggregations, query `attributes.phone.keyword`.                                     |
+| attributes.port                    | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.port`. For exact term matches, sorting, or aggregations, query `attributes.port.keyword`.                                       |
+| attributes.prtn                    | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.prtn`. For exact term matches, sorting, or aggregations, query `attributes.prtn.keyword`.                                       |
+| attributes.regkey                  | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.regkey`. For exact term matches, sorting, or aggregations, query `attributes.regkey.keyword`.                                   |
+| attributes.sha1                    | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha1`. For exact term matches, sorting, or aggregations, query `attributes.sha1.keyword`.                                       |
+| attributes.sha224                  | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha224`. For exact term matches, sorting, or aggregations, query `attributes.sha224.keyword`.                                   |
+| attributes.sha256                  | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha256`. For exact term matches, sorting, or aggregations, query `attributes.sha256.keyword`.                                   |
+| attributes.sha3-256                | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha3-256`. For exact term matches, sorting, or aggregations, query `attributes.sha3-256.keyword`.                               |
+| attributes.sha384                  | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha384`. For exact term matches, sorting, or aggregations, query `attributes.sha384.keyword`.                                   |
+| attributes.sha512                  | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.sha512`. For exact term matches, sorting, or aggregations, query `attributes.sha512.keyword`.                                   |
+| attributes.snort-rule              | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.snort-rule`. For exact term matches, sorting, or aggregations, query `attributes.snort-rule.keyword`.                           |
+| attributes.ssh-banner              | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.ssh-banner`. For exact term matches, sorting, or aggregations, query `attributes.ssh-banner.keyword`.                           |
+| attributes.ssh-fingerprint         | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.ssh-fingerprint`. For exact term matches, sorting, or aggregations, query `attributes.ssh-fingerprint.keyword`.                 |
+| attributes.suricata-rule           | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.suricata-rule`. For exact term matches, sorting, or aggregations, query `attributes.suricata-rule.keyword`.                     |
+| attributes.text                    | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.text`. For exact term matches, sorting, or aggregations, query `attributes.text.keyword`.                                       |
+| attributes.threat                  | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.threat`. For exact term matches, sorting, or aggregations, query `attributes.threat.keyword`.                                   |
+| attributes.url                     | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.url`. For exact term matches, sorting, or aggregations, query `attributes.url.keyword`.                                         |
+| attributes.value                   | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.value`. For exact term matches, sorting, or aggregations, query `attributes.value.keyword`.                                     |
+| attributes.virustotal-report       | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.virustotal-report`. For exact term matches, sorting, or aggregations, query `attributes.virustotal-report.keyword`.             |
+| attributes.whois-registrar         | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.whois-registrar`. For exact term matches, sorting, or aggregations, query `attributes.whois-registrar.keyword`.                 |
+| attributes.windows-scheduled-task  | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.windows-scheduled-task`. For exact term matches, sorting, or aggregations, query `attributes.windows-scheduled-task.keyword`.   |
+| attributes.windows-service-name    | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.windows-service-name`. For exact term matches, sorting, or aggregations, query `attributes.windows-service-name.keyword`.       |
+| attributes.yara-rule               | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `attributes.yara-rule`. For exact term matches, sorting, or aggregations, query `attributes.yara-rule.keyword`.                             |
+| bestReputation                     | long            | No                        | Yes                        | Query `bestReputation` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                                 |
+| lastSeen                           | date            | No                        | Yes                        | Query `lastSeen` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                                       |
+| reputation                         | long            | No                        | Yes                        | Query `reputation` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                                     |
+| tags                               | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `tags`. For exact term matches, sorting, or aggregations, query `tags.keyword`.                                                             |
+| type                               | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `type`. For exact term matches, sorting, or aggregations, query `type.keyword`.                                                             |
+| visibleBy                          | text            | Yes (analyzed)            | Yes (via `.keyword`)       | For full-text search, query `visibleBy`. For exact term matches, sorting, or aggregations, query `visibleBy.keyword`.                                                   |
+| wellKnown                          | boolean         | No                        | Yes                        | Query `wellKnown` directly for `true` or `false` values. Not analyzed. No `.keyword` needed.                                                                            |
+| worstReputation                    | long            | No                        | Yes                        | Query `worstReputation` directly for exact matches or range queries. Not analyzed. No `.keyword` needed.                                                                |
 
 **Explanation of Terms:**
 
@@ -161,7 +171,9 @@ The Search API supports a wide range of entity types, each with its own set of a
 
 ## Related Documentation
 
-* [Entity Retrieval](/search/entity): how to retrieve entity details
-* [Entity Types](/search/entity-types): list of all entity types
-* [Simple Search](/search/simple-search): how to perform simple searches
-* [Advanced Search](/search/advanced-search): how to perform advanced searches
+| Documentation                              | Description                      |
+|--------------------------------------------|----------------------------------|
+| [Entity Retrieval](/search/entity)         | How to retrieve entity details   |
+| [Entity Types](/search/entity-types)       | List of all entity types         |
+| [Simple Search](/search/simple-search)     | How to perform simple searches   |
+| [Advanced Search](/search/advanced-search) | How to perform advanced searches |

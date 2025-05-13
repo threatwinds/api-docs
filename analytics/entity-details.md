@@ -14,21 +14,23 @@ This API endpoint provides detailed information about a specific threat intellig
 
 ## Parameters
 
-* **Authorization** header _string_ (optional)  
-  This authorization header can be obtained from an active session of the account.
+### Headers
 
-* **api-key** header _string_ (optional)  
-  Your API key.
+| Header            | Type   | Required  | Description                                  |
+|-------------------|--------|-----------|----------------------------------------------|
+| **Authorization** | string | Optional* | Bearer token obtained from an active session |
+| **api-key**       | string | Optional* | Your API key                                 |
+| **api-secret**    | string | Optional* | Your API secret                              |
 
-* **api-secret** header _string_ (optional)  
-  Your API secret.
+> **Note:** The `user-id` and `groups` headers are added automatically by the API gateway when required and shouldn't be provided by the client.
 
-> **Note**: the `user-id` and `groups` headers are added automatically by the API gateway when required and shouldn't be provided by the client.
+### Path Parameters
 
-* **id** path _string_ (required)  
-  The unique identifier of the entity you want to retrieve details for.
+| Parameter | Type   | Required | Description                                                          |
+|-----------|--------|----------|----------------------------------------------------------------------|
+| **id**    | string | Yes      | The unique identifier of the entity you want to retrieve details for |
 
-> Note: you must use either the Authorization header OR the API key and secret combination.
+> **Note:** You must use either the Authorization header OR the API key and secret combination.
 
 ## Request
 
@@ -55,11 +57,13 @@ curl -X 'GET' \
 
 A successful response returns a JSON object containing detailed information about the entity, including:
 
-* **attributes:** core attributes of the entity (type, value, reputation, accuracy, etc.). Note that the `value` field only contains strings, numbers, or booleans, never maps, arrays, or other complex structures.
-* **metadata:** additional metadata associated with the entity
-* **geolocations:** geolocation information if applicable (for IP addresses, domains, etc.)
-* **latest_associations:** recent entities associated with this entity
-* **extended_metadata:** additional detailed metadata
+| Field                   | Description                                                                                                                                                                                       |
+|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **attributes**          | Core attributes of the entity (type, value, reputation, accuracy, etc.). Note that the `value` field only contains strings, numbers, or booleans, never maps, arrays, or other complex structures |
+| **metadata**            | Additional metadata associated with the entity                                                                                                                                                    |
+| **geolocations**        | Geolocation information if applicable (for IP addresses, domains, etc.)                                                                                                                           |
+| **latest_associations** | Recent entities associated with this entity                                                                                                                                                       |
+| **extended_metadata**   | Additional detailed metadata                                                                                                                                                                      |
 
 Example response:
 
@@ -131,8 +135,10 @@ Example response:
 
 ## Error Codes
 
-* **204:** no content (entity not found)
-* **400:** bad request
-* **401:** unauthorized
-* **403:** forbidden
-* **500:** internal server error
+| Status Code | Description           | Possible Cause                                          |
+|-------------|-----------------------|---------------------------------------------------------|
+| **204**     | No Content            | Entity not found                                        |
+| **400**     | Bad Request           | Invalid request parameters or malformed JSON            |
+| **401**     | Unauthorized          | Missing or invalid authentication credentials           |
+| **403**     | Forbidden             | Authenticated user lacks permission for this operation  |
+| **500**     | Internal Server Error | Server-side error; please contact support if persistent |

@@ -14,25 +14,23 @@ This API endpoint allows you to download feed files containing threat intelligen
 
 ## Parameters
 
-* **Authorization** header _string_ (optional)  
-  This authorization header can be obtained from an active session of the account.
+### Headers
 
-* **api-key** header _string_ (optional)  
-  Your API key.
+| Parameter         | Type   | Required  | Description                                                        |
+|-------------------|--------|-----------|-------------------------------------------------------------------|
+| **Authorization** | string | Optional* | Bearer token obtained from an active session                       |
+| **api-key**       | string | Optional* | Your API key                                                       |
+| **api-secret**    | string | Optional* | Your API secret                                                    |
 
-* **api-secret** header _string_ (optional)  
-  Your API secret.
+### Path Parameters
 
-* **level** path _string_ (required)  
-  Accuracy level of the feed. Possible values: "level1", "level2", "level3".
+| Parameter | Type   | Required | Description                                                          |
+|-----------|--------|----------|----------------------------------------------------------------------|
+| **level** | string | Yes      | Accuracy level of the feed. Possible values: "level1", "level2", "level3" |
+| **type**  | string | Yes      | Type of feed. Possible values: "accumulative", "daily"               |
+| **name**  | string | Yes      | Name of the feed (e.g., "ip", "md5", etc.)                           |
 
-* **type** path _string_ (required)  
-  Type of feed. Possible values: "accumulative", "daily".
-
-* **name** path _string_ (required)  
-  Name of the feed (e.g., "ip", "md5", etc.).
-
-> Note: You must use either the Authorization header OR the API key and secret combination.
+> **Note:** You must use either the Authorization header OR the API key and secret combination.
 
 ## Request
 
@@ -59,17 +57,21 @@ curl -X 'GET' \
 
 A successful response will return the feed file content in one of the following formats:
 
-* **application/gzip:** compressed feed file
-* **application/x-ndjson:**: newline-delimited JSON
-* **text/plain:** plain text
+| Content Type             | Description                  |
+|--------------------------|------------------------------|
+| **application/gzip**     | Compressed feed file         |
+| **application/x-ndjson** | Newline-delimited JSON       |
+| **text/plain**           | Plain text                   |
 
 The format depends on the feed type and the Accept header in your request.
 
 ## Error Codes
 
-* **204:** file not found
-* **400:** bad request
-* **500:** internal server error
+| Status Code | Description           | Possible Cause                                          |
+|-------------|-----------------------|---------------------------------------------------------|
+| **204**     | No Content            | File not found                                          |
+| **400**     | Bad Request           | Invalid request parameters or malformed JSON            |
+| **500**     | Internal Server Error | Server-side error; please contact support if persistent |
 
 # Checksum Verification
 

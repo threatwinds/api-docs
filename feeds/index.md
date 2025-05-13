@@ -13,22 +13,28 @@ The Feeds API provides access to ThreatWinds threat intelligence feeds. These fe
 
 ThreatWinds Feeds API allows you to:
 
-- Get a [list of all available feeds](/feeds/list)
-- [Download feed files](/feeds/download) based on accuracy level, type, and name
-- Access feed checksums for verification
+| Feature                           | Description                                                 |
+|-----------------------------------|-------------------------------------------------------------|
+| [List Feeds](/feeds/list)         | Get a list of all available feeds                           |
+| [Download Feeds](/feeds/download) | Download feed files based on accuracy level, type, and name |
+| Checksums                         | Access feed checksums for verification                      |
 
 The feeds are categorized by:
 
-- **Accuracy Level:** level1, level2, level3
-- **Type:** accumulative, daily
-- **Name:** various indicators like ip, md5, etc.
+| Category           | Values                                |
+|--------------------|---------------------------------------|
+| **Accuracy Level** | level1, level2, level3                |
+| **Type**           | accumulative, daily                   |
+| **Name**           | various indicators like ip, md5, etc. |
 
 ## Authentication
 
 Like all ThreatWinds APIs, the Feeds API requires authentication. You can authenticate using either:
 
-1. **Authorization Header:** include a bearer token in the Authorization header
-2. **API Key and Secret:** include your API key and secret in the request
+| Authentication Method    | Description                                            |
+|--------------------------|--------------------------------------------------------|
+| **Authorization Header** | Include a bearer token in the Authorization header     |
+| **API Key and Secret**   | Include your API key and secret in the request headers |
 
 For more details on authentication, see the [Authentication](/auth) section.
 
