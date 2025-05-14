@@ -15,10 +15,10 @@ ThreatWinds offers several RESTful APIs to help you work with threat intelligenc
 
 | API                | Description                                    | Documentation               |
 |--------------------|------------------------------------------------|-----------------------------|
-| Authentication API | Manage user sessions and API keys              | [Documentation](/auth)      |
-| Search API         | Find and query threat intelligence entities    | [Documentation](/search)    |
-| Analytics API      | Analyze relationships and details of threats   | [Documentation](/analytics) |
-| Ingest API         | Submit new threat intelligence to the platform | [Documentation](/ingest)    |
+| Authentication API | Manage user sessions and API keys              | [Auth API](/auth)           |
+| Search API         | Find and query threat intelligence entities    | [Search API](/search)       |
+| Analytics API      | Analyze relationships and details of threats   | [Analytics API](/analytics) |
+| Ingest API         | Submit new threat intelligence to the platform | [Ingest API](/ingest)       |
 
 ## Authentication
 

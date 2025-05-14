@@ -45,19 +45,28 @@ The request body should be a JSON object with the following structure:
 {
   "type": "string",
   "attributes": {
-    "additionalProp1": "string",
-    "additionalProp2": "string",
-    "additionalProp3": "string"
+    "...": "...",
+    "...": "..."
   },
   "associations": [
     {
       "mode": "string",
       "type": "string",
       "attributes": {
-        "additionalProp1": "string",
-        "additionalProp2": "string",
-        "additionalProp3": "string"
-      }
+        "...": "...",
+        "...": "..."
+      },
+      "associations": [
+        {
+          "mode": "string",
+          "type": "string",
+          "attributes": {
+            "...": "...",
+            "...": "..."
+          },
+          "associations": []
+        }
+      ]
     }
   ],
   "reputation": 0,
@@ -69,17 +78,26 @@ The request body should be a JSON object with the following structure:
 
 #### Parameters
 
-| Parameter      | Type    | Description                                                                                 |
-|----------------|---------|---------------------------------------------------------------------------------------------|
-| `type`         | string  | The type of the entity (e.g., "ip", "domain", "url")                                        |
-| `attributes`   | object  | Attributes for the entity. Must include a key matching the entity type                      |
-| `associations` | array   | Optional associations with other entities                                                   |
-| `reputation`   | integer | Reputation score for the entity (e.g., -1 for malicious, 0 for neutral, 1 for benign)       |
-| `correlate`    | array   | Optional list of attribute names to create additional entities from                         |
-| `tags`         | array   | Optional tags to categorize the entity                                                      |
-| `visibleBy`    | array   | Optional list of groups that can see the entity (defaults to user's groups if not provided) |
+| Parameter      | Type    | Description                                                                                                                                                                                              |
+|----------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `type`         | string  | The type of the entity (e.g., "ip", "domain", "url")                                                                                                                                                     |
+| `attributes`   | object  | Attributes for the entity. Must include a key matching the entity type. More information about available attributes in [Entity Types](/search/entity-types) and [Entity Mapping](/search/entity-mapping) |
+| `associations` | array   | Optional associations with other entities (see Association Modes below)                                                                                                                                  |
+| `reputation`   | integer | Reputation score for the entity (e.g., -1 for malicious, 0 for neutral, 1 for benign)                                                                                                                    |
+| `correlate`    | array   | Optional list of attribute names to create additional entities from                                                                                                                                      |
+| `tags`         | array   | Optional tags to categorize the entity                                                                                                                                                                   |
+| `visibleBy`    | array   | Optional list of groups that can see the entity (defaults to user's groups if not provided)                                                                                                              |
 
 > **Note:** The main attribute must exist, and its key is the same as the type of the entity. For example, an IP entity with the value "203.0.113.1" must have a field "attributes.ip" with the value "203.0.113.1" otherwise the request returns error code 400.
+
+#### Association Modes
+
+When creating associations between entities, you can specify the mode of the association. The mode defines the type of relationship between the entities. The following modes are supported:
+
+| Mode          | Description                                                                                                                                                                                                                                                                                |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `aggregation` | Indicates that the associated entity is a component or part of the main entity. This is used when one entity contains or is composed of other entities. For example, a file entity might have an aggregation association with a malware entity to indicate that the file contains malware. |
+| `association` | Indicates a general relationship between two entities without implying containment or composition. This is used for looser connections between entities. For example, an IP address might have an association with a domain name to indicate that the domain resolves to that IP.          |
 
 ### Response
 
@@ -147,12 +165,21 @@ This endpoint requires the `trusted` role, which allows access to trusted or ver
 {
   "type": "string",
   "attributes": {
-    "additionalProp1": "string",
-    "additionalProp2": "string",
-    "additionalProp3": "string"
+    "...": "...",
+    "...": "..."
   }
 }
 ```
+
+#### Parameters
+
+| Parameter      | Type    | Description                                                                                                                                                                                              |
+|----------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `type`         | string  | The type of the entity (e.g., "ip", "domain", "url")                                                                                                                                                     |
+| `attributes`   | object  | Attributes for the entity. Must include a key matching the entity type. More information about available attributes in [Entity Types](/search/entity-types) and [Entity Mapping](/search/entity-mapping) |
+
+> **Note:** The main attribute must exist, and its key is the same as the type of the entity. For example, an IP entity with the value "203.0.113.1" must have a field "attributes.ip" with the value "203.0.113.1" otherwise the request returns error code 400.
+
 
 ### Response
 
