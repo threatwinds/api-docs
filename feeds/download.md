@@ -65,6 +65,15 @@ A successful response will return the feed file content in one of the following 
 
 The format depends on the feed type and the Accept header in your request.
 
+## Error Response Headers
+
+For responses with status codes other than 200 and 202, the following headers are included:
+
+| Header        | Description                                                |
+|---------------|------------------------------------------------------------|
+| **x-error**   | Contains a description of the error that occurred          |
+| **x-error-id**| Contains a unique identifier for the error for support     |
+
 ## Error Codes
 
 | Status Code | Description           | Possible Cause                                          |

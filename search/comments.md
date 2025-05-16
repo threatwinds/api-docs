@@ -113,6 +113,15 @@ Each comment object includes:
 | **@timestamp** | Timestamp when the comment was created              |
 | **visibleBy**  | Array of visibility settings for the comment        |
 
+## Error Response Headers
+
+For responses with status codes other than 200 and 202, the following headers are included:
+
+| Header        | Description                                                |
+|---------------|------------------------------------------------------------|
+| **x-error**   | Contains a description of the error that occurred          |
+| **x-error-id**| Contains a unique identifier for the error for support     |
+
 ## Error Codes
 
 | Status Code | Description           | Possible Cause                                          |

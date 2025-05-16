@@ -96,6 +96,15 @@ The response includes all available information about the entity, including:
 | **visibleBy**       | Array of visibility settings                      |
 | **attributes**      | Object containing entity-specific attributes      |
 
+## Error Response Headers
+
+For responses with status codes other than 200 and 202, the following headers are included:
+
+| Header        | Description                                                |
+|---------------|------------------------------------------------------------|
+| **x-error**   | Contains a description of the error that occurred          |
+| **x-error-id**| Contains a unique identifier for the error for support     |
+
 ## Error Codes
 
 | Status Code | Description           | Possible Cause                                          |

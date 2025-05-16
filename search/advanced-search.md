@@ -707,6 +707,15 @@ The response includes:
 | **results**      | array   | Array of entities matching the search criteria     |
 | **aggregations** | object  | Results of any aggregations requested in the query |
 
+## Error Response Headers
+
+For responses with status codes other than 200 and 202, the following headers are included:
+
+| Header        | Description                                                |
+|---------------|------------------------------------------------------------|
+| **x-error**   | Contains a description of the error that occurred          |
+| **x-error-id**| Contains a unique identifier for the error for support     |
+
 ## Error Codes
 
 | Status Code | Description           | Possible Cause                                          |
