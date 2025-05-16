@@ -88,6 +88,25 @@ The API returns different status codes based on the task status:
 | 401         | Unauthorized - Authentication failed |
 | 403         | Forbidden - Insufficient permissions |
 
+## Error Response Headers
+
+For responses with status codes other than 200 and 202, the following headers are included:
+
+| Header        | Description                                                |
+|---------------|------------------------------------------------------------|
+| **x-error**   | Contains a description of the error that occurred          |
+| **x-error-id**| Contains a unique identifier for the error for support     |
+
+## Error Codes
+
+| Status Code | Description           | Possible Cause                                          |
+|-------------|-----------------------|---------------------------------------------------------|
+| **400**     | Bad Request           | Invalid request parameters or malformed JSON            |
+| **401**     | Unauthorized          | Missing or invalid authentication credentials           |
+| **403**     | Forbidden             | Authenticated user lacks permission for this operation  |
+| **404**     | Not Found             | The requested resource does not exist                   |
+| **500**     | Internal Server Error | Server-side error; please contact support if persistent |
+
 ### Example
 
 ```bash
